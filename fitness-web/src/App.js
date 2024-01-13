@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import MyPage from './page/MyPage';
+import Registration from './page/Registration';
+import WriteReview from './page/WriteReview';
+import ApplicationHistory from './page/ApplicationHistory';
+import Checked from './page/Checked';
+import Find from './page/Find';
+import Header from "./component/Header";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="root-wrap">
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Header/>
+      <div className="App">
+        <Routes>
+        <Route path="/MyPage" element={<MyPage />} />
+        <Route path="/Find" element={<Find />} />
+        <Route path="/Registration" element={<Registration />} />
+        <Route path="/WriteReview" element={<WriteReview />} />
+        <Route path="/ApplicationHistory" element={<ApplicationHistory/>} />
+        <Route path="/Checked" element={<Checked/>} />
+        </Routes>
+      </div>
+      </BrowserRouter>
     </div>
   );
 }
