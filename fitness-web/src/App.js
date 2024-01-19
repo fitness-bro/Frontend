@@ -11,6 +11,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Profile from './pages/Profile.jsx';
 import Reviews from './pages/Reviews.jsx';
 import Photos from './pages/Photos.jsx';
+import SearchPage from './pages/SearchPage'; 
+import Main from './pages/Main';
 
 function App() {
   return (
@@ -30,9 +32,10 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/photos" element={<Photos />} />
+        <Route path="/" element={<Main />}/>
+        <Route path="/search" element={<SearchPage />} />
         </Routes>
       </div>
-      </BrowserRouter>
     </div>
   );
 }
