@@ -8,7 +8,7 @@ export const Body=styled.body`
 `
 
 export const ReviewBlock=styled.div`
-    background-color: rgb(219, 219, 219);
+    background-color: rgba(255, 149, 73, 0.5);
     border-radius:3px;
     height:100px;
     width:90%;
@@ -16,7 +16,7 @@ export const ReviewBlock=styled.div`
     margin-top:10px;
     margin-bottom: 15px;
     padding:0 0 0 10px;
-    color:rgba(0, 0, 0,1);
+    color:rgba(100, 62, 35, 1);
     font-size:15px;
     display:flex;
     align-items:center;
