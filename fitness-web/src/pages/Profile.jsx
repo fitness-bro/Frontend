@@ -1,6 +1,7 @@
 import {React,useState} from "react";
 import { InfBlock,InfLine,Body} from "./Profile.style";
-import Header from "../components/ProfileHeader"
+import Header from "../components/ProfileHeader";
+import BottomHeader from "../components/BottomHeader"
 
 export default function Profile(){
 
@@ -9,6 +10,7 @@ export default function Profile(){
 
 
     return(
+        <>
         <Body>
             <Header/>
             <InfLine>운동 3년차, 체지방률 14%</InfLine>
@@ -22,5 +24,7 @@ export default function Profile(){
                 })
                 }
         </Body>
+        <BottomHeader/>
+        </>
     );
 }   

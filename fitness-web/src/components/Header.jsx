@@ -1,52 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-
+import React, { useState } from 'react';
+import Menu from './Menu';
+import mainLogo from '../img/mainLogo.svg';
+import './Header.css';
 
 const Header = () => {
-    const name = {
-        color: "black",
-        textDecoration: "none",
-        margin: "60px 100px", 
-    }
-    const align = {
-        textAlign: "left",
-        
-        
-    }
+  const [activeMenu, setActiveMenu] = useState(null);
 
-    const listItemStyle = {
+  const handleMenuClick = (menu) => {
+    setActiveMenu(menu);
+  };
 
-        marginLeft:"150px",
-        marginBottom:"100px",
-        marginTop:"60px"
-
-    }
-
-    return (
-        <div className="header-container">
-            <div className="header-wrap">
-            <ul style={align}>
-                <li style={listItemStyle}>
-                <Link to="/" style={name}>  <img
-                        style={{ width: "154px", height: "20px" }}
-                       
-                        alt="로고"
-                    /></Link>
-                </li>
-                <li style={listItemStyle}>
-                    <Link to="/Find" style={name}>동네형 찾기</Link>
-                </li>
-                <li style={listItemStyle}>
-                    <Link to="/Registration" style={name}>동네형 등록</Link>
-                </li>
-                <li style={listItemStyle}>
-                    <Link to="/MyPage" style={name}>마이 페이지</Link>
-                </li>
-
-            </ul>
-            </div>
-        </div>
-    )
-}
+  return (
+    < div className="header">
+      <div className="logo">
+      <img src={mainLogo} alt="Your Logo" />
+      </div>
+      <Menu activeMenu={activeMenu} handleMenuClick={handleMenuClick} />
+    </div>
+  );
+};
 
 export default Header;
