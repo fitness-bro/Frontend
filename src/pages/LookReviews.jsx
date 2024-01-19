@@ -1,9 +1,10 @@
 import {React,useState} from "react";
-import {Body,ReviewBlock} from "./Reviews.style";
+import {Body,ReviewBlock} from "./LookReviews.style";
 import Header from "../components/ProfileHeader";
 import reviewerImg from "../img/profile.jpg";
+import BottomHeader from "../components/BottomHeader";
 
-export default function Reviews(){
+export default function LookReviews(){
 
     const [review]=useState([1,2,3,4,5])
 
@@ -21,6 +22,7 @@ export default function Reviews(){
                     )
                 })
                 }
+                <BottomHeader/>
         </Body>
     );
 }  
