@@ -1,0 +1,40 @@
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .add-button {
+    display: inline-block;
+
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #FF9549;
+    color: #FF9549;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    text-align: center;
+  
+    &:hover {
+      background-color: #FF9549;
+      color: white;
+    }
+  
+    input {
+      opacity: 0;
+    }
+  }
+  
+  .image-container {
+    margin: 10px;
+    position: relative;
+    cursor: pointer;
+  
+    img {
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        border-radius:100px;
+    }
+  }
