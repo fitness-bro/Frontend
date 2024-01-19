@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 export const Body=styled.body`
-    background-color: rgba(0, 83, 227,1);
+    background-color: rgba(255, 149, 73, 1);
     width:100%;
     height:100vh;
 `
@@ -24,13 +24,13 @@ export const InfBlock=styled.div`
     margin-top:10px;
     margin-bottom: 15px;
     padding:10px 0 10px 10px;
-    color:rgba(0, 83, 227,1);
+    color:rgba(255, 149, 73, 1);
     font-weight:bold;
     font-size:15px;
     display:flex;
     align-items:center;
     >p{
-        color:black;
+        color:rgba(100, 62, 35, 1);
         margin-left:50px;
     }
 `
