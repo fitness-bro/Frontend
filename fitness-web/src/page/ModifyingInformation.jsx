@@ -1,9 +1,10 @@
 import img from "../img/profile.png"
 import React, { useState } from 'react';
-import defaultImage from "../img/profile.png";
+import './ModifyingInformation.css';
+
 import axios from 'axios';
 
-export default function Registration(){
+export default function ModifyingInformation(){
     const [nickname, setNickname] =useState("");
     const [id, setId] =useState("");
     const [password, setPassword] =useState("");
@@ -11,9 +12,9 @@ export default function Registration(){
     const [detailed1, setDetailed1] =useState("");
     const [detailed2, setDetailed2] =useState("");
     const [detailed3, setDetailed3] =useState("");
-    const [images, setImages] = useState([defaultImage, defaultImage, defaultImage, defaultImage, defaultImage, defaultImage]);
-  const [uploadButtonDisabled, setUploadButtonDisabled] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(-1);
+    const [showImages, setShowImages] = useState([]);
+
+
 
 const hadlenicknameChange =(e) => setNickname(e.target.value);
 const hadleidChange =(e) => setId(e.target.value);
@@ -24,41 +25,8 @@ const hadledetailed2Change =(e) => setDetailed2(e.target.value);
 const hadledetailed3Change =(e) => setDetailed3(e.target.value);
 
 
-  const handleImageChange = (e) => {
-    const newImages = [...images];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const nextIndex = getNextAvailableIndex(newImages, selectedImageIndex);
-      if (nextIndex !== -1) {
-        newImages[nextIndex] = event.target.result;
-        setSelectedImageIndex(nextIndex);
-        setImages(newImages);
-
- 
-        if (!newImages.includes(defaultImage)) {
-          setUploadButtonDisabled(true);
-        }
-      }
-    };
-
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-
-  const getNextAvailableIndex = (imageArray, currentIndex) => {
-    const nextIndex = imageArray.findIndex((image, index) => image === defaultImage && index >= currentIndex + 1);
-    return nextIndex !== -1 ? nextIndex : imageArray.findIndex(image => image === defaultImage);
-  };
-
-  const handleImageClick = (index) => {
-
-    const newImages = [...images];
-    newImages[index] = defaultImage;
-    setImages(newImages);
-    setUploadButtonDisabled(false);
-  };
+  
+  
 
   const hadleSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +39,7 @@ const hadledetailed3Change =(e) => setDetailed3(e.target.value);
         detailed1,
         detailed2,
         detailed3,
-        images,
+    
       });
 
       console.log('서버 응답:', response.data);
@@ -81,35 +49,64 @@ const hadledetailed3Change =(e) => setDetailed3(e.target.value);
     }
   };
   
-  const textStyle={
-    color:"#FF9549",
-    fontWeight: 1000,
-    textAlign:"left",
-}
+    const textStyle={
+        color:"#FF9549",
+        fontWeight: 1000,
+        textAlign:"left",
+    }
 
-const boxStyle1={
-    backgroundColor: "#FFE0CA",
-    borderRadius:"10px",
-    border:"0px",
-    width:"600px",
-    height:"30px",
-    marginTop:"5px",
-}
-const boxStyle2={
-    backgroundColor: "#FFE0CA",
-    borderRadius:"10px",
-    border:"0px",
-    width:"600px",
-    height:"100px",
-    marginTop:"5px",
-}
-
+    const boxStyle1={
+        backgroundColor: "#FFE0CA",
+        borderRadius:"10px",
+        border:"0px",
+        width:"600px",
+        height:"30px",
+        marginTop:"5px",
+    }
+    const boxStyle2={
+        backgroundColor: "#FFE0CA",
+        borderRadius:"10px",
+        border:"0px",
+        width:"600px",
+        height:"100px",
+        marginTop:"5px",
+    }
 
     const imageContainerStyle = {
         display: 'flex',
         
 
       };
+   
+      
+      
+        const handleAddImages = (event) => {
+          const imageLists = event.target.files;
+          let imageUrlLists = [...showImages];
+      
+          for (let i = 0; i < imageLists.length; i++) {
+            const currentImageUrl = URL.createObjectURL(imageLists[i]);
+            imageUrlLists.push(currentImageUrl);
+          }
+      
+          if (imageUrlLists.length > 10) {
+            imageUrlLists = imageUrlLists.slice(0, 10);
+          }
+      
+          setShowImages(imageUrlLists);
+        };
+      
+        const handleDeleteImage = (id) => {
+          setShowImages(showImages.filter((_, index) => index !== id));
+        };
+        
+       
+      
+        
+          
+          
+        
+      
 
     return (
         <div className="registrationContainer"> 
@@ -179,35 +176,27 @@ const boxStyle2={
                     <tr>
             <td>
               <div style={textStyle}>이미지 등록</div>
-              <div style={imageContainerStyle}>
-                {images.map((image, index) => (
-                  <div key={index}>
-                    <img
-                      style={{ width: "100px", height: "100px", cursor: "pointer", borderRadius:"100px" }}
-                      src={image}
-                      alt={`프로필사진 ${index + 1}`}
-                      onClick={() => handleImageClick(index)}
-                    />
-                  </div>
-                ))}
+              <div className="image-gallery" style={imageContainerStyle}>
+       
+      
+         
+            {showImages.map((image, id) => (
+              <div className="image-container" key={id} onClick={() => handleDeleteImage(id)}>
+                <img src={image} alt={`${image}-${id}`} />
+            
               </div>
+            ))}
+          </div>
             </td>
           </tr>
           <tr>
             <td>
-            <label htmlFor="fileInput" className="btn-upload">
-            이미지 불러오기
-</label>
-              <input
-  type="file"
-  accept="image/*"
-  onChange={handleImageChange}
-  id="fileInput"
-  disabled={uploadButtonDisabled}
-  style={{ display: 'none' }}
-/>
+            <label htmlFor="input-file" className="add-button">
+                업로드하기
+              <input type="file"  id="input-file" multiple className="add-button" onChange={handleAddImages} />
+            </label>
             </td>
-          </tr>
+            </tr>
           <tr>
             <td>
                 <button type="submit"  className="btn-submit">동네형 등록하기</button>
@@ -219,3 +208,4 @@ const boxStyle2={
         </div>
     )
 }
+

@@ -5,6 +5,7 @@ import WriteReview from './page/WriteReview';
 import ApplicationHistory from './page/ApplicationHistory';
 import Checked from './page/Checked';
 import Find from './page/Find';
+import ModifyingInformation from './page/ModifyingInformation';
 import Header from "./component/Header";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/WriteReview" element={<WriteReview />} />
         <Route path="/ApplicationHistory" element={<ApplicationHistory/>} />
         <Route path="/Checked" element={<Checked/>} />
+        <Route path="/ModifyingInformation" element={<ModifyingInformation/>} />
         </Routes>
       </div>
       </BrowserRouter>

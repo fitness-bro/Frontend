@@ -1,6 +1,8 @@
+import './Mypage.css';
 import Member from "../component/Member";
 import { useNavigate } from "react-router-dom";
-import React from 'react';
+
+
 export default function MyPage(){
 
     const navigate = useNavigate();
@@ -14,7 +16,7 @@ export default function MyPage(){
         navigate("/Checked");
       };
       const textStyle={
-        color:"#3176ff",
+        color:"#FF9549",
         fontWeight:"800",
         fontSize:"20px",
         paddingBottom:"50px",
@@ -24,20 +26,21 @@ export default function MyPage(){
             <table className="mypageContainerTable">
         <thead>
             <tr>
-                <td style={{ paddingBottom:"60px"}}><sapn style={textStyle}>마이페이지</sapn></td>
+                <td colSpan={2} style={{ paddingBottom:"60px"}}><sapn style={textStyle}>마이페이지</sapn></td>
             </tr>
         </thead>
              <tbody className="mypageContainerTableBody">
              <tr>
-                    <td rowSpan={3} style={{width:"50px"}}><Member/></td>
-                    <button className="buttonStyle" onClick={goToWriteReview}>후기 작성 &#9002;</button>
+                    <td colSpan={2} style={{width:"50px"}}><Member/></td>
+                   
                 </tr>
            
                 <tr>
-                <button className="buttonStyle" onClick={goToApplicationHistory}>신청 내역 &#9002;</button>
+                    <td> <button className="buttonStyle" onClick={goToWriteReview}>채팅 하기 ›</button></td>
+                <td><button className="buttonStyle" onClick={goToApplicationHistory}>우리회원 성사리스트 ›</button></td>
                 </tr>
                 <tr>
-                <button className="buttonStyle" onClick={goToAChecked}>찜한 형 리스트 &#9002;</button>
+                <td><button className="buttonStyle" onClick={goToAChecked}>받은 후기 ›</button></td>
                 </tr>
              </tbody>
                 

@@ -1,31 +1,4 @@
 
-.memberContainer td{
-
-    height: 60px;
-    width: 50px;
- }
- .memberContainer table{
-    margin-top: 0px;
-    height: 100%;
-    width: 100%;
-    
-
-   
- }
-
-
-     .mypageContainerTable{
-margin-top: 40px;
-        margin-left: auto;
-        margin-right: auto;
-         }
-     .mypageContainer td{
-       
-        width: 300px;
-         }
-         .mypageContainerTableBody{
-            padding-top: 40px;
-         }
        .buttonStyle{
         margin-top: 20px;
             color:black;
@@ -37,15 +10,13 @@ margin-top: 40px;
             font-size: 15px;
             font-weight: 800;
             &:hover {
-            background-color: #3176ff;
-            border: 1px #3176ff;
+            background-color: #FF9549;
+            border: 1px #FF9549;
             color:white;
     
             }
         }
 .registrationContainer table{
-  
-
     margin-left: auto;
     margin-right: auto;
    
@@ -59,8 +30,6 @@ margin-top: 40px;
 .header-container li{
     text-align : center;
     display : inline-block;
-    
-    
 }
 
 
@@ -90,8 +59,8 @@ margin-top: 40px;
     height: 80px;
     font-size: 18px;
     color:azure;
-    background-color: #3176ff;
-    border: 1px solid  #3176ff;
+    background-color: #FF9549;
+    border: 1px solid  #FF9549;
     border-radius: 10px;
     font-weight: 500;
     cursor: pointer;

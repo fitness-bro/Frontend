@@ -1,5 +1,6 @@
 import {useRef, useState} from "react";
 import img from "../img/profile.png"
+import { Link } from 'react-router-dom'
 //import { useSelector} from "react-redux";
 
 function Member() {
@@ -12,7 +13,7 @@ function Member() {
 
    }
    const textStyle={
-    color:"#3176ff",
+    color:"#FF9549",
    }
 
     const inputRef = useRef(null);
@@ -35,6 +36,7 @@ function Member() {
                     {image ? <img   style={{ width: "150px", height: "150px", alignItems:"center", borderRadius:"100px"}} src={URL.createObjectURL(image)} alt=""/> : <img  style={{ width: "150px", height: "150px",borderRadius:"50px"}} src={img} alt=""/>}
                     <input type="file" ref={inputRef} onChange={handleImageChange} style={{display:"none"}}/>
                 </div>
+                <Link to="/ModifyingInformation"  style={{color:'#FF9549'}}>나의 정보 수정하기</Link>
             </td>
         </tr>
         <tr>
@@ -44,7 +46,7 @@ function Member() {
             </td>
         </tr>
         <tr>
-            <td>성사 성공 <sapn style={textStyle}>{user.success}</sapn> |</td>
+            <td>성사 성공 <sapn style={textStyle}>{user.success}</sapn></td>
    
             <td>후기 작성 <sapn style={textStyle}>{user.review}</sapn></td>
         </tr>
