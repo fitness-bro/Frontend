@@ -1,5 +1,3 @@
-// Header.js
-
 import React, { useState } from 'react';
 import Menu from './Menu';
 import mainLogo from '../img/mainLogo.svg';
