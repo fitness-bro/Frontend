@@ -22,15 +22,7 @@
    
  }
  
-.header-container ul{
-    text-align : center;
-    justify-content: space-evenly;
- 
-}
-.header-container li{
-    text-align : center;
-    display : inline-block;
-}
+
 
 
   .btn-upload {
