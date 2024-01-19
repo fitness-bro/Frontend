@@ -1,14 +1,16 @@
 import './App.css';
-import MyPage from './page/MyPage';
-import Registration from './page/Registration';
-import WriteReview from './page/WriteReview';
-import ApplicationHistory from './page/ApplicationHistory';
-import Checked from './page/Checked';
-import Find from './page/Find';
-import ModifyingInformation from './page/ModifyingInformation';
-import Header from "./component/Header";
-
+import MyPage from './pages/MyPage.jsx';
+import Registration from './pages/Registration.jsx';
+import WriteReview from './pages/WriteReview.jsx';
+import ApplicationHistory from './pages/ApplicationHistory.jsx';
+import Checked from './pages/Checked.jsx';
+import Find from './pages/Find.jsx';
+import ModifyingInformation from './pages/ModifyingInformation.jsx';
+import Header from "./components/Header.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Profile from './pages/Profile.jsx';
+import Reviews from './pages/Reviews.jsx';
+import Photos from './pages/Photos.jsx';
 
 function App() {
   return (
@@ -24,6 +26,10 @@ function App() {
         <Route path="/ApplicationHistory" element={<ApplicationHistory/>} />
         <Route path="/Checked" element={<Checked/>} />
         <Route path="/ModifyingInformation" element={<ModifyingInformation/>} />
+        <Route path="/" element={<Profile />}/>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/photos" element={<Photos />} />
         </Routes>
       </div>
       </BrowserRouter>
