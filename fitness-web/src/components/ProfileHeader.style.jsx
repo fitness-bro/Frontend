@@ -9,7 +9,7 @@ export const Backimgage=styled.img`
 `
 
 export const Body=styled.body`
-    background-color: rgba(0, 83, 227,1);
+    background-color: rgba(255, 149, 73, 1);
     width:100%;
     height:100vh;
 `
