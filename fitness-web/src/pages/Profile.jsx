@@ -1,7 +1,6 @@
 import {React,useState} from "react";
 import { InfBlock,InfLine,Body} from "./Profile.style";
 import Header from "../components/ProfileHeader";
-import BottomHeader from "../components/BottomHeader"
 
 export default function Profile(){
 
@@ -24,7 +23,6 @@ export default function Profile(){
                 })
                 }
         </Body>
-        <BottomHeader/>
         </>
     );
 }   
