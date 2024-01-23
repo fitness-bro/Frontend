@@ -13,9 +13,12 @@ import LookReviews from './pages/LookReviews.jsx';
 import Photos from './pages/Photos.jsx';
 import SearchPage from './pages/SearchPage'; 
 import Main from './pages/Main';
-import Reviews from './Reviews';
-import MyCoaches from './MyCoaches';
-import Favorites from './Favorites';
+import Reviews from './components2/Reviews';
+import MyCoaches from './components2/MyCoaches';
+import Favorites from './components2/Favorites';
+import ReviewList from './components2/ReviewList';
+import GetReviewList from './components2/GetReviewList';
+import MyMembers from './components2/MyMembers';
 
 function App() {
   return (
@@ -24,22 +27,25 @@ function App() {
       <Header/>
       <div className="App">
         <Routes>
-        <Route path="/MyPage" element={<MyPage />} />
-        <Route path="/Find" element={<Find />} />
-        <Route path="/Registration" element={<Registration />} />
-        <Route path="/WriteReview" element={<WriteReview />} />
-        <Route path="/ApplicationHistory" element={<ApplicationHistory/>} />
-        <Route path="/Checked" element={<Checked/>} />
-        <Route path="/ModifyingInformation" element={<ModifyingInformation/>} />
-        <Route path="/" element={<Profile />}/>
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/lookreviews" element={<LookReviews />} />
-        <Route path="/photos" element={<Photos />} />
-        <Route path="/" element={<Main />}/>
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/reviews" element={<Reviews />} />
-        <Route path="/my-coaches" element={<MyCoaches />} />
-        <Route path="/favorites" element={<Favorites />} />
+          <Route path="/MyPage" element={<MyPage />} />
+          <Route path="/Find" element={<Find />} />
+          <Route path="/Registration" element={<Registration />} />
+          <Route path="/WriteReview" element={<WriteReview />} />
+          <Route path="/ApplicationHistory" element={<ApplicationHistory/>} />
+          <Route path="/Checked" element={<Checked/>} />
+          <Route path="/ModifyingInformation" element={<ModifyingInformation/>} />
+          <Route path="/" element={<Profile />}/>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/lookreviews" element={<LookReviews />} />
+          <Route path="/photos" element={<Photos />} />
+          <Route path="/" element={<Main />}/>
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/my-coaches" element={<MyCoaches />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/review-list" element={<ReviewList />} />
+          <Route path="/get-review-list" element={<GetReviewList />} />
+          <Route path="/my-members" element={<MyMembers />} />
         </Routes>
       </div>
       </BrowserRouter>
