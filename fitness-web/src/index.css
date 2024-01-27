@@ -59,7 +59,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     &:hover {
-        background: rgb(110, 108, 108);
+        background-color: rgb(110, 108, 108);
         border: 1px solid rgb(77,77,77);
         color:azure;
     }
