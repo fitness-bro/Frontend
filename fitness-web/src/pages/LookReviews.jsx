@@ -2,7 +2,6 @@ import {React,useState} from "react";
 import {Body,ReviewBlock} from "./LookReviews.style";
 import Header from "../components/ProfileHeader";
 import reviewerImg from "../img/profile.jpg";
-import BottomHeader from "../components/BottomHeader";
 
 export default function LookReviews(){
 
@@ -22,7 +21,7 @@ export default function LookReviews(){
                     )
                 })
                 }
-                <BottomHeader/>
+                
         </Body>
     );
 }  

@@ -1,6 +1,5 @@
 // SearchPage.jsx
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import SearchSection from '../components/SearchSection';
 import MapSection from '../components/MapSection';
 import ListSection from '../components/ListSection';
@@ -16,7 +15,6 @@ const SearchPage = () => {
 
   return (
     <div>
-      
       <SearchSection map={map} onRegionSelect={handleRegionSelect} />
       <MapSection setMap={setMap} />
       <ListSection selectedAddress={selectedAddress} />

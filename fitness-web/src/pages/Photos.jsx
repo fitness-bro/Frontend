@@ -19,7 +19,7 @@ export default function Photos(){
             </ImgWrap>
             
         </Body>
-        <BottomHeader/>
+       
         </>
     );
 }  

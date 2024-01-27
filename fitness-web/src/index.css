@@ -33,15 +33,7 @@ body {
    
  }
  
-.header-container ul{
-    text-align : center;
-    justify-content: space-evenly;
- 
-}
-.header-container li{
-    text-align : center;
-    display : inline-block;
-}
+
 
 
   .btn-upload {
@@ -63,24 +55,5 @@ body {
         border: 1px solid rgb(77,77,77);
         color:azure;
     }
-  }
-  .btn-submit{
-
-    width: 600px;
-    height: 80px;
-    font-size: 18px;
-    color:azure;
-    background-color: #FF9549;
-    border: 1px solid  #FF9549;
-    border-radius: 10px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
   }
   
