@@ -43,7 +43,7 @@ margin-top: 40px;
                 transition: background-color 0.3s;
                 &:hover {
                 background-color: #FF9549;
-                border: 1px #FF9549;
+                border: 1px solid #643E23;
                 color:white;
         
                 }

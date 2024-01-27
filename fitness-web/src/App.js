@@ -1,10 +1,6 @@
 import './App.css';
 import MyPage from './pages/MyPage.jsx';
 import Registration from './pages/Registration.jsx';
-import WriteReview from './pages/WriteReview.jsx';
-import ApplicationHistory from './pages/ApplicationHistory.jsx';
-import Checked from './pages/Checked.jsx';
-import Find from './pages/Find.jsx';
 import ModifyingInformation from './pages/ModifyingInformation.jsx';
 import Header from "./components/Header.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -20,6 +16,9 @@ import ReviewList from './components/ReviewList';
 import GetReviewList from './components/GetReviewList';
 import MyMembers from './components/MyMembers';
 import BottomHeader from "./components/BottomHeader";
+import ChatingList from './pages/ChatingList.jsx';
+import SignUp from './pages/SignUp.jsx'
+
 
 function App() {
   return (
@@ -29,11 +28,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/MyPage" element={<MyPage />} />
-          <Route path="/Find" element={<Find />} />
           <Route path="/Registration" element={<Registration />} />
-          <Route path="/WriteReview" element={<WriteReview />} />
-          <Route path="/ApplicationHistory" element={<ApplicationHistory/>} />
-          <Route path="/Checked" element={<Checked/>} />
           <Route path="/ModifyingInformation" element={<ModifyingInformation/>} />
           <Route path="/" element={<Profile />}/>
           <Route path="/profile" element={<Profile />} />
@@ -44,14 +39,15 @@ function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/my-coaches" element={<MyCoaches />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/review-list" element={<ReviewList />} />
-          <Route path="/get-review-list" element={<GetReviewList />} />
-          <Route path="/my-members" element={<MyMembers />} />
+          <Route path="/chatinglist" element={<ChatingList/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
+          <Route path="/review-list" element={<ReviewList/>}/>
+          <Route path="/get-review-list" element={<GetReviewList/>}/>
+          <Route path="/my-members" element={<MyMembers/>}/>
         </Routes>
       </div>
+      <BottomHeader/>
       </BrowserRouter>
-      
-      <BottomHeader />
     </div>
   );
 }

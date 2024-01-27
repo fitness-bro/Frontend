@@ -4,7 +4,7 @@ import Header from "../components/ProfileHeader";
 import BottomHeader from "../components/BottomHeader";
 import reviewImg from "../img/profile.jpg";
 
-export default function Profile(){
+export default function Photos(){
     const [data]=useState([1,2,3,4,5,6,7,8,9])
     return(
         <>
@@ -19,7 +19,7 @@ export default function Profile(){
             </ImgWrap>
             
         </Body>
-        <BottomHeader/>
+       
         </>
     );
 }  

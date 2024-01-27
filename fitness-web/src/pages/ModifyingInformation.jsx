@@ -1,7 +1,6 @@
-import img from "../img/profile.png"
 import React, { useState } from 'react';
 import './ModifyingInformation.css';
-
+import { Icon } from "@iconify/react";
 import axios from 'axios';
 
 export default function ModifyingInformation(){
@@ -9,24 +8,19 @@ export default function ModifyingInformation(){
     const [id, setId] =useState("");
     const [password, setPassword] =useState("");
     const [information, setInformation] =useState("");
-    const [detailed1, setDetailed1] =useState("");
-    const [detailed2, setDetailed2] =useState("");
-    const [detailed3, setDetailed3] =useState("");
+    const [time, setTime] =useState("");
+    const [price, setPrice] =useState("");
+    const [greeting, setGreeting] =useState("");
     const [showImages, setShowImages] = useState([]);
 
+    const hadleNicknameChange =(e) => setNickname(e.target.value);
+    const hadleIdChange =(e) => setId(e.target.value);
+    const hadlePasswordChange =(e) => setPassword(e.target.value);
+    const hadleInformationChange =(e) => setInformation(e.target.value);
+    const hadleTimeChange =(e) => setTime(e.target.value);
+    const hadlePriceChange =(e) => setPrice(e.target.value);
+    const hadleGreetingChange =(e) => setGreeting(e.target.value);
 
-
-const hadlenicknameChange =(e) => setNickname(e.target.value);
-const hadleidChange =(e) => setId(e.target.value);
-const hadlepasswordChange =(e) => setPassword(e.target.value);
-const hadleinformationChange =(e) => setInformation(e.target.value);
-const hadledetailed1Change =(e) => setDetailed1(e.target.value);
-const hadledetailed2Change =(e) => setDetailed2(e.target.value);
-const hadledetailed3Change =(e) => setDetailed3(e.target.value);
-
-
-  
-  
 
   const hadleSubmit = async (e) => {
     e.preventDefault();
@@ -36,9 +30,10 @@ const hadledetailed3Change =(e) => setDetailed3(e.target.value);
         id,
         password,
         information,
-        detailed1,
-        detailed2,
-        detailed3,
+        time,
+        price,
+        greeting,
+
     
       });
 
@@ -78,30 +73,36 @@ const hadledetailed3Change =(e) => setDetailed3(e.target.value);
 
       };
    
+      const emptyImageStyle = {
+      width: '80px',
+      height: '80px',
+      border: '3px dashed #cccccc',
+      margin: '5px',
+      borderRadius: '5px',
+      color: '#919191',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      };
       
+      const handleAddImages = (event) => {
+        const imageLists = event.target.files;
+        let imageUrlLists = [...showImages];
       
-        const handleAddImages = (event) => {
-          const imageLists = event.target.files;
-          let imageUrlLists = [...showImages];
+        for (let i = 0; i < imageLists.length; i++) {
+          const currentImageUrl = URL.createObjectURL(imageLists[i]);
+          imageUrlLists.push(currentImageUrl);
+        }
       
-          for (let i = 0; i < imageLists.length; i++) {
-            const currentImageUrl = URL.createObjectURL(imageLists[i]);
-            imageUrlLists.push(currentImageUrl);
-          }
+        // 최대 6개로 제한
+        imageUrlLists = imageUrlLists.slice(0, 6);
       
-          if (imageUrlLists.length > 10) {
-            imageUrlLists = imageUrlLists.slice(0, 10);
-          }
+        setShowImages(imageUrlLists);
+      };
       
-          setShowImages(imageUrlLists);
-        };
-      
-        const handleDeleteImage = (id) => {
-          setShowImages(showImages.filter((_, index) => index !== id));
-        };
-        
-       
-      
+      const handleDeleteImage = (id) => {
+        setShowImages((prevImages) => prevImages.filter((_, index) => index !== id));
+      };
         
           
           
@@ -124,76 +125,78 @@ const hadledetailed3Change =(e) => setDetailed3(e.target.value);
                 <tbody>
                     <tr>
                         <td>
-                        <img
-                        style={{ width: "100px", height: "100px" }}
-                        src={img}
-                        alt="프로필사진"
-                    />
+                    <div className="bgprofile">
+                        <div className="profile">
+                            <Icon className="icon" icon="ic:baseline-person-outline" alt="기본 이미지"/>
+                            </div>
+                    </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div style={textStyle}>닉네임 </div>
-                            <input type="text"  value={nickname} onChange={hadlenicknameChange} style={{ ...boxStyle1 }} />
+                            <input type="text"  value={nickname} onChange={hadleNicknameChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div style={textStyle}>아이디 </div>
-                            <input type="text" value={id} onChange={hadleidChange} style={{ ...boxStyle1 }} />
+                            <input type="text" value={id} onChange={hadleIdChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div style={textStyle}>비밀번호 </div>
-                            <input type="password" value={password} onChange={hadlepasswordChange} style={{ ...boxStyle1 }} />
+                            <input type="password" value={password} onChange={hadlePasswordChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div style={textStyle}>정보 </div>
-                            <input type="text" value={information} onChange={hadleinformationChange} style={{ ...boxStyle1 }} />
+                            <div style={textStyle}>선생님 소개</div>
+                            <input type="text" value={information} onChange={hadleInformationChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div style={textStyle}>세부 정보 사항</div>
-                            <input type="text" value={detailed1} onChange={hadledetailed1Change} style={{ ...boxStyle1 }} />
+                            <div style={textStyle}>주 운동 시간</div>
+                            <input type="text" value={time} onChange={hadleTimeChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div style={textStyle}>세부 정보 사항</div>
-                            <textarea value={detailed2} onChange={hadledetailed2Change} style={{ ...boxStyle2 }} />
+                            <div style={textStyle}>이용 가격</div>
+                            <textarea value={price} onChange={hadlePriceChange} style={{ ...boxStyle2 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div style={textStyle}>세부 정보 사항</div>
-                            <textarea value={detailed3} onChange={hadledetailed3Change} style={{ ...boxStyle2 }} />
+                            <div style={textStyle}>한 줄 인사말</div>
+                            <textarea value={greeting} onChange={hadleGreetingChange} style={{ ...boxStyle2 }} />
                         </td>
                     </tr>
                     <tr>
             <td>
-              <div style={textStyle}>이미지 등록</div>
-              <div className="image-gallery" style={imageContainerStyle}>
-       
-      
-         
-            {showImages.map((image, id) => (
-              <div className="image-container" key={id} onClick={() => handleDeleteImage(id)}>
-                <img src={image} alt={`${image}-${id}`} />
-            
-              </div>
-            ))}
-          </div>
+            <div style={textStyle}>이미지 등록</div>
+<div className="image-gallery" style={imageContainerStyle}>
+  {[...Array(6)].map((_, id) => (
+    <div className="image-container" key={id} onClick={() => handleDeleteImage(id)}>
+      {showImages[id] ? (
+        <img src={showImages[id]} alt={`${showImages[id]}-${id}`} />
+      ) : (
+        <div className="empty-image" style={emptyImageStyle}>
+            <Icon className="imgIcon" icon="ic:baseline-person-outline" alt="기본 이미지"/>
+        </div>
+      )}
+    </div>
+  ))}
+</div>
             </td>
           </tr>
           <tr>
             <td>
+            <input type="file"  id="input-file" style={{display:"none"}} onChange={handleAddImages} />
             <label htmlFor="input-file" className="add-button">
-                업로드하기
-              <input type="file"  id="input-file" multiple className="add-button" onChange={handleAddImages} />
+                이미지 불러오기
             </label>
             </td>
             </tr>
