@@ -1,6 +1,5 @@
 import './MyCoaches.css';
 import './CommonStyle.css'
-import BottomHeader from "../components/BottomHeader";
 
 // 우리 형 성사 리스트 페이지
 

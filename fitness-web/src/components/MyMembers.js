@@ -1,9 +1,8 @@
 import './CommonStyle.css'
-import BottomHeader from "../components/BottomHeader";
 
 // 찜한 형 리스트 페이지
 
-const GetReviewList = ()=>{
+const MyMembers = ()=>{
 
     // 가상의 데이터 배열
     const dummydata = [
@@ -12,10 +11,10 @@ const GetReviewList = ()=>{
     ]
 
     return (
-        <div className="GetReviewList">
+        <div className="MyMembers">
 
             <div className="titleAndBack">
-                <h2>받은 후기 리스트</h2>
+                <h2>우리 회원 성사 리스트</h2>
                 <button>뒤로가기</button>
             </div>
 
@@ -43,4 +42,4 @@ const GetReviewList = ()=>{
     )
 }
 
-export default GetReviewList;
+export default MyMembers;

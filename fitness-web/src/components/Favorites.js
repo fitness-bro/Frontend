@@ -1,6 +1,5 @@
 import './Favorites.css';
 import './CommonStyle.css'
-import BottomHeader from "../components/BottomHeader";
 
 // 찜한 형 리스트 페이지
 

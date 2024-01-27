@@ -13,12 +13,12 @@ import LookReviews from './pages/LookReviews.jsx';
 import Photos from './pages/Photos.jsx';
 import SearchPage from './pages/SearchPage'; 
 import Main from './pages/Main';
-import Reviews from './components2/Reviews';
-import MyCoaches from './components2/MyCoaches';
-import Favorites from './components2/Favorites';
-import ReviewList from './components2/ReviewList';
-import GetReviewList from './components2/GetReviewList';
-import MyMembers from './components2/MyMembers';
+import Reviews from './components/Reviews';
+import MyCoaches from './components/MyCoaches';
+import Favorites from './components/Favorites';
+import ReviewList from './components/ReviewList';
+import GetReviewList from './components/GetReviewList';
+import MyMembers from './components/MyMembers';
 import BottomHeader from "./components/BottomHeader";
 
 function App() {
