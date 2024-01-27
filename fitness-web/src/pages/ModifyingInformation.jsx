@@ -1,7 +1,6 @@
 import img from "../img/profile.png"
 import React, { useState } from 'react';
 import './ModifyingInformation.css';
-
 import axios from 'axios';
 
 export default function ModifyingInformation(){

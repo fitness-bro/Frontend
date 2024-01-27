@@ -1,4 +1,4 @@
-import { Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap } from "./ProfileHeader.style";
+import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap } from "./ProfileHeader.style";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import backImg from "../img/back.jpg";
@@ -39,15 +39,12 @@ export default function ProfileHeader() {
     };
 
     return (
-        <>
+        <>  
+        <TopWrap>
             <Backimgage src={backImg} alt="배경" />
             <BtnWrap>
                 <img src={likeBtn} style={{width:"20px", paddingRight:"10px"}}/>
-                <Btn
-          onClick={() => handleBtnClick("프로필")}
-          style={{
-            backgroundColor: btnStates["프로필"] ? "rgba(255, 149, 73, 1)" : "",
-          }}>                    
+                <Btn onClick={() => handleBtnClick("프로필")} style={{backgroundColor: btnStates["프로필"] ? "rgba(255, 149, 73, 1)" : "",}}>                    
                 프로필
                 </Btn>
                 <Btn onClick={() => handleBtnClick('후기')} style={{ backgroundColor: btnStates['후기'] ? "rgba(255, 149, 73, 1)" : "" }}>
@@ -57,8 +54,10 @@ export default function ProfileHeader() {
                     사진첩
                 </Btn>
             </BtnWrap>
+            
 
             <AskBtn>문의하기</AskBtn>
+            </TopWrap>
 
             <Wrapper>
                 <ProfileWrap>

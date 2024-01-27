@@ -1,5 +1,18 @@
 import styled from "styled-components";
 
+export const Body=styled.body`
+    background-color: rgba(255, 149, 73, 1);
+    width:100%;
+    height:100vh;
+`
+
+export const TopWrap=styled.div`
+position: relative;
+display: flex;
+flex-direction: column; /* 버튼과 배경 이미지를 세로로 나열 */
+align-items: flex-end; /* 오른쪽 정렬 */
+`
+
 export const Backimgage=styled.img`
     height:200px;
     width:100%;
@@ -8,11 +21,7 @@ export const Backimgage=styled.img`
     object-fit: cover;
 `
 
-export const Body=styled.body`
-    background-color: rgba(255, 149, 73, 1);
-    width:100%;
-    height:100vh;
-`
+
 
 
 export const BtnWrap=styled.div`

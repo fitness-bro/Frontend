@@ -16,6 +16,9 @@ import Main from './pages/Main';
 import Reviews from './Reviews';
 import MyCoaches from './MyCoaches';
 import Favorites from './Favorites';
+import ChatingList from './pages/ChatingList.jsx';
+import BottomHeader from "./components/BottomHeader";
+import SignUp from './pages/SignUp.jsx'
 
 function App() {
   return (
@@ -40,8 +43,11 @@ function App() {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/my-coaches" element={<MyCoaches />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/chatinglist" element={<ChatingList/>}/>
+        <Route path="/signup" element={<SignUp/>}/>
         </Routes>
       </div>
+      <BottomHeader/>
       </BrowserRouter>
     </div>
   );

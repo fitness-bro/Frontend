@@ -12,17 +12,6 @@ const MyCoaches = ()=>{
 
     return (
         <div className="MyCoaches">
-            
-            {/* 최상단 페이지 전환 버튼 */}
-            <div className="header">
-                <h1>동네형 (로고)</h1>
-                <div className="headerButtons">
-                    <button className="button1">동네형 찾기</button>
-                    <button className="button2">마이페이지</button>
-                    <button className="button3">회원가입</button>
-                </div>
-            </div>
-
             <div className="text1">
                 <h2>우리 형 성사 리스트</h2>
                 <button>뒤로가기</button>
