@@ -1,0 +1,49 @@
+/* Main.css */
+
+.main-container {
+    display: flex;
+    background-color: #FF9549;
+    width: 70%;
+    height: 700px;
+    margin-left: 15%;
+    align-items: center;
+}
+
+.centered-image {
+    position: absolute;
+    margin-top: 140px;
+}
+.centered-image2 {
+    position: absolute;
+    margin-left: 400px;
+}
+.centered-image3 {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+        background-color: #f0f0f0;
+        z-index: 100; /* 이미지를 다른 컨텐츠 위에 표시하기 위해 z-index 추가 */
+}
+.Sentence {
+    font-size: 40px;
+    color: #643E23;
+    font-weight: 700;
+    margin-left: 50px;
+}
+.white1,.white2, .white3, .white4 {
+    width:590px;
+    height: 20px;
+    background-color: white;
+    margin-top: 18px;
+  
+}
+.WhiteContainer {
+    position:absolute;
+    margin-top: 290px;
+    margin-left: 50px;
+    
+}
+
