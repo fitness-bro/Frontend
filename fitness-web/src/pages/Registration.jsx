@@ -1,77 +1,38 @@
-import img from "../img/profile.png"
 import React, { useState } from 'react';
-import defaultImage from "../img/profile.png";
+import './ModifyingInformation.css';
+import { Icon } from "@iconify/react";
 import axios from 'axios';
 
-export default function Registration(){
-    const [nickname, setNickname] =useState("");
+export default function ModifyingInformation(){
+
     const [id, setId] =useState("");
     const [password, setPassword] =useState("");
     const [information, setInformation] =useState("");
-    const [detailed1, setDetailed1] =useState("");
-    const [detailed2, setDetailed2] =useState("");
-    const [detailed3, setDetailed3] =useState("");
-    const [images, setImages] = useState([defaultImage, defaultImage, defaultImage, defaultImage, defaultImage, defaultImage]);
-  const [uploadButtonDisabled, setUploadButtonDisabled] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(-1);
+    const [time, setTime] =useState("");
+    const [price, setPrice] =useState("");
+    const [greeting, setGreeting] =useState("");
+    const [showImages, setShowImages] = useState([]);
 
-const hadlenicknameChange =(e) => setNickname(e.target.value);
-const hadleidChange =(e) => setId(e.target.value);
-const hadlepasswordChange =(e) => setPassword(e.target.value);
-const hadleinformationChange =(e) => setInformation(e.target.value);
-const hadledetailed1Change =(e) => setDetailed1(e.target.value);
-const hadledetailed2Change =(e) => setDetailed2(e.target.value);
-const hadledetailed3Change =(e) => setDetailed3(e.target.value);
+    const hadleIdChange =(e) => setId(e.target.value);
+    const hadlePasswordChange =(e) => setPassword(e.target.value);
+    const hadleInformationChange =(e) => setInformation(e.target.value);
+    const hadleTimeChange =(e) => setTime(e.target.value);
+    const hadlePriceChange =(e) => setPrice(e.target.value);
+    const hadleGreetingChange =(e) => setGreeting(e.target.value);
 
-
-  const handleImageChange = (e) => {
-    const newImages = [...images];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const nextIndex = getNextAvailableIndex(newImages, selectedImageIndex);
-      if (nextIndex !== -1) {
-        newImages[nextIndex] = event.target.result;
-        setSelectedImageIndex(nextIndex);
-        setImages(newImages);
-
- 
-        if (!newImages.includes(defaultImage)) {
-          setUploadButtonDisabled(true);
-        }
-      }
-    };
-
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-
-  const getNextAvailableIndex = (imageArray, currentIndex) => {
-    const nextIndex = imageArray.findIndex((image, index) => image === defaultImage && index >= currentIndex + 1);
-    return nextIndex !== -1 ? nextIndex : imageArray.findIndex(image => image === defaultImage);
-  };
-
-  const handleImageClick = (index) => {
-
-    const newImages = [...images];
-    newImages[index] = defaultImage;
-    setImages(newImages);
-    setUploadButtonDisabled(false);
-  };
 
   const hadleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('서버_API_URL', {
-        nickname,
         id,
         password,
         information,
-        detailed1,
-        detailed2,
-        detailed3,
-        images,
+        time,
+        price,
+        greeting,
+
+    
       });
 
       console.log('서버 응답:', response.data);
@@ -81,35 +42,69 @@ const hadledetailed3Change =(e) => setDetailed3(e.target.value);
     }
   };
   
-  const textStyle={
-    color:"#FF9549",
-    fontWeight: 1000,
-    textAlign:"left",
-}
+    const textStyle={
+        color:"#FF9549",
+        fontWeight: 1000,
+        textAlign:"left",
+    }
 
-const boxStyle1={
-    backgroundColor: "#FFE0CA",
-    borderRadius:"10px",
-    border:"0px",
-    width:"600px",
-    height:"30px",
-    marginTop:"5px",
-}
-const boxStyle2={
-    backgroundColor: "#FFE0CA",
-    borderRadius:"10px",
-    border:"0px",
-    width:"600px",
-    height:"100px",
-    marginTop:"5px",
-}
-
+    const boxStyle1={
+        backgroundColor: "#FFE0CA",
+        borderRadius:"10px",
+        border:"0px",
+        width:"600px",
+        height:"30px",
+        marginTop:"5px",
+    }
+    const boxStyle2={
+        resize:"none",
+        backgroundColor: "#FFE0CA",
+        borderRadius:"10px",
+        border:"0px",
+        width:"600px",
+        height:"100px",
+        marginTop:"5px",
+    }
 
     const imageContainerStyle = {
         display: 'flex',
         
 
       };
+   
+      const emptyImageStyle = {
+      width: '80px',
+      height: '80px',
+      border: '3px dashed #cccccc',
+      margin: '5px',
+      borderRadius: '5px',
+      color: '#919191',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      };
+      
+      const handleAddImages = (event) => {
+        const imageLists = event.target.files;
+        let imageUrlLists = [...showImages];
+      
+        for (let i = 0; i < imageLists.length; i++) {
+          const currentImageUrl = URL.createObjectURL(imageLists[i]);
+          imageUrlLists.push(currentImageUrl);
+        }
+      
+        // 최대 6개로 제한
+        imageUrlLists = imageUrlLists.slice(0, 6);
+      
+        setShowImages(imageUrlLists);
+      };
+      
+      const handleDeleteImage = (id) => {
+        setShowImages((prevImages) => prevImages.filter((_, index) => index !== id));
+      };
+        
+          
+        
 
     return (
         <div className="registrationContainer"> 
@@ -127,87 +122,75 @@ const boxStyle2={
                 <tbody>
                     <tr>
                         <td>
-                        <img
-                        style={{ width: "100px", height: "100px" }}
-                        src={img}
-                        alt="프로필사진"
-                    />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style={textStyle}>닉네임 </div>
-                            <input type="text"  value={nickname} onChange={hadlenicknameChange} style={{ ...boxStyle1 }} />
+                    <div className="bgprofile">
+                        <div className="profile">
+                            <Icon className="icon" icon="ic:baseline-person-outline" alt="기본 이미지"/>
+                            </div>
+                    </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div style={textStyle}>아이디 </div>
-                            <input type="text" value={id} onChange={hadleidChange} style={{ ...boxStyle1 }} />
+                            <input type="text" value={id} onChange={hadleIdChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div style={textStyle}>비밀번호 </div>
-                            <input type="password" value={password} onChange={hadlepasswordChange} style={{ ...boxStyle1 }} />
+                            <input type="password" value={password} onChange={hadlePasswordChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div style={textStyle}>정보 </div>
-                            <input type="text" value={information} onChange={hadleinformationChange} style={{ ...boxStyle1 }} />
+                            <div style={textStyle}>선생님 소개</div>
+                            <input type="text" value={information} onChange={hadleInformationChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div style={textStyle}>세부 정보 사항</div>
-                            <input type="text" value={detailed1} onChange={hadledetailed1Change} style={{ ...boxStyle1 }} />
+                            <div style={textStyle}>주 운동 시간</div>
+                            <input type="text" value={time} onChange={hadleTimeChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div style={textStyle}>세부 정보 사항</div>
-                            <textarea value={detailed2} onChange={hadledetailed2Change} style={{ ...boxStyle2 }} />
+                            <div style={textStyle}>이용 가격</div>
+                            <textarea value={price} onChange={hadlePriceChange} style={{ ...boxStyle2 }} />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div style={textStyle}>세부 정보 사항</div>
-                            <textarea value={detailed3} onChange={hadledetailed3Change} style={{ ...boxStyle2 }} />
+                            <div style={textStyle}>한 줄 인사말</div>
+                            <textarea value={greeting} onChange={hadleGreetingChange} style={{ ...boxStyle2 }} />
                         </td>
                     </tr>
                     <tr>
             <td>
-              <div style={textStyle}>이미지 등록</div>
-              <div style={imageContainerStyle}>
-                {images.map((image, index) => (
-                  <div key={index}>
-                    <img
-                      style={{ width: "100px", height: "100px", cursor: "pointer", borderRadius:"100px" }}
-                      src={image}
-                      alt={`프로필사진 ${index + 1}`}
-                      onClick={() => handleImageClick(index)}
-                    />
-                  </div>
-                ))}
-              </div>
+            <div style={textStyle}>이미지 등록</div>
+<div className="image-gallery" style={imageContainerStyle}>
+  {[...Array(6)].map((_, id) => (
+    <div className="image-container" key={id} onClick={() => handleDeleteImage(id)}>
+      {showImages[id] ? (
+        <img src={showImages[id]} alt={`${showImages[id]}-${id}`} />
+      ) : (
+        <div className="empty-image" style={emptyImageStyle}>
+            <Icon className="imgIcon" icon="ic:baseline-person-outline" alt="기본 이미지"/>
+        </div>
+      )}
+    </div>
+  ))}
+</div>
             </td>
           </tr>
           <tr>
             <td>
-            <label htmlFor="fileInput" className="btn-upload">
-            이미지 불러오기
-</label>
-              <input
-  type="file"
-  accept="image/*"
-  onChange={handleImageChange}
-  id="fileInput"
-  disabled={uploadButtonDisabled}
-  style={{ display: 'none' }}
-/>
+            <input type="file"  id="input-file" style={{display:"none"}} onChange={handleAddImages} />
+            <label htmlFor="input-file" className="add-button">
+                이미지 불러오기
+            </label>
             </td>
-          </tr>
+            </tr>
           <tr>
             <td>
                 <button type="submit"  className="btn-submit">동네형 등록하기</button>
@@ -219,3 +202,4 @@ const boxStyle2={
         </div>
     )
 }
+

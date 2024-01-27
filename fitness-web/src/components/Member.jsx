@@ -1,6 +1,8 @@
 import {useRef, useState} from "react";
-import img from "../img/profile.png"
 import { Link } from 'react-router-dom'
+import { Icon } from "@iconify/react";
+import './Member.css';
+
 //import { useSelector} from "react-redux";
 
 function Member() {
@@ -33,7 +35,7 @@ function Member() {
         <tr>
             <td colSpan={2}>
                 <div onClick={handleImageClick} style={{ marginLeft:'auto', marginRight:'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px', height: '150px' }}>
-                    {image ? <img   style={{ width: "150px", height: "150px", alignItems:"center", borderRadius:"100px"}} src={URL.createObjectURL(image)} alt=""/> : <img  style={{ width: "150px", height: "150px",borderRadius:"50px"}} src={img} alt=""/>}
+                    {image ? <img   style={{ width: "150px", height: "150px", alignItems:"center", borderRadius:"100px"}} src={URL.createObjectURL(image)} alt=""/> : <div className="memberbgprofile"><Icon className="memberIcon" icon="ic:baseline-person-outline" alt="기본 이미지"/></div>}
                     <input type="file" ref={inputRef} onChange={handleImageChange} style={{display:"none"}}/>
                 </div>
                 <Link to="/ModifyingInformation"  style={{color:'#FF9549'}}>나의 정보 수정하기</Link>
@@ -51,7 +53,7 @@ function Member() {
             <td>후기 작성 <sapn style={textStyle}>{user.review}</sapn></td>
         </tr>
        </table>
-    </div>
+    </div> check
   );
 }
 
