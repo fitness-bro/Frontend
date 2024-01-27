@@ -15,7 +15,6 @@ const SearchPage = () => {
 
   return (
     <div>
-    
       <SearchSection map={map} onRegionSelect={handleRegionSelect} />
       <MapSection setMap={setMap} />
       <ListSection selectedAddress={selectedAddress} />
