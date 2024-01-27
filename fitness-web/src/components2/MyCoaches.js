@@ -41,7 +41,6 @@ const MyCoaches = ()=>{
                     ))}
                 </ul>
             </div>
-            <BottomHeader/>
         </div>
     )
 }

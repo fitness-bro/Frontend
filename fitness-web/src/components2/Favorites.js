@@ -41,8 +41,6 @@ const Favorites = ()=>{
                     ))}
                 </ul>
             </div>
-            
-            <BottomHeader/>
         </div>
     )
 }

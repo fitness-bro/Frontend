@@ -2,7 +2,7 @@ import {useState} from "react";
 import './Reviews.css';
 import ImageUtils from "./ImageUtils";
 import { useNavigate } from "react-router-dom";
-import BottomHeader from "../components/BottomHeader";
+
 
 // 후기 작성 페이지2 - 작성 완료하면 바로 후기 리스트로 넘어가는 페이지
 
@@ -66,7 +66,6 @@ const Reviews = ()=>{
 
             </div>
             
-            <BottomHeader />
         </div>
     )
 }

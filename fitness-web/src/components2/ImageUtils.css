@@ -1,29 +1,45 @@
-.defaultImage {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 80px;
-    margin-bottom: 30px;
-  }
-
-  .defaultImage > div {
-    margin: 0 20px; /* 디폴트 이미지 간격 조절 */
-  }
-
   #inputImage {
     visibility: hidden;
   }
   
-  .inputLabel {
+  .add-button {
     color: white;
     border-radius: 15px;
     border: none;
-    width: 873px;
+    width: 834px;
     height: 48px;
     font-size: 17px;
     background-color: #643E23;
     cursor: pointer;
     display: block;
     margin: auto;
-    padding-top: 20px;
+    padding-top: 30px;
+  }
+
+  .image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }  
+
+  .image-container {
+    margin: 5px;
+    position: relative;
+    cursor: pointer;
+
+    img {
+        margin: 5px;
+        width: 80px;
+        height: 80px;
+        cursor: pointer;
+        border-radius:5px;
+        border: 3px dashed #cccccc;
+    }
+  }
+
+  .imgIcon{
+    width: 35px;
+    height: 35px;
   }

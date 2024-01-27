@@ -39,8 +39,6 @@ const GetReviewList = ()=>{
                     ))}
                 </ul>
             </div>
-            
-            <BottomHeader/>
         </div>
     )
 }

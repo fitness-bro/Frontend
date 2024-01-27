@@ -19,6 +19,7 @@ import Favorites from './components2/Favorites';
 import ReviewList from './components2/ReviewList';
 import GetReviewList from './components2/GetReviewList';
 import MyMembers from './components2/MyMembers';
+import BottomHeader from "./components/BottomHeader";
 
 function App() {
   return (
@@ -49,6 +50,8 @@ function App() {
         </Routes>
       </div>
       </BrowserRouter>
+      
+      <BottomHeader />
     </div>
   );
 }

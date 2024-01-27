@@ -39,8 +39,6 @@ const MyMembers = ()=>{
                     ))}
                 </ul>
             </div>
-            
-            <BottomHeader/>
         </div>
     )
 }
