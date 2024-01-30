@@ -3,8 +3,6 @@ import './App.css';
 import MyPage from './pages/MyPage.jsx';
 import Registration from './pages/Registration.jsx';
 import ModifyingInformation from './pages/ModifyingInformation.jsx';
-import Header from "./components/Header.jsx";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Profile from './pages/Profile.jsx';
 import LookReviews from './pages/LookReviews.jsx';
 import Photos from './pages/Photos.jsx';
@@ -26,7 +24,6 @@ function App() {
   return (
     <div className="root-wrap">
       <Router>
-        <Header />
         <div className="App">
           <Routes>
             <Route path="/login" element={<ModalSignupPage />} />
