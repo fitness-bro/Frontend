@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import Header from '../components/Header';
 import kangaroo from '../img/kangaroo.svg';
 import './Main.css'; // CSS 파일을 import
@@ -18,6 +19,13 @@ const Main = () => {
             </div>
             
             <img src={kangaroo} alt="Kangaroo Image " className="centered-image2"/>
+=======
+
+const Main = () => {
+    return (
+        <div>
+            
+>>>>>>> main
         </div>
     
         </>

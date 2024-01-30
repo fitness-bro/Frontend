@@ -1,0 +1,68 @@
+/* 중복된 스타일 */
+
+.userList ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .userList li {
+    display: flex;
+    align-items: center;
+    background-color: #FFE0CA;
+    border-radius: 3px;
+    width: 55%;
+    height: 120px;
+    font-size: 20px;
+    padding: 10px;
+    margin: 30px;
+    color: #643E23;
+  }
+
+  .userList li p {
+    text-align: left;
+    padding-left: 100px;
+  }
+
+  .profileImage {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    margin-left: 10px;
+}
+
+.info {
+  flex-direction: column;
+}
+
+.detail {
+    font-weight: bold;
+}
+
+.titleAndBack {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.titleAndBack h2 {
+  text-align: left;
+  padding: 30px;
+  color: #FF9549;
+}
+
+.titleAndBack button {
+  border-color: #FF9549;
+  background-color: white;
+  color: #FF9549;
+  font-weight: 700;
+  border-radius: 10px;
+  width: 106px;
+  height: 46px;
+  font-size: 18px;
+  line-height: 21.6px;
+  margin-top: 45px;
+  cursor: pointer;
+}

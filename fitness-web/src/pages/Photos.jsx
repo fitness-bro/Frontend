@@ -1,11 +1,13 @@
 import {React,useState} from "react";
 import {ImgWrap,Body} from "./Photos.style";
-import Header from "../components/ProfileHeader"
+import Header from "../components/ProfileHeader";
+import BottomHeader from "../components/BottomHeader";
 import reviewImg from "../img/profile.jpg";
 
-export default function Profile(){
+export default function Photos(){
     const [data]=useState([1,2,3,4,5,6,7,8,9])
     return(
+        <>
         <Body>
             <Header/>
             <ImgWrap>
@@ -15,6 +17,9 @@ export default function Profile(){
                     )
             })}
             </ImgWrap>
+            
         </Body>
+       
+        </>
     );
 }  

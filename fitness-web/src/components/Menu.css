@@ -2,7 +2,8 @@
 
 .menu {
   align-items: center; /* 메뉴 항목들을 가로로 배열하도록 설정 */
-  }
+  flex-direction: row;
+}
   
   .search,
   .regist,

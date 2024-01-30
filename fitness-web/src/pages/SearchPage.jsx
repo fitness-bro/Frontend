@@ -1,6 +1,5 @@
 // SearchPage.js
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import SearchSection from '../components/SearchSection';
 import MapSection from '../components/MapSection';
 import ListSection from '../components/ListSection';
@@ -16,10 +15,16 @@ const SearchPage = () => {
 
   return (
     <div>
+<<<<<<< HEAD
       <Header />
       <SearchSection map={null} onRegionSelect={handleRegionSelect} />
       <MapSection setMap={() => {}} />
       <ListSection selectedRegion={selectedRegion} selectedSubAddress={selectedSubAddress} />
+=======
+      <SearchSection map={map} onRegionSelect={handleRegionSelect} />
+      <MapSection setMap={setMap} />
+      <ListSection selectedAddress={selectedAddress} />
+>>>>>>> main
     </div>
   );
 };

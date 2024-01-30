@@ -1,0 +1,14 @@
+.writeReview {
+    border-color: #643E23;
+    background-color: white;
+    color: #643E23;
+    font-weight: 700;
+    border-radius: 10px;
+    width: 106px;
+    height: 46px;
+    font-size: 18px;
+    line-height: 21.6px;
+    margin-top: 45px;
+    cursor: pointer;
+    margin-left: 200px;
+}
