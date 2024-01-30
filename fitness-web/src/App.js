@@ -18,6 +18,7 @@ import MyMembers from './components/MyMembers';
 import BottomHeader from "./components/BottomHeader";
 import ChatingList from './pages/ChatingList.jsx';
 import SignUp from './pages/SignUp.jsx'
+import ReviewDetail from './components/ReviewDetail.jsx';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/review-list" element={<ReviewList/>}/>
           <Route path="/get-review-list" element={<GetReviewList/>}/>
           <Route path="/my-members" element={<MyMembers/>}/>
+          <Route path="/review-detail" element={<ReviewDetail/>}/>
         </Routes>
       </div>
       <BottomHeader/>

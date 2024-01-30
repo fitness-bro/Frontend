@@ -22,7 +22,7 @@
 
   .userList li p {
     text-align: left;
-    padding-left: 100px;
+    padding-left: 80px;
   }
 
   .profileImage {
@@ -35,6 +35,7 @@
 
 .info {
   flex-direction: column;
+  flex: 1;
 }
 
 .detail {
