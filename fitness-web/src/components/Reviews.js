@@ -2,6 +2,8 @@ import {useState} from "react";
 import './Reviews.css';
 import ImageUtils from "./ImageUtils";
 import { useNavigate } from "react-router-dom";
+import StarRating from "./StarRating";
+import ToggleMenu from "./ToggleMenu";
 
 
 // 후기 작성 페이지2 - 작성 완료하면 바로 후기 리스트로 넘어가는 페이지
@@ -30,6 +32,11 @@ const Reviews = ()=>{
             navigate('/review-list');
     }
 
+    // 별점
+    const handleStarClick = (rating) => {
+        console.log("선택된 별점:", rating);
+    };
+
     return( 
         <div className="Reviews">
 
@@ -37,6 +44,12 @@ const Reviews = ()=>{
                 <h2>후기 작성</h2>
                 <button className="back">뒤로가기</button>
             </div>
+
+            {/* 토글 메뉴 */}
+            <ToggleMenu />
+
+            {/* 별점 주기 */}
+            <StarRating onStarClick={handleStarClick} />
             
             <div>
                 <div className="textarea-container">

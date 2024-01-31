@@ -46,6 +46,7 @@
   margin-top: 10px;
   display: flex;
   justify-content: space-around;
+  font-size: 13px;
 }
 
 .titleAndBack h2 {
@@ -58,12 +59,13 @@
   border-color: #FF9549;
   background-color: white;
   color: #FF9549;
-  font-weight: 700;
+  font-weight: bold;
   border-radius: 10px;
   width: 106px;
   height: 46px;
   font-size: 18px;
   line-height: 21.6px;
-  margin-top: 45px;
+  margin-top: 40px;
   cursor: pointer;
+  font-size: 15px;
 }
