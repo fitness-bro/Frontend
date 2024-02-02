@@ -1,6 +1,6 @@
 import './Favorites.css';
-import './CommonStyle.css'
-import DefaultImage from './DefaultImage';
+import '../components/CommonStyle.css';
+import DefaultImage from '../components/review/DefaultImage';
 
 // 찜한 형 리스트 페이지
 

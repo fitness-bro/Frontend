@@ -1,10 +1,13 @@
-import './MyCoaches.css';
-import './CommonStyle.css'
-import DefaultImage from './DefaultImage';
+import './ReviewList.css';
+import '../components/CommonStyle.css'
+import { useNavigate } from "react-router-dom";
+import DefaultImage from '../components/review/DefaultImage';
 
-// 우리 형 성사 리스트 페이지
+// 후기 작성 페이지1 & 후기 작성 완료하기 누르면 돌아오는 페이지
 
-const MyCoaches = ()=>{
+const ReviewList = ()=>{
+
+    const navigate = useNavigate();
 
     // 가상의 데이터 배열
     const dummydata = [
@@ -13,11 +16,16 @@ const MyCoaches = ()=>{
         { id:3, date: '2020.10.20', coaches: '구구콘', profileImage: null},
     ]
 
-    return (
-        <div className="MyCoaches">
+    const handleWriteReview = ()=>{ // 내용 작성 팝업창에 대한 함수
+        navigate('/reviews');
+    }
 
+    return (
+        <div className="ReviewList">
+
+            <button onClick={handleWriteReview} className="writeReview">후기 작성</button>
             <div className="titleAndBack">
-                <h2>우리 형 성사 리스트</h2>
+                <h2>후기 리스트</h2>
                 <button>뒤로가기</button>
             </div>
 
@@ -26,8 +34,8 @@ const MyCoaches = ()=>{
                 <ul>
                     {dummydata.map((dummy) =>(
                         <li key={dummy.id}>
-                             {/* 프로필 이미지 */}
-                             {dummy.profileImage ? (
+                            {/* 프로필 이미지 */}
+                            {dummy.profileImage ? (
                                 <img src={dummy.profileImage} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
@@ -37,10 +45,9 @@ const MyCoaches = ()=>{
                                 {/* 날짜 */}
                                 <p>{dummy.date}</p>
 
-                                {/* 신청인 */}
+                                {/* 작성한 동네형 후기 */}
                                 <p className="detail">{dummy.coaches}</p>
                             </div>
-                            
                         </li>
                     ))}
                 </ul>
@@ -49,4 +56,4 @@ const MyCoaches = ()=>{
     )
 }
 
-export default MyCoaches;
+export default ReviewList;
