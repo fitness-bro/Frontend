@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Menu from './Menu';
 import mainLogo from '../img/mainLogo.svg';
 import './Header.css';
@@ -11,9 +12,11 @@ const Header = () => {
   };
 
   return (
-    < div className="header">
+    <div className="header">
       <div className="logo">
-      <img src={mainLogo} alt="Your Logo" />
+        <Link to="/">
+          <img src={mainLogo} alt="Your Logo" />
+        </Link>
       </div>
       <Menu activeMenu={activeMenu} handleMenuClick={handleMenuClick} />
     </div>

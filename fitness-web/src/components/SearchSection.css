@@ -4,14 +4,14 @@
   display: flex;
   flex-direction: column; /* 세로로 정렬 */
   align-items: center; /* 가운데 정렬 */
-  width: 410px;
+  width: 420px;
   height: 200px;
   position: relative;
   margin-left: 270px;
 }
 
 .InputRegion {
-  width: 375px;
+  width: 385px;
   height: 25px;
   position: relative;
   background-color: #ff9549;
@@ -19,7 +19,7 @@
   
 }
 .search-section {
-  width: 391px;
+  width: 400px;
   padding: 7px;
   background-color: #643E23;
   font-weight: 600;

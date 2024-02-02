@@ -16,7 +16,7 @@
     border-radius: 15px;
     border: none;
     width: 873px;
-    height: 97px;
+    height: 80px;
     font-size: 17px;
   }
 
@@ -27,4 +27,8 @@
   .submitbtnOn {
     background-color: #FF9549;
     cursor: pointer;
+  }
+
+  .start-toggle {
+    display: flex;
   }
