@@ -1,22 +1,24 @@
-// ModalSignup.jsx
-
 import React from 'react';
-import './ModalSignup.css';
+import { ModalButton, ModalContainer, ModalOverlay } from './ModalSignUp.style';
+import SocialKakao from './login/SocialKakao';
+import SocialNaver from './login/SocialNaver';
+import SocialGoogle from './login/SocialGoogle';
+import loginLogo from '../img/loginLogo.svg';
 
-const ModalSignup = ({ closeModal }) => {
+const ModalSignIn = ({ isOpen,closeModal }) => {
 return (
-    <div>
-        <div className="modal-overlay"></div>
-            <div className="modal">
-                <div className="modal-content">
-                    <h2>회원가입</h2>
-                    <button>네이버 간편로그인</button>
-                    <button>구글 간편로그인</button>
-                    <button onClick={closeModal}>닫기</button>
-                </div>
-            </div>
+    <div style={{display:isOpen?"block":"none"}}>
+        <ModalOverlay></ModalOverlay>
+            <ModalContainer>
+                    <img src={loginLogo}/>
+                    <h2>로그인</h2>
+                    <SocialKakao></SocialKakao>
+                    <SocialNaver></SocialNaver>
+                    <SocialGoogle></SocialGoogle>
+                    <ModalButton onClick={closeModal}>닫기</ModalButton>
+            </ModalContainer>
     </div>
 );
 };
 
-export default ModalSignup;
+export default ModalSignIn;

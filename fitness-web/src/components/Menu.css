@@ -6,8 +6,8 @@
 }
   
   .search,
-  .regist,
-  .login {
+  .login,
+  .signup {
     width: 110px;
     height: 35px;
     cursor: pointer;
@@ -27,11 +27,11 @@
   }
   
   .search:hover,
-  .regist:hover,
   .login:hover,
+  .signup:hover,
   .search.active,
-  .regist.active,
-  .login.active {
+  .login.active,
+  .signup.active {
     color: #fff;
     background-color: #ff9549;
     border-radius: 25px;
