@@ -11,9 +11,9 @@ const ReviewList = ()=>{
 
     // 가상의 데이터 배열
     const dummydata = [
-        { id:1, date: '2023.05.09', coaches: '강동원', profileImage: <DefaultImage />},
-        { id:2, date: '2023.05.09', coaches: '송 강', profileImage: <DefaultImage />},
-        { id:3, date: '2020.10.20', coaches: '구구콘', profileImage: <DefaultImage />},
+        { id:1, date: '2023.05.09', coaches: '강동원', profileImage: null},
+        { id:2, date: '2023.05.09', coaches: '송 강', profileImage: null},
+        { id:3, date: '2020.10.20', coaches: '구구콘', profileImage: null},
     ]
 
     const handleWriteReview = ()=>{ // 내용 작성 팝업창에 대한 함수
@@ -35,8 +35,12 @@ const ReviewList = ()=>{
                     {dummydata.map((dummy) =>(
                         <li key={dummy.id}>
                             {/* 프로필 이미지 */}
-                            <img src={dummy.profileImage} alt="이미지없음" className="profileImage" />
-                            
+                            {dummy.profileImage ? (
+                                <img src={dummy.profileImage} alt="프로필 이미지" className="profileImage" />
+                            ) : (
+                                <DefaultImage />
+                            )}
+
                             <div className="info">
                                 {/* 날짜 */}
                                 <p>{dummy.date}</p>
@@ -44,7 +48,6 @@ const ReviewList = ()=>{
                                 {/* 작성한 동네형 후기 */}
                                 <p className="detail">{dummy.coaches}</p>
                             </div>
-                            
                         </li>
                     ))}
                 </ul>
