@@ -45,11 +45,16 @@ const Reviews = ()=>{
                 <button className="back">뒤로가기</button>
             </div>
 
-            {/* 토글 메뉴 */}
-            <ToggleMenu />
+            <div className="start-toggle">
+                {/* 토글 메뉴 */}
+                <ToggleMenu />
 
-            {/* 별점 주기 */}
-            <StarRating onStarClick={handleStarClick} />
+                {/* 별점 주기 */}
+                <div className="stars-for-reviews">
+                    <StarRating onStarClick={handleStarClick} />
+                </div>
+            </div>
+ 
             
             <div>
                 <div className="textarea-container">

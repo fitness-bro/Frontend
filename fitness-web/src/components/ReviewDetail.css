@@ -44,3 +44,23 @@
     font-size: 15px;
     font-weight: bold;
   }
+
+  .star-container {
+    display: block;
+  }
+
+  .stars-for-review-detail {
+    margin-left: 42%;
+  }
+
+  .start-rating{
+    display: flex;
+    font-size: 25px;
+    margin-top: 10px;
+  }
+
+  .rating-text {
+    padding-left: 17%;
+    color: #643E23;
+    font-weight: bold;
+  }

@@ -28,3 +28,7 @@
     background-color: #FF9549;
     cursor: pointer;
   }
+
+  .start-toggle {
+    display: flex;
+  }

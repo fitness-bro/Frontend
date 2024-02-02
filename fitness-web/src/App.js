@@ -46,6 +46,9 @@ function App() {
           <Route path="/get-review-list" element={<GetReviewList/>}/>
           <Route path="/my-members" element={<MyMembers/>}/>
           <Route path="/review-detail" element={<ReviewDetail/>}/>
+          
+
+
         </Routes>
       </div>
       <BottomHeader/>

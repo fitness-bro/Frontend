@@ -39,7 +39,6 @@
   .toggleIcon {
     display: flex;
     flex-direction: row;
-    margin: 10px;
   }
 
   .toggleIcon p {
