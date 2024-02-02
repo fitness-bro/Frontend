@@ -7,7 +7,6 @@ import Profile from './pages/Profile.jsx';
 import LookReviews from './pages/LookReviews.jsx';
 import Photos from './pages/Photos.jsx';
 import SearchPage from './pages/SearchPage'; 
-import ModalSignupPage from './pages/ModalSignupPage'; // 경로 수정
 import Main from './pages/Main';
 import Reviews from './components/Reviews';
 import MyCoaches from './components/MyCoaches';
@@ -17,16 +16,19 @@ import GetReviewList from './components/GetReviewList';
 import MyMembers from './components/MyMembers';
 import BottomHeader from "./components/BottomHeader";
 import ChatingList from './pages/ChatingList.jsx';
-import SignUp from './pages/SignUp.jsx'
+import RegistChoice from './pages/RegistChoice.jsx';
+import Header from "./components/Header.jsx";
+import SignUp from './pages/SignUp.jsx';
+import Login from "./pages/Login.jsx";
 
 
 function App() {
   return (
     <div className="root-wrap">
       <Router>
+      <Header/>
         <div className="App">
           <Routes>
-            <Route path="/login" element={<ModalSignupPage />} />
             <Route path="/MyPage" element={<MyPage />} />
             <Route path="/Registration" element={<Registration />} />
             <Route path="/ModifyingInformation" element={<ModifyingInformation />} />
@@ -39,10 +41,12 @@ function App() {
             <Route path="/my-coaches" element={<MyCoaches />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/chatinglist" element={<ChatingList />} />
-            <Route path="/signup" element={<SignUp />} />
             <Route path="/review-list" element={<ReviewList />} />
             <Route path="/get-review-list" element={<GetReviewList />} />
             <Route path="/my-members" element={<MyMembers />} />
+            <Route path='/registchoice' element={<RegistChoice/>}/>
+            <Route path='/signup' element={<SignUp/>}/>
+            <Route path='/login' element={<Login/>}/>
           </Routes>
         </div>
         <BottomHeader />
