@@ -3,8 +3,8 @@ import './ModifyingInformation.css';
 import { Icon } from "@iconify/react";
 import axios from 'axios';
 
-export default function ModifyingInformation(){
-    const [nickname, setNickname] =useState("");
+export default function RegistrationCoach(){
+
     const [id, setId] =useState("");
     const [password, setPassword] =useState("");
     const [information, setInformation] =useState("");
@@ -13,7 +13,6 @@ export default function ModifyingInformation(){
     const [greeting, setGreeting] =useState("");
     const [showImages, setShowImages] = useState([]);
 
-    const hadleNicknameChange =(e) => setNickname(e.target.value);
     const hadleIdChange =(e) => setId(e.target.value);
     const hadlePasswordChange =(e) => setPassword(e.target.value);
     const hadleInformationChange =(e) => setInformation(e.target.value);
@@ -26,7 +25,6 @@ export default function ModifyingInformation(){
     e.preventDefault();
     try {
       const response = await axios.post('서버_API_URL', {
-        nickname,
         id,
         password,
         information,
@@ -59,6 +57,7 @@ export default function ModifyingInformation(){
         marginTop:"5px",
     }
     const boxStyle2={
+        resize:"none",
         backgroundColor: "#FFE0CA",
         borderRadius:"10px",
         border:"0px",
@@ -105,9 +104,7 @@ export default function ModifyingInformation(){
       };
         
           
-          
         
-      
 
     return (
         <div className="registrationContainer"> 
@@ -130,12 +127,6 @@ export default function ModifyingInformation(){
                             <Icon className="icon" icon="ic:baseline-person-outline" alt="기본 이미지"/>
                             </div>
                     </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style={textStyle}>닉네임 </div>
-                            <input type="text"  value={nickname} onChange={hadleNicknameChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
                     <tr>
@@ -177,25 +168,28 @@ export default function ModifyingInformation(){
                     <tr>
             <td>
             <div style={textStyle}>이미지 등록</div>
-<div className="image-gallery" style={imageContainerStyle}>
+<div className="imageGallery" style={imageContainerStyle}>
   {[...Array(6)].map((_, id) => (
-    <div className="image-container" key={id} onClick={() => handleDeleteImage(id)}>
+    <div className="imageContainer" key={id}>
       {showImages[id] ? (
-        <img src={showImages[id]} alt={`${showImages[id]}-${id}`} />
+        <div>
+        <span className="close" onClick={() => handleDeleteImage(id)}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326a.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275a.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018a.751.751 0 0 1-.018-1.042L6.94 8L3.72 4.78a.75.75 0 0 1 0-1.06"/></svg></span>
+    <img src={showImages[id]} alt={`${showImages[id]}-${id}`} />
+    </div>
       ) : (
         <div className="empty-image" style={emptyImageStyle}>
-            <Icon className="imgIcon" icon="ic:baseline-person-outline" alt="기본 이미지"/>
+            <Icon className="img-icon" icon="ic:baseline-person-outline" alt="기본 이미지"/>
         </div>
       )}
     </div>
   ))}
 </div>
-            </td>
+</td>
           </tr>
           <tr>
             <td>
             <input type="file"  id="input-file" style={{display:"none"}} onChange={handleAddImages} />
-            <label htmlFor="input-file" className="add-button">
+            <label htmlFor="input-file" className="addButton">
                 이미지 불러오기
             </label>
             </td>
@@ -211,4 +205,6 @@ export default function ModifyingInformation(){
         </div>
     )
 }
+
+
 
