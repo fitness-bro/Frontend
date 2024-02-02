@@ -1,5 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
+import MyPageCoach from './pages/MyPageCoach.jsx';
+import MyPageMember from './pages/MyPageMember.jsx';
+import RegistrationCoach from './pages/RegistrationCoach.jsx';
+import ModifyingCoach from './pages/ModifyingCoach.jsx';
+import ModifyingMember from './pages/ModifyingMember.jsx';
+import Header from "./components/Header.jsx";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyPage from './pages/MyPage.jsx';
 import Registration from './pages/Registration.jsx';
 import ModifyingInformation from './pages/ModifyingInformation.jsx';
@@ -30,6 +37,11 @@ function App() {
       <Header/>
       <div className="App">
         <Routes>
+          <Route path="/MyPageCoach" element={<MyPageCoach />} />
+          <Route path="/MyPageMember" element={<MyPageMember />} />
+          <Route path="/RegistrationCoach" element={<RegistrationCoach />} />
+          <Route path="/ModifyingCoach" element={<ModifyingCoach/>} />
+          <Route path="/ModifyingMember" element={<ModifyingMember/>} />
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/Registration" element={<Registration />} />
           <Route path="/ModifyingInformation" element={<ModifyingInformation/>} />

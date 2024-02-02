@@ -1,9 +1,9 @@
 import './Mypage.css';
-import Member from "../components/Member";
 import { useNavigate } from "react-router-dom";
+import MemberCoach from '../components/MemberCoach';
 
 
-export default function MyPage(){
+export default function MyPageCoach(){
 
     const navigate = useNavigate();
     const goToWriteReview = () => {
@@ -31,13 +31,13 @@ export default function MyPage(){
         </thead>
              <tbody className="mypageContainerTableBody">
              <tr>
-                    <td colSpan={2} style={{width:"50px"}}><Member/></td>
+                    <td colSpan={2} style={{width:"50px"}}><MemberCoach/></td>
                    
                 </tr>
            
                 <tr>
                     <td> <button className="buttonStyle" onClick={goToWriteReview}>채팅 하기 ›</button></td>
-                <td><button className="buttonStyle" onClick={goToApplicationHistory}>우리회원 성사리스트 ›</button></td>
+                <td><button className="buttonStyle" onClick={goToApplicationHistory}>우리 회원 성사 리스트 ›</button></td>
                 </tr>
                 <tr>
                 <td><button className="buttonStyle" onClick={goToAChecked}>받은 후기 ›</button></td>

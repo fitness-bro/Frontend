@@ -3,18 +3,15 @@ import './ModifyingInformation.css';
 import { Icon } from "@iconify/react";
 import axios from 'axios';
 
-export default function ModifyingInformation(){
-
-    const [id, setId] =useState("");
-    const [password, setPassword] =useState("");
+export default function ModifyingCoach(){
+    const [nickname, setNickname] =useState("");
     const [information, setInformation] =useState("");
     const [time, setTime] =useState("");
     const [price, setPrice] =useState("");
     const [greeting, setGreeting] =useState("");
     const [showImages, setShowImages] = useState([]);
 
-    const hadleIdChange =(e) => setId(e.target.value);
-    const hadlePasswordChange =(e) => setPassword(e.target.value);
+    const hadleNicknameChange =(e) => setNickname(e.target.value);
     const hadleInformationChange =(e) => setInformation(e.target.value);
     const hadleTimeChange =(e) => setTime(e.target.value);
     const hadlePriceChange =(e) => setPrice(e.target.value);
@@ -25,8 +22,7 @@ export default function ModifyingInformation(){
     e.preventDefault();
     try {
       const response = await axios.post('서버_API_URL', {
-        id,
-        password,
+        nickname,
         information,
         time,
         price,
@@ -55,9 +51,16 @@ export default function ModifyingInformation(){
         width:"600px",
         height:"30px",
         marginTop:"5px",
+        outline: "none",
+        
     }
+    
+    boxStyle1[':focus'] = {
+        boxShadow: "0 0 5px rgba(255, 149, 73, 0.8)", // 포커스일 때의 테두리 효과 추가
+      };
+
+
     const boxStyle2={
-        resize:"none",
         backgroundColor: "#FFE0CA",
         borderRadius:"10px",
         border:"0px",
@@ -104,7 +107,9 @@ export default function ModifyingInformation(){
       };
         
           
+          
         
+      
 
     return (
         <div className="registrationContainer"> 
@@ -114,7 +119,7 @@ export default function ModifyingInformation(){
                     <tr>
                         <td>
                             <div style={textStyle}>
-                            동네형 등록하기
+                            내 정보 수정하기
                             </div>
                         </td>
                     </tr>
@@ -131,16 +136,11 @@ export default function ModifyingInformation(){
                     </tr>
                     <tr>
                         <td>
-                            <div style={textStyle}>아이디 </div>
-                            <input type="text" value={id} onChange={hadleIdChange} style={{ ...boxStyle1 }} />
+                            <div style={textStyle}>닉네임 </div>
+                            <input type="text"  value={nickname} onChange={hadleNicknameChange} style={{ ...boxStyle1 }} />
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div style={textStyle}>비밀번호 </div>
-                            <input type="password" value={password} onChange={hadlePasswordChange} style={{ ...boxStyle1 }} />
-                        </td>
-                    </tr>
+                   
                     <tr>
                         <td>
                             <div style={textStyle}>선생님 소개</div>
@@ -168,14 +168,21 @@ export default function ModifyingInformation(){
                     <tr>
             <td>
             <div style={textStyle}>이미지 등록</div>
-<div className="image-gallery" style={imageContainerStyle}>
+<div className="imageGallery" style={imageContainerStyle}>
   {[...Array(6)].map((_, id) => (
-    <div className="image-container" key={id} onClick={() => handleDeleteImage(id)}>
+    <div className="imageContainer" key={id} >
       {showImages[id] ? (
+        <div>
+            <div className="close" onClick={() => handleDeleteImage(id)}>
+                <div className="closeIcon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 8 8"><path fill="currentColor" d="M1.41 0L0 1.41l.72.72L2.5 3.94L.72 5.72L0 6.41l1.41 1.44l.72-.72l1.81-1.81l1.78 1.81l.69.72l1.44-1.44l-.72-.69l-1.81-1.78l1.81-1.81l.72-.72L6.41 0l-.69.72L3.94 2.5L2.13.72z"/></svg>
+     </div>
+     </div>
         <img src={showImages[id]} alt={`${showImages[id]}-${id}`} />
+        </div>
       ) : (
         <div className="empty-image" style={emptyImageStyle}>
-            <Icon className="imgIcon" icon="ic:baseline-person-outline" alt="기본 이미지"/>
+            <Icon className="img-icon" icon="ic:baseline-person-outline" alt="기본 이미지"/>
         </div>
       )}
     </div>
@@ -186,14 +193,14 @@ export default function ModifyingInformation(){
           <tr>
             <td>
             <input type="file"  id="input-file" style={{display:"none"}} onChange={handleAddImages} />
-            <label htmlFor="input-file" className="add-button">
+            <label htmlFor="input-file" className="addButton">
                 이미지 불러오기
             </label>
             </td>
             </tr>
           <tr>
             <td>
-                <button type="submit"  className="btn-submit">동네형 등록하기</button>
+                <button type="submit"  className="btn-submit">수정 완료하기</button>
             </td>
           </tr>
                 </tbody>
