@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './ReviewDetail.css'
 import { Icon } from "@iconify/react";
-import './CommonStyle.css';
-import StarRating from './StarRating';
+import '../components/CommonStyle.css'
+import StarRating from '../components/review/StarRating';
 
 // 후기 상세 보기
 

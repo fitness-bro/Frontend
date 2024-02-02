@@ -1,5 +1,6 @@
 import {InfoWrap,All,FrontWrap, Ul, Li,ChatMessage,ChatWrap} from "./ChatingList.style";
 import chatImg from "../img/profile.png";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ChatingList(){
@@ -9,12 +10,16 @@ const chatings=[
     ,{id:3,profileImg: chatImg, name:"소지섭",message:"오늘 운동오냐?",date:"3:15PM"}
 
 ]
+const navigate = useNavigate();
+const BackBtn=()=>{
+    navigate(-1);
+}
 
     return(
     <All>
         <FrontWrap>
         <p>채팅 리스트</p>
-        <button>뒤로가기</button>
+        <button onClick={BackBtn}>뒤로가기</button>
         </FrontWrap>
 
         <Ul>

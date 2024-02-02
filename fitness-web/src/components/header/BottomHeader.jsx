@@ -1,5 +1,5 @@
 import {BhWrap} from "./BottomHeader.style";
-import fitnessImg from "../img/fitness.svg";
+import fitnessImg from "../../img/fitness.svg";
 
 export default function BottomHeader() {
     return(

@@ -1,6 +1,6 @@
 import {React,useState} from "react";
 import {ImgWrap,Body} from "./Photos.style";
-import Header from "../components/ProfileHeader";
+import Header from "../components/header/ProfileHeader";
 import reviewImg from "../img/profile.jpg";
 
 export default function Photos(){

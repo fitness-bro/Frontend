@@ -1,6 +1,6 @@
 import './Mypage.css';
 import { useNavigate } from "react-router-dom";
-import MemberCoach from '../components/MemberCoach';
+import MemberCoach from '../components/member/MemberCoach';
 
 
 export default function MyPageCoach(){

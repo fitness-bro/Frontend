@@ -1,9 +1,9 @@
-import './CommonStyle.css'
-import DefaultImage from './DefaultImage';
+import '../components/CommonStyle.css'
+import DefaultImage from '../components/review/DefaultImage';
 
 // 찜한 형 리스트 페이지
 
-const GetReviewList = ()=>{
+const MyMembers = ()=>{
 
     // 가상의 데이터 배열
     const dummydata = [
@@ -12,10 +12,10 @@ const GetReviewList = ()=>{
     ]
 
     return (
-        <div className="GetReviewList">
+        <div className="MyMembers">
 
             <div className="titleAndBack">
-                <h2>받은 후기 리스트</h2>
+                <h2>우리 회원 성사 리스트</h2>
                 <button>뒤로가기</button>
             </div>
 
@@ -24,8 +24,8 @@ const GetReviewList = ()=>{
                 <ul>
                     {dummydata.map((dummy) =>(
                         <li key={dummy.id}>
-                             {/* 프로필 이미지 */}
-                             {dummy.profileImage ? (
+                            {/* 프로필 이미지 */}
+                            {dummy.profileImage ? (
                                 <img src={dummy.profileImage} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
@@ -47,4 +47,4 @@ const GetReviewList = ()=>{
     )
 }
 
-export default GetReviewList;
+export default MyMembers;

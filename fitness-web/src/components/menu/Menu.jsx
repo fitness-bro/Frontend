@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Menu.css';
-import SignUpModal from './ModalSignUp';
+import SignUpModal from '../modalSignUp/ModalSignUp';
 
 const Menu = ({ activeMenu, handleMenuClick }) => {
   const [isModalOpen,setIsModalOpen]=useState(false);

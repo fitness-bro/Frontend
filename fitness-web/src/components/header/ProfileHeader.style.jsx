@@ -45,6 +45,7 @@ export const Btn=styled.div`
     color:white;
     margin: 0 3px 0 3px;
     background-color: rgb(219, 219, 219);
+    cursor:pointer;
 `
 
 export const AskBtn=styled.div`
@@ -64,6 +65,7 @@ top: 55px;
 display: flex;
 align-items: center;
 justify-content: center;
+cursor:pointer;
 `
 
 export const Wrapper = styled.div`
