@@ -15,7 +15,7 @@
     color: white;
     border-radius: 15px;
     border: none;
-    width: 873px;
+    width: 830px;
     height: 80px;
     font-size: 17px;
   }
@@ -37,4 +37,5 @@
 
   .stars-for-reviews {
     align-items: center;
+    margin-top: 17px;
   }

@@ -1,6 +1,6 @@
 import {React,useState} from "react";
 import {Body,ReviewBlock} from "./LookReviews.style";
-import Header from "../components/ProfileHeader";
+import Header from "../components/header/ProfileHeader";
 import reviewerImg from "../img/profile.jpg";
 
 export default function LookReviews(){

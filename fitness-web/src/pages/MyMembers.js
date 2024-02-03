@@ -1,17 +1,15 @@
-import './MyCoaches.css';
-import './CommonStyle.css'
-import DefaultImage from './DefaultImage';
 import { useNavigate } from "react-router-dom";
+import '../components/CommonStyle.css'
+import DefaultImage from '../components/review/DefaultImage';
 
-// 우리 형 성사 리스트 페이지
+// 찜한 형 리스트 페이지
 
-const MyCoaches = ()=>{
+const MyMembers = ()=>{
 
     // 가상의 데이터 배열
     const dummydata = [
-        { id:1, date: '2023.05.09', coaches: '강동원', profileImage: null},
-        { id:2, date: '2023.05.09', coaches: '송 강', profileImage: null},
-        { id:3, date: '2020.10.20', coaches: '구구콘', profileImage: null},
+        { id:1, date: '2023.05.09', members: '오타쿠', profileImage: null},
+        { id:2, date: '2023.05.09', members: '윤운동', profileImage: null},
     ]
 
     const navigate = useNavigate();
@@ -20,11 +18,11 @@ const MyCoaches = ()=>{
     }
 
     return (
-        <div className="MyCoaches">
+        <div className="MyMembers">
 
             <div className="titleAndBack">
-                <h2>우리 형 성사 리스트</h2>
-                <button onClick={onClickBackBtn}>뒤로가기</button>
+                <h2>우리 회원 성사 리스트</h2>
+                <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
             </div>
 
             {/* 신청 내역 리스트 */}
@@ -32,8 +30,8 @@ const MyCoaches = ()=>{
                 <ul>
                     {dummydata.map((dummy) =>(
                         <li key={dummy.id}>
-                             {/* 프로필 이미지 */}
-                             {dummy.profileImage ? (
+                            {/* 프로필 이미지 */}
+                            {dummy.profileImage ? (
                                 <img src={dummy.profileImage} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
@@ -44,7 +42,7 @@ const MyCoaches = ()=>{
                                 <p>{dummy.date}</p>
 
                                 {/* 신청인 */}
-                                <p className="detail">{dummy.coaches}</p>
+                                <p className="detail">{dummy.members}</p>
                             </div>
                             
                         </li>
@@ -55,4 +53,4 @@ const MyCoaches = ()=>{
     )
 }
 
-export default MyCoaches;
+export default MyMembers;

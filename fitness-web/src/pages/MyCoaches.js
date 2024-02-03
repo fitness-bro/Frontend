@@ -1,15 +1,17 @@
-import './CommonStyle.css'
-import DefaultImage from './DefaultImage';
+import './MyCoaches.css';
+import '../components/CommonStyle.css'
+import DefaultImage from '../components/review/DefaultImage';
 import { useNavigate } from "react-router-dom";
 
-// 찜한 형 리스트 페이지
+// 우리 형 성사 리스트 페이지
 
-const GetReviewList = ()=>{
+const MyCoaches = ()=>{
 
     // 가상의 데이터 배열
     const dummydata = [
-        { id:1, date: '2023.05.09', members: '오타쿠', profileImage: null},
-        { id:2, date: '2023.05.09', members: '윤운동', profileImage: null},
+        { id:1, date: '2023.05.09', coaches: '강동원', profileImage: null},
+        { id:2, date: '2023.05.09', coaches: '송 강', profileImage: null},
+        { id:3, date: '2020.10.20', coaches: '구구콘', profileImage: null},
     ]
 
     const navigate = useNavigate();
@@ -18,11 +20,11 @@ const GetReviewList = ()=>{
     }
 
     return (
-        <div className="GetReviewList">
+        <div className="MyCoaches">
 
             <div className="titleAndBack">
-                <h2>받은 후기 리스트</h2>
-                <button onClick={onClickBackBtn}>뒤로가기</button>
+                <h2>우리 형 성사 리스트</h2>
+                <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
             </div>
 
             {/* 신청 내역 리스트 */}
@@ -42,7 +44,7 @@ const GetReviewList = ()=>{
                                 <p>{dummy.date}</p>
 
                                 {/* 신청인 */}
-                                <p className="detail">{dummy.members}</p>
+                                <p className="detail">{dummy.coaches}</p>
                             </div>
                             
                         </li>
@@ -53,4 +55,4 @@ const GetReviewList = ()=>{
     )
 }
 
-export default GetReviewList;
+export default MyCoaches;

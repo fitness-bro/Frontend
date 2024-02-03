@@ -1,10 +1,10 @@
 import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap } from "./ProfileHeader.style";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import backImg from "../img/back.jpg";
-import profileImg from "../img/profile.jpg";
-import likeBtn from "../img/like.svg";
-import star from "../img/review.svg";
+import { Link,useNavigate } from "react-router-dom";
+import backImg from "../../img/back.jpg";
+import profileImg from "../../img/profile.jpg";
+import likeBtn from "../../img/like.svg";
+import star from "../../img/review.svg";
 
 export default function ProfileHeader() {
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function ProfileHeader() {
                 navigate("/profile");
                 break;
             case '후기':
-                navigate("/reviews");
+                navigate("/lookreviews");
                 break;
             case '사진첩':
                 navigate("/photos");
@@ -55,8 +55,9 @@ export default function ProfileHeader() {
                 </Btn>
             </BtnWrap>
             
-
-            <AskBtn>문의하기</AskBtn>
+            <Link to="/chatinglist" style={{ textDecoration: "none"}}>
+            <AskBtn >채팅하기</AskBtn>
+            </Link>
             </TopWrap>
 
             <Wrapper>

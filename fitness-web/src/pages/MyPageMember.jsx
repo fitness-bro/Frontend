@@ -1,5 +1,5 @@
 import './Mypage.css';
-import Member from "../components/MemberCoach";
+import Member from "../components/member/MemberCoach";
 import { useNavigate } from "react-router-dom";
 
 

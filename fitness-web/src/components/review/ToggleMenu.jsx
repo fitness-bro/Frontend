@@ -23,7 +23,7 @@ const ToggleMenu = () => {
             <div className="toggle-menu">
                 <div className="toggleIcon">
                     <button onClick={handleToggleMenu} className="toggle-btn">
-                        {selectedOption ? selectedOption.label : "후기 대상 선택"}
+                        {selectedOption ? selectedOption.label : ""}
                     </button>
 
                     <div className="toggle-menu-icon">

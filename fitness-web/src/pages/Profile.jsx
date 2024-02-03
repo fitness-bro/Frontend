@@ -1,6 +1,6 @@
 import {React,useState,useEffect} from "react";
 import { InfBlock,InfLine,Body} from "./Profile.style";
-import ProfileHeader from "../components/ProfileHeader";
+import ProfileHeader from "../components/header/ProfileHeader";
 import axios from "axios";
 
 export default function Profile(){

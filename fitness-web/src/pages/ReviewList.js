@@ -1,7 +1,7 @@
 import './ReviewList.css';
-import './CommonStyle.css'
+import '../components/CommonStyle.css'
 import { useNavigate } from "react-router-dom";
-import DefaultImage from './DefaultImage';
+import DefaultImage from '../components/review/DefaultImage';
 
 // 후기 작성 페이지1 & 후기 작성 완료하기 누르면 돌아오는 페이지
 
@@ -27,10 +27,13 @@ const ReviewList = ()=>{
     return (
         <div className="ReviewList">
 
-            <button onClick={handleWriteReview} className="writeReview">후기 작성</button>
             <div className="titleAndBack">
                 <h2>후기 리스트</h2>
-                <button onClick={onClickBackBtn}>뒤로가기</button>
+                <div>
+                    <button onClick={handleWriteReview} className="writeReview">후기 작성</button>
+                    <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
+                </div>
+ 
             </div>
 
             {/* 신청 내역 리스트 */}

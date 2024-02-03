@@ -1,7 +1,7 @@
 import './Favorites.css';
-import './CommonStyle.css'
-import DefaultImage from './DefaultImage';
 import { useNavigate } from "react-router-dom";
+import '../components/CommonStyle.css';
+import DefaultImage from '../components/review/DefaultImage';
 
 // 찜한 형 리스트 페이지
 
@@ -25,7 +25,7 @@ const Favorites = ()=>{
 
             <div className="titleAndBack">
                 <h2>찜한 형 리스트</h2>
-                <button onClick={onClickBackBtn}>뒤로가기</button>
+                <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
             </div>
 
             {/* 신청 내역 리스트 */}

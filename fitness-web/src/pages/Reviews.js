@@ -1,9 +1,9 @@
 import {useState} from "react";
 import './Reviews.css';
-import ImageUtils from "./ImageUtils";
+import ImageUtils from "../components/ImageUtils";
 import { useNavigate } from "react-router-dom";
-import StarRating from "./StarRating";
-import ToggleMenu from "./ToggleMenu";
+import StarRating from "../components/review/StarRating";
+import ToggleMenu from '../components/review/ToggleMenu'
 
 
 // 후기 작성 페이지2 - 작성 완료하면 바로 후기 리스트로 넘어가는 페이지
@@ -46,7 +46,7 @@ const Reviews = ()=>{
 
             <div className="titleAndBack">
                 <h2>후기 작성</h2>
-                <button onClick={onClickBackBtn}>뒤로가기</button>
+                <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
             </div>
 
             <div className="start-toggle">
