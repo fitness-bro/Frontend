@@ -1,6 +1,7 @@
 import './Favorites.css';
 import './CommonStyle.css'
 import DefaultImage from './DefaultImage';
+import { useNavigate } from "react-router-dom";
 
 // 찜한 형 리스트 페이지
 
@@ -14,12 +15,17 @@ const Favorites = ()=>{
         { id:4, coaches: '박신양', address: '서울시 마포구', rating: '★4.5', profileImage: null},
     ]
 
+    const navigate = useNavigate();
+    const onClickBackBtn = ()=>{
+        navigate(-1);
+    }
+
     return (
         <div className="Favorites">
 
             <div className="titleAndBack">
                 <h2>찜한 형 리스트</h2>
-                <button>뒤로가기</button>
+                <button onClick={onClickBackBtn}>뒤로가기</button>
             </div>
 
             {/* 신청 내역 리스트 */}

@@ -3,6 +3,7 @@
     margin-bottom: 10px;
     display: flex;
     margin-left: 21%;
+    width: 100px;
   }
 
   .options {
@@ -17,8 +18,8 @@
     color: #643E23;
     background-color: white;
     border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
+    
+    padding: 5px 5px;
     cursor: pointer;
     font-size: 15px;
     font-weight: bold;

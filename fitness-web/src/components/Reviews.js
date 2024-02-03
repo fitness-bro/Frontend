@@ -36,19 +36,24 @@ const Reviews = ()=>{
     const handleStarClick = (rating) => {
         console.log("선택된 별점:", rating);
     };
+    
+    const onClickBackBtn = ()=>{
+        navigate(-1);
+    }
 
     return( 
         <div className="Reviews">
 
             <div className="titleAndBack">
                 <h2>후기 작성</h2>
-                <button className="back">뒤로가기</button>
+                <button onClick={onClickBackBtn}>뒤로가기</button>
             </div>
 
             <div className="start-toggle">
-                {/* 토글 메뉴 */}
-                <ToggleMenu />
 
+                {/* 토글 메뉴 */}
+                <div className="coach-toggle"><ToggleMenu /></div>
+                
                 {/* 별점 주기 */}
                 <div className="stars-for-reviews">
                     <StarRating onStarClick={handleStarClick} />

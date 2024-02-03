@@ -1,6 +1,7 @@
 import './MyCoaches.css';
 import './CommonStyle.css'
 import DefaultImage from './DefaultImage';
+import { useNavigate } from "react-router-dom";
 
 // 우리 형 성사 리스트 페이지
 
@@ -13,12 +14,17 @@ const MyCoaches = ()=>{
         { id:3, date: '2020.10.20', coaches: '구구콘', profileImage: null},
     ]
 
+    const navigate = useNavigate();
+    const onClickBackBtn = ()=>{
+        navigate(-1);
+    }
+
     return (
         <div className="MyCoaches">
 
             <div className="titleAndBack">
                 <h2>우리 형 성사 리스트</h2>
-                <button>뒤로가기</button>
+                <button onClick={onClickBackBtn}>뒤로가기</button>
             </div>
 
             {/* 신청 내역 리스트 */}

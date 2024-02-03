@@ -1,5 +1,6 @@
 import './CommonStyle.css'
 import DefaultImage from './DefaultImage';
+import { useNavigate } from "react-router-dom";
 
 // 찜한 형 리스트 페이지
 
@@ -11,12 +12,17 @@ const MyMembers = ()=>{
         { id:2, date: '2023.05.09', members: '윤운동', profileImage: null},
     ]
 
+    const navigate = useNavigate();
+    const onClickBackBtn = ()=>{
+        navigate(-1);
+    }
+
     return (
         <div className="MyMembers">
 
             <div className="titleAndBack">
                 <h2>우리 회원 성사 리스트</h2>
-                <button>뒤로가기</button>
+                <button onClick={onClickBackBtn}>뒤로가기</button>
             </div>
 
             {/* 신청 내역 리스트 */}

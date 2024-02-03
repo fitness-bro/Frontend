@@ -3,6 +3,7 @@ import './ReviewDetail.css'
 import { Icon } from "@iconify/react";
 import './CommonStyle.css';
 import StarRating from './StarRating';
+import { useNavigate } from "react-router-dom";
 
 // 후기 상세 보기
 
@@ -29,14 +30,19 @@ const ReviewDetail = () => {
         setSelectedStars(rating);
     };
 
+    const navigate = useNavigate();
+    const onClickBackBtn = ()=>{
+        navigate(-1);
+    }
+
  
     return (
         <div className="ReviewDetail">
 
-            {/* <div className="titleAndBack">
+            <div className="titleAndBack">
                 <h2>후기 상세 보기</h2>
-                <button className="back">뒤로가기</button>
-            </div> */}
+                <button onClick={onClickBackBtn}>뒤로가기</button>
+            </div>
 
             <div className="star-container">
                 <div className="iconsForImages">

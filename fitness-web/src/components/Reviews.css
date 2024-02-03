@@ -30,5 +30,11 @@
   }
 
   .start-toggle {
-    display: flex;
+    margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  }
+
+  .stars-for-reviews {
+    align-items: center;
   }

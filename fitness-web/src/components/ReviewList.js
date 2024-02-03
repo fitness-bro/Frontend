@@ -20,13 +20,17 @@ const ReviewList = ()=>{
         navigate('/reviews');
     }
 
+    const onClickBackBtn = ()=>{
+        navigate(-1);
+    }
+
     return (
         <div className="ReviewList">
 
             <button onClick={handleWriteReview} className="writeReview">후기 작성</button>
             <div className="titleAndBack">
                 <h2>후기 리스트</h2>
-                <button>뒤로가기</button>
+                <button onClick={onClickBackBtn}>뒤로가기</button>
             </div>
 
             {/* 신청 내역 리스트 */}
