@@ -23,7 +23,7 @@ const ToggleMenu = () => {
             <div className="toggle-menu">
                 <div className="toggleIcon">
                     <button onClick={handleToggleMenu} className="toggle-btn">
-                        {selectedOption ? selectedOption.label : ""}
+                        {selectedOption ? selectedOption.label : "________"}
                     </button>
 
                     <div className="toggle-menu-icon">

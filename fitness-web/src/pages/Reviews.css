@@ -1,41 +1,40 @@
 .Reviews {
-    text-align: center;
-  }
+  text-align: center;
+}
 
-  .Reviews textarea {
-    resize: none;
-    border-radius: 20px;
-    width: 55%;
-    height: 400px;
-    border-color: #dadada;
-    padding: 15px;
-  }
+.Reviews textarea {
+  resize: none;
+  border-radius: 20px;
+  width: 55%;
+  height: 400px;
+  border-color: #dadada;
+  padding: 15px;
+}
 
-  .submitbtn, .submitbtnOn {
-    color: white;
-    border-radius: 15px;
-    border: none;
-    width: 830px;
-    height: 80px;
-    font-size: 17px;
-  }
+.submitbtn, .submitbtnOn {
+  color: white;
+  border-radius: 15px;
+  border: none;
+  width: 830px;
+  height: 80px;
+  font-size: 17px;
+}
 
-  .submitbtn {
-    background-color: rgb(141, 138, 138);
-  }
-  
-  .submitbtnOn {
-    background-color: #FF9549;
-    cursor: pointer;
-  }
+.submitbtn {
+  background-color: rgb(141, 138, 138);
+}
 
-  .start-toggle {
-    margin-top: 10px;
+.submitbtnOn {
+  background-color: #FF9549;
+  cursor: pointer;
+}
+
+.start-toggle {
   display: flex;
   justify-content: space-around;
-  }
+}
 
-  .stars-for-reviews {
-    align-items: center;
-    margin-top: 17px;
-  }
+.stars-for-reviews {
+  margin-left: 100px;
+  margin-bottom: 15px;
+}
