@@ -15,9 +15,12 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
       <Link to="/search" className={`search ${activeMenu === 'search' ? 'active' : ''}`} onClick={() => handleMenuClick('search')}>
         동네형 찾기
       </Link>
-      <Link to="/login" className={`login ${activeMenu === 'login' ? 'active' : ''}`} onClick={() => handleMenuClick('login')}>
+      
+      <div className={`login ${activeMenu === 'login' ? 'active' : ''}`} onClick={() => {handleMenuClick('login'); openModal();}}>
         로그인
-      </Link>
+      </div>
+      <SignUpModal isOpen={isModalOpen} closeModal={closeModal}/>
+      
       <div className={`signup ${activeMenu === 'signup' ? 'active' : ''}`} onClick={() => {handleMenuClick('signup'); openModal();}}>
         회원가입
       </div>

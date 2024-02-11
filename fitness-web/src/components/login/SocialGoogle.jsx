@@ -11,7 +11,7 @@ padding:10px;
 `
 
 const SocialGoogle = () => {
-    const clientId = '537715934624-eo0dmpvk1jhc9bfmnt5gt5vaur7du6vj.apps.googleusercontent.com'
+    const clientId = '293755776535-kp2pp4pfe0c4401civ1g2fum81f3etdo.apps.googleusercontent.com'
 
     return (
         <>

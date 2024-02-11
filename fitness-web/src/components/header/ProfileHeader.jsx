@@ -1,10 +1,10 @@
 import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap } from "./ProfileHeader.style";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import backImg from "../../img/back.jpg";
-import profileImg from "../../img/profile.jpg";
 import likeBtn from "../../img/like.svg";
 import star from "../../img/review.svg";
+import axios from "axios";
 
 export default function ProfileHeader() {
     const navigate = useNavigate();
@@ -13,6 +13,40 @@ export default function ProfileHeader() {
         후기: false,
         사진첩: false
     });
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const [userData, setUserData] = useState({
+      name: "",
+      age: 0,
+      rating:0,
+      coachPicture:null
+    });
+    
+      useEffect(() => {
+        const coachId = 1;  // 예: 123
+      
+        axios.get(
+          `${apiUrl}/coaches/${coachId}/info`
+          )
+          .then(response => {
+            const data = response.data;
+            console.log("API 응답:", response);
+      
+            if (data.isSuccess) {
+              setUserData({
+                name:data.result.name,
+                age:data.result.age,
+                rating:data.result.rating,
+                coachPicture:data.result.coachPicture
+              });
+            } else {
+              console.error("API 요청 실패:", data.message);
+            }
+          })
+          .catch(error => {
+            console.error("API 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+          });
+      }, []);
 
     const handleBtnClick = (name) => {
         setBtnStates({
@@ -38,6 +72,21 @@ export default function ProfileHeader() {
 
     };
 
+    const handleChatClick = () => {
+        const userId = 1; // 예: 유저 아이디
+        const coachId = 1; // 예: 코치 아이디
+
+        axios.post(`${apiUrl}/chatinglist`, { userId, coachId })
+            .then(response => {
+                console.log("채팅하기 API 응답:", response);
+                // 채팅하기 요청에 대한 응답 처리
+            })
+            .catch(error => {
+                console.error("채팅하기 API 요청 중 오류 발생:", error);
+                console.error("에러 상세 정보:", error.response);
+            });
+    };
+
     return (
         <>  
         <TopWrap>
@@ -56,18 +105,18 @@ export default function ProfileHeader() {
             </BtnWrap>
             
             <Link to="/chatinglist" style={{ textDecoration: "none"}}>
-            <AskBtn >채팅하기</AskBtn>
+            <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
             </Link>
             </TopWrap>
 
             <Wrapper>
                 <ProfileWrap>
-                    <img src={profileImg} alt="프로필 이미지" />
-                    <p>닉네임 | 나이</p>
+                    <img src={userData.coachPicture} alt="프로필 이미지" />
+                    <p>{userData.name} | {userData.age}</p>
                 </ProfileWrap>
                 <RatingWrap>
                     <img src={star} />
-                    <h4>별점</h4>
+                    <h4>{userData.rating}</h4>
                 </RatingWrap>
             </Wrapper>
         </>

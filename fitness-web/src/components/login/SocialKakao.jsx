@@ -32,10 +32,11 @@ justify-content: center;
 `;
 
 const SocialKakao=()=>{
-    const Rest_api_key='c98d6b2445d51e86a3a54429a7488e7a' //REST API KEY
-    const redirect_uri = 'http://localhost:3000/registchoice' //Redirect URI
+  const code=200;
+    // const Rest_api_key='c98d6b2445d51e86a3a54429a7488e7a' //REST API KEY
+    // const redirect_uri = `http://dev.fitness-bro.pro/login/oauth2/code/kakao?code=${code}&password=string&nickname=string&email=string&age=0` //Redirect URI
     // oauth 요청 URL
-    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize`
     const handleLogin = ()=>{
         window.location.href = kakaoURL
     }
