@@ -1,56 +1,75 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import '../components/CommonStyle.css'
+import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
 
-// 받은 후기 리스트 페이지
+// 받은 후기 리스트
 
-const GetReviewList = ()=>{
-
-    // 가상의 데이터 배열
-    const dummydata = [
-        { id:1, date: '2023.05.09', members: '오타쿠', profileImage: null},
-        { id:2, date: '2023.05.09', members: '윤운동', profileImage: null},
-    ]
-
+const GetReviewList = ({ coachId }) => {
     const navigate = useNavigate();
-    const onClickBackBtn = ()=>{
+
+    const apiUrl="http://dev.fitness-bro.pro/";
+
+    const [userData, setUserData] = useState([]);
+
+    useEffect(() => {
+
+        // coachId를 사용하여 API에서 후기 데이터를 가져옵니다.
+        const coachId=1;
+
+        axios.get(`${apiUrl}coaches/${coachId}/reviews`)
+            .then((response) => {
+                const data = response.data;
+                console.log("API 응답:", response);
+
+                if (data.isSuccess) {
+                    const results=data.result;
+                    setUserData(results);
+                } else {
+                    console.error("API 요청 실패:", data.message);
+                }
+            })
+            .catch(error => {
+                console.error("API 요청 중 오류 발생:", error);
+                console.error("에러 상세 정보:", error.response);
+            });
+    }, [coachId]);
+
+    const onClickBackBtn = () => {
         navigate(-1);
-    }
+    };
 
     return (
         <div className="GetReviewList">
-
             <div className="titleAndBack">
                 <h2>받은 후기 리스트</h2>
                 <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
             </div>
 
-            {/* 신청 내역 리스트 */}
             <div className="userList">
                 <ul>
-                    {dummydata.map((dummy) =>(
-                        <li key={dummy.id}>
-                             {/* 프로필 이미지 */}
-                             {dummy.profileImage ? (
-                                <img src={dummy.profileImage} alt="프로필 이미지" className="profileImage" />
+                    {userData.map((item, index) => (
+                        <li key={index}>
+                            {/* 프로필 이미지 */}
+                            {item.profileImage ? (
+                                <img src={item.profileImage} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}
 
                             <div className="info">
                                 {/* 날짜 */}
-                                <p>{dummy.date}</p>
+                                <p>{item.createdAt}</p>
 
-                                {/* 신청인 */}
-                                <p className="detail">{dummy.members}</p>
+                                {/* 닉네임 */}
+                                <p className="detail">{item.nickname}</p>
                             </div>
-                            
                         </li>
                     ))}
                 </ul>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default GetReviewList;

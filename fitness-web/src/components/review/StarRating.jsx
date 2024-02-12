@@ -8,6 +8,7 @@ const StarRating = ({ onStarClick }) => {
   const [rating, setRating] = useState(0);
 
   const handleStarClick = (starIndex) => { // 별 아이콘을 클릭했을 때 호출되는 함수
+    
     setRating(starIndex + 1); // 클릭한 별의 인덱스에 1을 더한 값을 `rating` 상태로 설정
     onStarClick(starIndex + 1); // 상위 컴포넌트로 선택된 별의 값 전달
   };

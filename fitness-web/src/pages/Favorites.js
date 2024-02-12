@@ -1,24 +1,40 @@
-import './Favorites.css';
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import '../components/CommonStyle.css';
+import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
 
-// 찜한 형 리스트 페이지
+// 찜한 형 리스트
 
-const Favorites = ()=>{
-
-    // 가상의 데이터 배열
-    const dummydata = [
-        { id:1, coaches: '강동원', address: '서울시 강남구', rating: '★4.5', profileImage: null},
-        { id:2, coaches: '송 강', address: '서울시 강남구', rating: '★4.5', profileImage: null},
-        { id:3, coaches: '마동석', address: '서울시 서초구', rating: '★4.5', profileImage: null},
-        { id:4, coaches: '박신양', address: '서울시 마포구', rating: '★4.5', profileImage: null},
-    ]
-
+const Favorites = () => {
     const navigate = useNavigate();
-    const onClickBackBtn = ()=>{
+
+    const apiUrl="http://dev.fitness-bro.pro/";
+
+    const [userData, setUserData] = useState([]);
+
+    useEffect(() => {
+
+        axios.get(`${apiUrl}members/favorites`)
+            .then(response => {
+                const data = response.data;
+                console.log("API 응답:", response);
+
+                if (data.isSuccess) {
+                    const results=data.result;
+                    setUserData(results);
+                } else {
+                    console.error("API 요청 실패:", data.message);
+                }
+            })
+            .catch(error => {
+                console.error("API 요청 중 오류 발생:", error);
+                console.error("에러 상세 정보:", error.response);
+            });
+    }, []);
+
+    const onClickBackBtn = () => {
         navigate(-1);
-    }
+    };
 
     return (
         <div className="Favorites">
@@ -28,32 +44,30 @@ const Favorites = ()=>{
                 <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
             </div>
 
-            {/* 신청 내역 리스트 */}
             <div className="userList">
                 <ul>
-                    {dummydata.map((dummy) =>(
-                        <li key={dummy.id}>
+                    {userData.map((item, index) => (
+                        <li key={index}>
                             {/* 프로필 이미지 */}
-                            {dummy.profileImage ? (
-                                <img src={dummy.profileImage} alt="프로필 이미지" className="profileImage" />
+                            {item.profileImage ? (
+                                <img src={item.profileImage} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}
 
                             <div className="info">
                                 {/* 이름/주소 */}
-                                <p>{dummy.coaches} / {dummy.address}</p>
+                                <p>{item.nickname} / {item.address}</p>
 
                                 {/* 별점 */}
-                                <p className="detail">{dummy.rating}</p>
+                                <p className="detail">★{item.rating}</p>
                             </div>
-                            
                         </li>
                     ))}
                 </ul>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Favorites;
