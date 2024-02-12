@@ -5,7 +5,7 @@ import SocialNaver from './login/SocialNaver';
 import SocialGoogle from './login/SocialGoogle';
 import loginLogo from '../img/loginLogo.svg';
 
-const ModalSignIn = ({ isOpen,closeModal }) => {
+const ModalSignUp = ({ isOpen,closeModal }) => {
 return (
     <div style={{display:isOpen?"block":"none"}}>
         <ModalOverlay></ModalOverlay>
@@ -21,4 +21,4 @@ return (
 );
 };
 
-export default ModalSignIn;
+export default ModalSignUp;

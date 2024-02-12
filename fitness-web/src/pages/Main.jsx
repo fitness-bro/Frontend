@@ -8,14 +8,8 @@ const Main = () => {
             <div className="main-container">
                 
                 <div className="Sentence">PT 하지말고<br /> 동네형에게  헬스과외 받자.</div>
-                <div className="WhiteContainer">
-                    <div className="white1"></div>
-                    <div className="white2"></div>
-                    <div className="white3"></div>
-                    <div className="white4"></div>
-                </div>
-                
                 <img src={kangaroo} alt="Kangaroo Image" className="centered-image2" />
+                
             </div>
         </>
     );
