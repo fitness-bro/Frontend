@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './SearchSection.css';
 import { FaSearch } from 'react-icons/fa';
 
-const SearchSection = ({ onRegionSelect, userList, updateListSection }) => {
+const SearchSection = ({ onRegionSelect, userList }) => {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedSubAddress, setSelectedSubAddress] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -34,9 +34,6 @@ const SearchSection = ({ onRegionSelect, userList, updateListSection }) => {
       // 검색어로 지역이 선택되었을 때, 상위 컴포넌트로 선택한 지역 정보 전달
       onRegionSelect(matchedRegion, null);
     }
-
-    // 여기서 검색 결과를 부모 컴포넌트로 전달
-    updateListSection([...userList]);
   };
 
   const regions = ['서울특별시', '부산광역시', '대구광역시', '인천광역시', '광주광역시', '대전광역시', '울산광역시', '세종특별자치시', '경기도'];

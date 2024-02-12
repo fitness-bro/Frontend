@@ -1,23 +1,20 @@
 .memberbgprofile {
-    background-size: contain;
-    background-color: #D9D9D9;
-    width: 150px;
-    height: 150px;
-    border-radius: 100px;
-    color: #919191;
+  background-size: contain;
+  background-color: #D9D9D9;
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  color: #919191;
 
-    align-items: center;
-  justify-content: center;
-  margin-bottom: 25px;
-  display: flex;
-
-    
-  }
-
-
+  align-items: center;
+justify-content: center;
+margin-bottom: 25px;
+display: flex;
 
   
-  .memberIcon{
-    width: 58px;
-    height: 58px;
-  }
+}
+
+.memberIcon{
+  width: 58px;
+  height: 58px;
+}

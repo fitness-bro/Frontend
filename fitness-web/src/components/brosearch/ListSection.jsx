@@ -41,14 +41,16 @@ const ListSection = ({ userList, selectedRegion, selectedSubAddress, selectedUse
           >
             <div className='UserPic'></div>
             <div className="Userinfo">
-              <table>
-                <tbody>
+              <table style={{width:"100%", marginLeft: "20px", textAlign:"center"}}>
+                
                   <tr>
-                    <td>{user.name}</td>
-                    <td>{user.age}세 </td>
-                    <td className='lastTd'><StarIcon /> &nbsp; {user.rating}</td>
+                    <td style={{paddingLeft: "15px", paddingRight:"15px"}}>{user.name}</td>
+                    <td style={{width:"0%"}}>|</td>
+                    <td style={{paddingLeft: "15px", paddingRight:"15px"}}>{user.age}세 </td>
+                    <td style={{width:"0%"}}>|</td>
+                    <td style={{paddingLeft: "15px", paddingRight:"15px"}}><StarIcon /> &nbsp; {user.rating}</td>
                   </tr>
-                </tbody>
+                
               </table>
             </div>
           </div>

@@ -11,10 +11,12 @@ cursor: pointer;
 color: white;
 font-size: 15px;
 font-weight: light;
-padding: 0px 24px;
+padding: 0px 0px;
 margin: 10px;
-align-items: center; 
-justify-content: center; 
+text-align: center;
+align-items:center;
+justify-content:center;
+
 
 >img{
   height:30px;
@@ -32,9 +34,10 @@ justify-content: center;
 `;
 
 const SocialKakao=()=>{
-    const Rest_api_key='c98d6b2445d51e86a3a54429a7488e7a' //REST API KEY
-    const redirect_uri = 'http://localhost:3000/registchoice' //Redirect URI
+    const Rest_api_key='8c7208b34afec06d51425dd25d6a0a54' //REST API KEY
+    const redirect_uri = `https://dev.fitness-bro.pro/login/oauth2/code/kakao` //Redirect URI
     // oauth 요청 URL
+
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
     const handleLogin = ()=>{
         window.location.href = kakaoURL

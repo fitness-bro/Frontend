@@ -21,6 +21,7 @@ margin:0 20px 0 20px;
     border: 1.5px solid rgba(255, 149, 73, 1); 
     width: 90px;
     height: 40px;
+    cursor:pointer;
 }
 `
 
