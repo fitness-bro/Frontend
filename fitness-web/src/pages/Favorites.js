@@ -3,6 +3,7 @@ import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
 import { useState, useEffect } from "react";
 
+
 // 찜한 형 리스트
 
 const Favorites = () => {
