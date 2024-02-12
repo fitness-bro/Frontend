@@ -18,7 +18,6 @@ export const BhWrap = styled.div`
         margin: auto;
         padding-bottom: 15px;
         font-style: normal;
-        font-weight: ;
         font-size: 13px;
         color: #643E23;
     }

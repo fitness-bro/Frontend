@@ -17,8 +17,7 @@ export default function Profile(){
       address:""
     });
     
-      useEffect(() => {
-      
+      useEffect(() => { 
         axios.get(
           `${apiUrl}/coaches/${coachId}/info`
           )
