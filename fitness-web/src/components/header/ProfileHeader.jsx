@@ -6,7 +6,7 @@ import likeBtn from "../../img/like.svg";
 import star from "../../img/review.svg";
 import axios from "axios";
 
-export default function ProfileHeader() {
+export default function ProfileHeader(props) {
     const navigate = useNavigate();
     const [btnStates, setBtnStates] = useState({
         프로필: false,
@@ -20,9 +20,9 @@ export default function ProfileHeader() {
       rating:0,
       coachPicture:null
     });
+    const coachId=props.id;
     
       useEffect(() => {
-        const coachId = 1;  // 예: 123
       
         axios.get(
           `${apiUrl}/coaches/${coachId}/info`
@@ -33,7 +33,7 @@ export default function ProfileHeader() {
       
             if (data.isSuccess) {
               setUserData({
-                name:data.result.name,
+                name:data.result.nickname,
                 age:data.result.age,
                 rating:data.result.rating,
                 coachPicture:data.result.coachPicture

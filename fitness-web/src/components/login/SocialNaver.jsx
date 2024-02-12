@@ -12,10 +12,12 @@ cursor: pointer;
 color: white;
 font-size: 15px;
 font-weight: light;
-padding: 10px 24px;
+padding: 10px 0px;
 margin: 10px;
-align-items: center; 
-justify-content: center; 
+text-align: center;
+align-items:center;
+justify-content:center;
+
 
 >img{
   height:30px;
@@ -33,10 +35,10 @@ justify-content: center;
 `;
 
 const SocialNaver=()=>{
-    // const NAVER_CLIENT_ID="XTK8O9qYtFmB63LEsTzm";
-    // const REDIERCT_URI='http://localhost:3000/registchoice';
+    const NAVER_CLIENT_ID="XTK8O9qYtFmB63LEsTzm";
+    const REDIERCT_URI='http://localhost:3000/registchoice';
     const STATE='false';
-    const NAVER_AUTH_URL=`https://nid.naver.com/oauth2.0/authorize`;
+    const NAVER_AUTH_URL=`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIERCT_URI}`;
 
     const NaverLogin=()=>{
         window.location.href=NAVER_AUTH_URL;

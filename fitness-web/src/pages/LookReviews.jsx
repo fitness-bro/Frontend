@@ -3,16 +3,23 @@ import { Body, ReviewBlock } from "./LookReviews.style";
 import Header from "../components/header/ProfileHeader";
 import reviewerImg from "../img/profile.jpg";
 import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
 
 export default function LookReviews() {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
     const apiUrl = process.env.REACT_APP_API_URL;
+    //const coachId = location.state.coachId;
+    const coachId=1;
+    // const token=localStorage.getItem("token");
 
     useEffect(() => {
-        const reviewId = 303;
 
-        axios.get(`${apiUrl}/coaches/reviews/${reviewId}`)
+        axios.get(`${apiUrl}/coaches/reviews`,{
+            headers: {
+                Authorization: `Bearer ${token}` // 토큰을 헤더에 추가
+            }
+        })
             .then(response => {
                 const data = response.data;
                 console.log("API 응답:", data);
@@ -25,20 +32,22 @@ export default function LookReviews() {
             })
             .catch(error => {
                 console.error("API 요청 중 오류 발생:", error);
-                setError(error.message);
+                console.error("에러 상세 정보:", error.response);
             });
     }, []);
 
     return (
         <Body>
-            <Header />
+            <Header id={coachId}/>
             {error && <p>Error: {error}</p>}
             {reviews && reviews.map((review, index) => (
+                <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}}>
                 <ReviewBlock key={index}>
-                    <img src={review.pictureURLs} alt="리뷰자 프로필 이미지" />
+                    <img src={review.pictureURL} alt="리뷰자 프로필 이미지" />
                     <h4>{review.nickname}</h4>
                     <p>{review.content}</p>
                 </ReviewBlock>
+                </Link>
             ))}
         </Body>
     );

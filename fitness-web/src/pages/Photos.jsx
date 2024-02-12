@@ -3,13 +3,17 @@ import {ImgWrap,Body} from "./Photos.style";
 import Header from "../components/header/ProfileHeader";
 import reviewImg from "../img/profile.jpg";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
+
 
 export default function Photos(){
     const [data,setData]=useState([1,2,3,4,5,6,7,8,9])
     const apiUrl = process.env.REACT_APP_API_URL;
+    const location = useLocation();
+    //const coachId = location.state.coachId;
+    const coachId=1;
 
     useEffect(() => {
-        const coachId = 200;
 
         axios.get(`${apiUrl}/coaches/album`)
             .then(response => {
@@ -31,7 +35,7 @@ export default function Photos(){
     return(
         <>
         <Body>
-            <Header/>
+            <Header id={coachId}/>
             <ImgWrap>
             {data.map(function(){
                     return(

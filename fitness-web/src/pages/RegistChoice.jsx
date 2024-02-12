@@ -6,16 +6,17 @@ import memberImg from '../img/registLogo2.svg';
 import axios from 'axios';
 
 const RegistChoice = () => {
-    const handleRegist = async (token) => {
-        const apiUrl=process.env.REACT_APP_API_URL
+    const handleRegist = async (rolepost) => {
+        const apiUrl=process.env.REACT_APP_API_URL;
+        // const token=localStorage.getItem("token");
         try {
             // POST 요청 보내기
             const response = await axios.post(
                 `${apiUrl}/login/select`,            
-                { role: token }, // 요청 바디 데이터 추가
+                { role: rolepost }, // 요청 바디 데이터 추가
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}` // 'token' 헤더 추가
+                        'token': token // 'token' 헤더 추가
                     }
                 }
             );
@@ -33,10 +34,12 @@ const RegistChoice = () => {
         <>
             <Text1>회원 등록하기</Text1>
             <BtnWrap>
+            <Link to="/Registration" style={{ textDecoration: "none"}}>
                 <RegistBro onClick={() => handleRegist('COACH')}>
                     <img src={broImg} alt="bro image" />
                     <p>동네형으로 가입하기</p>
                 </RegistBro>
+                </Link>
                 <ReigstMember onClick={() => handleRegist('MEMBER')}>
                     <img src={memberImg} alt="member image" />
                     <p>회원으로 가입하기</p>
