@@ -59,10 +59,10 @@
     background-color: #643E23; /* 스크롤 바 트랙의 색상 설정 */
   }
   
-  table{
+  .listTable{
     width: 250px;
   }
-  td{
+  .Td{
     
     text-align: center;
     border-right: 1px solid black;

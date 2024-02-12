@@ -5,47 +5,66 @@ import axios from "axios";
 
 export default function Profile(){
 
-    const [inf,setInf]=useState(['위치','소개','중량','가격','주의사항'])
     const [userData, setUserData] = useState({
-        name: "",
-        age: 0,
-        rating: 0,
-        comment: "",
-        introduction: "",
-        price: 0,
-        location: ""
-      });
+      introduction: "",
+      price: 0,
+      comment: "",
+      address:""
+    });
     
       useEffect(() => {
-        axios.get("여기에_API_URL을_입력하세요")
+        const coachId = 2;  // 예: 123
+        const apiUrl="http://dev.fitness-bro.pro/";
+          axios.get(`${apiUrl}coaches/${coachId}/info`)
+          
           .then(response => {
             const data = response.data;
-    
+            console.log("API 응답:", response);
+      
             if (data.isSuccess) {
-              setUserData(data.result);
+              setUserData({
+                address:data.result.address,
+                comment: data.result.comment,
+                introduction: data.result.introduction,
+                price: data.result.price,
+              });
             } else {
               console.error("API 요청 실패:", data.message);
             }
           })
           .catch(error => {
             console.error("API 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
           });
-      }, []); // 빈 배열을 전달하여 컴포넌트가 마운트될 때만 실행
+      }, []);
 
     return(
         <>
         <Body>
-            <ProfileHeader/>
-            <InfLine>운동 3년차, 체지방률 14%</InfLine>
-                {inf.map(function(item,index){
-                    return(
-                        <InfBlock key={index}>
-                            <h4>{item}</h4>
-                            <p>{userData[item.toLowerCase()].introduction}</p>
-                        </InfBlock>
-                    )
-                })
-                }
+        <Body>
+                <ProfileHeader />
+                <InfLine>{userData.introduction}</InfLine>
+                <InfBlock>
+                    <h4>위치</h4>
+                    <p>{userData.address}</p>
+                </InfBlock>
+                <InfBlock>
+                    <h4>소개</h4>
+                    <p>{userData.comment}</p>
+                </InfBlock>
+                <InfBlock>
+                    <h4>중량</h4>
+                    <p>{userData.introduction}</p>
+                </InfBlock>
+                <InfBlock>
+                    <h4>가격</h4>
+                    <p>{userData.price}</p>
+                </InfBlock>
+                <InfBlock>
+                    <h4>주의사항</h4>
+                    <p>{userData.price}</p>
+                </InfBlock>
+            </Body>
         </Body>
         </>
     );

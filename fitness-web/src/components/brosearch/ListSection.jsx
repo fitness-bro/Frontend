@@ -48,10 +48,10 @@ const ListSection = ({ selectedRegion, selectedSubAddress }) => {
           <div className="UserProfile" key={user.id} onClick={() => handleProfileClick(user.id)}>
             <div className='UserPic'></div>
             <div className="Userinfo">
-              <table>
+              <table className='listTable'>
                 <tr>
-                  <td>{user.name}</td>
-                  <td>{user.age}세 </td>
+                  <td className="Td">{user.name}</td>
+                  <td className="Td">{user.age}세 </td>
                   <td className='lastTd'><StarIcon /> &nbsp; {user.rating}</td>
                 </tr>
               </table>
