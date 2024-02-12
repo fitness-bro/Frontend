@@ -56,7 +56,7 @@
   color: #FF9549;
 }
 
-.titleAndBack button {
+.backBtn {
   border-color: #FF9549;
   background-color: white;
   color: #FF9549;
@@ -65,8 +65,9 @@
   width: 106px;
   height: 46px;
   font-size: 18px;
-  line-height: 21.6px;
   margin-top: 40px;
   cursor: pointer;
   font-size: 15px;
+  margin-left: 20px;
+  z-index: 1;  /* 버튼을 reviewTextarea 위에 위치시키도록 함 */
 }
