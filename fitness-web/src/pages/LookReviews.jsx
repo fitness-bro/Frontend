@@ -11,7 +11,7 @@ export default function LookReviews() {
     const apiUrl = process.env.REACT_APP_API_URL;
     //const coachId = location.state.coachId;
     const coachId=1;
-    // const token=localStorage.getItem("token");
+    const token=localStorage.getItem("token");
 
     useEffect(() => {
 
