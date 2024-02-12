@@ -7,13 +7,12 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // 토큰이 존재하는 경우 true로 설정
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token")); 
-
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   // 로그아웃 처리
   const handleLogout = () => {
-    localStorage.removeItem("key"); // 토큰 제거
+    localStorage.removeItem("token"); // 토큰 제거
     setIsLoggedIn(false); // 로그인 상태 변경
   };
 
