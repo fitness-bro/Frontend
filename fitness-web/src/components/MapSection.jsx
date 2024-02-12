@@ -47,7 +47,7 @@ const MapSection = ({ userList, onMarkerClick }) => {
 
               const markerImageSelected = new kakao.maps.MarkerImage(
                 mapmarkerSelected,
-                new kakao.maps.Size(54, 54),
+                new kakao.maps.Size(46, 46),
                 { offset: new kakao.maps.Point(27, 54) }
               );
 
