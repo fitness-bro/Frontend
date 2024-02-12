@@ -2,8 +2,13 @@ import {React,useState,useEffect} from "react";
 import { InfBlock,InfLine,Body} from "./Profile.style";
 import ProfileHeader from "../components/header/ProfileHeader";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 export default function Profile(){
+  const apiUrl = process.env.REACT_APP_API_URL;
+  //const location = useLocation();
+    //const coachId = location.state.coachId;
+    const coachId=1;
 
     const [userData, setUserData] = useState({
       introduction: "",
@@ -12,11 +17,10 @@ export default function Profile(){
       address:""
     });
     
-      useEffect(() => {
-        const coachId = 2;  // 예: 123
-        const apiUrl="http://dev.fitness-bro.pro/";
-          axios.get(`${apiUrl}coaches/${coachId}/info`)
-          
+      useEffect(() => { 
+        axios.get(
+          `${apiUrl}/coaches/${coachId}/info`
+          )
           .then(response => {
             const data = response.data;
             console.log("API 응답:", response);
@@ -41,8 +45,7 @@ export default function Profile(){
     return(
         <>
         <Body>
-        <Body>
-                <ProfileHeader />
+                <ProfileHeader id={coachId}/>
                 <InfLine>{userData.introduction}</InfLine>
                 <InfBlock>
                     <h4>위치</h4>
@@ -64,7 +67,6 @@ export default function Profile(){
                     <h4>주의사항</h4>
                     <p>{userData.price}</p>
                 </InfBlock>
-            </Body>
         </Body>
         </>
     );

@@ -1,27 +1,54 @@
-import {React,useState} from "react";
-import {Body,ReviewBlock} from "./LookReviews.style";
+import { React, useState, useEffect } from "react";
+import { Body, ReviewBlock } from "./LookReviews.style";
 import Header from "../components/header/ProfileHeader";
 import reviewerImg from "../img/profile.jpg";
+import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
 
-export default function LookReviews(){
+export default function LookReviews() {
+    const [reviews, setReviews] = useState([]);
+    const [error, setError] = useState(null);
+    const apiUrl = process.env.REACT_APP_API_URL;
+    //const coachId = location.state.coachId;
+    const coachId=1;
+    // const token=localStorage.getItem("token");
 
-    const [review]=useState([1,2,3,4,5])
+    useEffect(() => {
 
+        axios.get(`${apiUrl}/coaches/reviews`,{
+            headers: {
+                Authorization: `Bearer ${token}` // 토큰을 헤더에 추가
+            }
+        })
+            .then(response => {
+                const data = response.data;
+                console.log("API 응답:", data);
 
-    return(
-        <Body>
-            <Header/>
-            {review.map(function(item){
-                    return(
-                        <ReviewBlock>
-                            <img src={reviewerImg} alt="리뷰자 프로필 이미지" />
-                                <h4>2023.05.09</h4>
-                                <p>{item}</p>
-                            </ReviewBlock>
-                    )
-                })
+                if (data.isSuccess) {
+                    setReviews([data.result]); // 서버에서 받아온 데이터를 배열로 감싸서 설정
+                } else {
+                    setError(data.message);
                 }
-                
+            })
+            .catch(error => {
+                console.error("API 요청 중 오류 발생:", error);
+                console.error("에러 상세 정보:", error.response);
+            });
+    }, []);
+
+    return (
+        <Body>
+            <Header id={coachId}/>
+            {error && <p>Error: {error}</p>}
+            {reviews && reviews.map((review, index) => (
+                <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}}>
+                <ReviewBlock key={index}>
+                    <img src={review.pictureURL} alt="리뷰자 프로필 이미지" />
+                    <h4>{review.nickname}</h4>
+                    <p>{review.content}</p>
+                </ReviewBlock>
+                </Link>
+            ))}
         </Body>
     );
-}  
+}

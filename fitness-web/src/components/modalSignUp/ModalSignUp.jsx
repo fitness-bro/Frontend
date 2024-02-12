@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModalButton, ModalContainer, ModalOverlay } from './ModalSignUp.style';
+import { ModalButton, ModalContainer, ModalOverlay,ButtonWrap } from './ModalSignUp.style';
 import SocialKakao from '../login/SocialKakao';
 import SocialNaver from '../login/SocialNaver';
 import SocialGoogle from '../login/SocialGoogle';
@@ -12,9 +12,11 @@ return (
             <ModalContainer>
                     <img src={loginLogo}/>
                     <h2>로그인</h2>
+                    <ButtonWrap>
                     <SocialKakao></SocialKakao>
                     <SocialNaver></SocialNaver>
                     <SocialGoogle></SocialGoogle>
+                    </ButtonWrap>
                     <ModalButton onClick={closeModal}>닫기</ModalButton>
             </ModalContainer>
     </div>
