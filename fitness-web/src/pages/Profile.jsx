@@ -4,7 +4,11 @@ import ProfileHeader from "../components/header/ProfileHeader";
 import axios from "axios";
 
 export default function Profile(){
-
+  const apiUrl = process.env.REACT_APP_API_URL;
+  //const location = useLocation();
+    //const coachId = location.state.coachId;
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzA4ODgsImV4cCI6MTcwNzk3NDQ4OH0.eUCRtidXwPcyM5VzPvCaI_jAMDT6_IA4V3Vx3h5Nehc';
+const coachId=552;
     const [userData, setUserData] = useState({
       introduction: "",
       price: 0,
@@ -12,11 +16,14 @@ export default function Profile(){
       address:""
     });
     
-      useEffect(() => {
-        const coachId = 2;  // 예: 123
-        const apiUrl="http://dev.fitness-bro.pro/";
-          axios.get(`${apiUrl}coaches/${coachId}/info`)
-          
+      useEffect(() => { 
+        axios.get(
+          `${apiUrl}/coaches/${coachId}/info`,
+          {
+            headers: {
+                'token': token
+            }
+        })
           .then(response => {
             const data = response.data;
             console.log("API 응답:", response);
@@ -41,8 +48,7 @@ export default function Profile(){
     return(
         <>
         <Body>
-        <Body>
-                <ProfileHeader />
+                <ProfileHeader id={coachId}/>
                 <InfLine>{userData.introduction}</InfLine>
                 <InfBlock>
                     <h4>위치</h4>
@@ -64,7 +70,6 @@ export default function Profile(){
                     <h4>주의사항</h4>
                     <p>{userData.price}</p>
                 </InfBlock>
-            </Body>
         </Body>
         </>
     );
