@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './SearchSection.css';
 import { FaSearch } from 'react-icons/fa';
 
-const SearchSection = ({ map, onRegionSelect }) => {
+const SearchSection = ({ onRegionSelect, userList }) => {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedSubAddress, setSelectedSubAddress] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -18,21 +18,28 @@ const SearchSection = ({ map, onRegionSelect }) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      for (const region of regions) {
-        if (region.includes(searchKeyword)) {
-          setSelectedRegion(region);
-          setSelectedSubAddress(null);
-          setSearchKeyword('');
-          break;
-        }
-      }
+      // 엔터를 누르면 검색어로 지역 선택
+      handleRegionSearch(searchKeyword);
+    }
+  };
+
+  const handleRegionSearch = (searchKeyword) => {
+    const matchedRegion = userList.find((user) => user.region.includes(searchKeyword))?.region;
+
+    if (matchedRegion) {
+      setSelectedRegion(matchedRegion);
+      setSelectedSubAddress(null);
+      setSearchKeyword('');
+
+      // 검색어로 지역이 선택되었을 때, 상위 컴포넌트로 선택한 지역 정보 전달
+      onRegionSelect(matchedRegion, null);
     }
   };
 
   const regions = ['서울특별시', '부산광역시', '대구광역시', '인천광역시', '광주광역시', '대전광역시', '울산광역시', '세종특별자치시', '경기도'];
 
   const subAddresses = {
-    서울특별시: ['종로구', '중구', '용산구', '성동구'],
+    서울특별시: ['종로구', '중구', '용산구', '성동구', '강남구', '마포구'],
     부산광역시: ['중구', '서구', '동구', '영도구'],
     대구광역시: ['중구', '동구', '서구', '남구', '북구', '수성구', '달서구', '달성군'],
   };
