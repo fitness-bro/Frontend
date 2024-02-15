@@ -11,7 +11,7 @@ const ParentComponent = () => {
         connected: false,
         message: ''
     });
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzA4ODgsImV4cCI6MTcwNzk3NDQ4OH0.eUCRtidXwPcyM5VzPvCaI_jAMDT6_IA4V3Vx3h5Nehc';
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzcxODYsImV4cCI6MTcwNzk4MDc4Nn0.7UmxJGWzFPwFdP1bz44WPaN8wFl84UScDD6vf2FhRTo';
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);

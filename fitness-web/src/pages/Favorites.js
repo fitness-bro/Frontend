@@ -1,15 +1,15 @@
-import './Favorites.css';
-import '../components/CommonStyle.css';
-import DefaultImage from '../components/review/DefaultImage';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import DefaultImage from '../components/review/DefaultImage';
 
 // 찜한 형 리스트
+
 const Favorites = () => {
     const navigate = useNavigate();
 
     const apiUrl="http://dev.fitness-bro.pro/";
+
 
     const [userData, setUserData] = useState([]);
 

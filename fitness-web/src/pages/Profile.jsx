@@ -2,13 +2,16 @@ import {React,useState,useEffect} from "react";
 import { InfBlock,InfLine,Body} from "./Profile.style";
 import ProfileHeader from "../components/header/ProfileHeader";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 export default function Profile(){
   const apiUrl = process.env.REACT_APP_API_URL;
   //const location = useLocation();
     //const coachId = location.state.coachId;
+
     const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzA4ODgsImV4cCI6MTcwNzk3NDQ4OH0.eUCRtidXwPcyM5VzPvCaI_jAMDT6_IA4V3Vx3h5Nehc';
 const coachId=552;
+
     const [userData, setUserData] = useState({
       introduction: "",
       price: 0,
@@ -24,6 +27,7 @@ const coachId=552;
                 'token': token
             }
         })
+
           .then(response => {
             const data = response.data;
             console.log("API 응답:", response);

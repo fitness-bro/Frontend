@@ -1,52 +1,80 @@
-import './MyCoaches.css';
-import '../components/CommonStyle.css'
+// MyCoaches.js
+
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
+import ToggleMenu from '../components/review/ToggleMenu'; // ToggleMenu import 추가
 
-// 우리 형 성사 리스트 페이지
+const MyCoaches = ({ userId }) => {
+    const navigate = useNavigate();
 
-const MyCoaches = ()=>{
+    const apiUrl = "http://dev.fitness-bro.pro/";
 
-    // 가상의 데이터 배열
-    const dummydata = [
-        { id:1, date: '2023.05.09', coaches: '강동원', profileImage: null},
-        { id:2, date: '2023.05.09', coaches: '송 강', profileImage: null},
-        { id:3, date: '2020.10.20', coaches: '구구콘', profileImage: null},
-    ]
+    const [userData, setUserData] = useState([]);
+
+    useEffect(() => {
+        // userId를 사용하여 API에서 성사된 동네형 리스트 데이터를 가져옵니다.
+        const memberId = 1;
+
+        axios.get(`${apiUrl}match/member/success/${memberId}`)
+            .then((response) => {
+                const data = response.data;
+                console.log("API 응답:", response)
+
+                if (data.isSuccess) {
+                    const results = data.result;
+                    setUserData(results);
+                } else {
+                    console.error("API 요청 실패:", data.message);
+                }
+            })
+            .catch(error => {
+                console.error("API 요청 중 오류 발생:", error);
+                console.error("에러 상세 정보:", error.response);
+            });
+    }, []);
+
+    const onClickBackBtn = () => {
+        navigate(-1);
+    };
 
     return (
         <div className="MyCoaches">
 
             <div className="titleAndBack">
                 <h2>우리 형 성사 리스트</h2>
-                <button>뒤로가기</button>
+                <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
             </div>
 
-            {/* 신청 내역 리스트 */}
+            {/* ToggleMenu에 userData 전달 */}
+            <ToggleMenu userData={userData} onSelectCoach={(coachName) => console.log(coachName)} />
+
+            {/* 성사된 동네형 리스트 */}
             <div className="userList">
                 <ul>
-                    {dummydata.map((dummy) =>(
-                        <li key={dummy.id}>
-                             {/* 프로필 이미지 */}
-                             {dummy.profileImage ? (
-                                <img src={dummy.profileImage} alt="프로필 이미지" className="profileImage" />
+                    {userData.map((item, index) => (
+                        <li key={index}>
+                            {/* 프로필 이미지 */}
+                            {item.profileImage ? (
+                                <img src={item.profileImage} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}
 
                             <div className="info">
                                 {/* 날짜 */}
-                                <p>{dummy.date}</p>
+                                <p>{item.createdAt}</p>
 
-                                {/* 신청인 */}
-                                <p className="detail">{dummy.coaches}</p>
+                                {/* 성사된 동네형 닉네임 */}
+                                <p className="detail">{item.nickname}</p>
                             </div>
-                            
                         </li>
                     ))}
                 </ul>
             </div>
         </div>
-    )
+    );
 }
 
 export default MyCoaches;

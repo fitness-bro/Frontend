@@ -12,10 +12,12 @@ cursor: pointer;
 color: white;
 font-size: 15px;
 font-weight: light;
-padding: 10px 24px;
+padding: 10px 0px;
 margin: 10px;
-align-items: center; 
-justify-content: center; 
+text-align: center;
+align-items:center;
+justify-content:center;
+
 
 >img{
   height:30px;
