@@ -12,7 +12,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const apiUrl = "http://dev.fitness-bro.pro/";
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzcxODYsImV4cCI6MTcwNzk4MDc4Nn0.7UmxJGWzFPwFdP1bz44WPaN8wFl84UScDD6vf2FhRTo';
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzgwNDgsImV4cCI6MTcwNzk4MTY0OH0.OEx1FO7dgtbQidIsxkt0sH5URVy3PMFJHRhhfR12b1w';
 
     
     useEffect(() => {
