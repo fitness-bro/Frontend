@@ -15,9 +15,9 @@ export default function LookReviews() {
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}/coaches/reviews`,{
-            headers: {
-                Authorization: `Bearer ${token}` // 토큰을 헤더에 추가
+        axios.get(`${apiUrl}/coaches/${coachId}/reviews`,{
+            headers:{
+                'token':token
             }
         })
             .then(response => {
@@ -40,14 +40,14 @@ export default function LookReviews() {
         <Body>
             <Header id={coachId}/>
             {error && <p>Error: {error}</p>}
-            {reviews && reviews.map((review, index) => (
-                <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}}>
-                <ReviewBlock key={index}>
-                    <img src={review.pictureURL} alt="리뷰자 프로필 이미지" />
-                    <h4>{review.nickname}</h4>
-                    <p>{review.content}</p>
-                </ReviewBlock>
-                </Link>
+            {reviews && reviews.map((review) => (
+                <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}} key={review.review_id}>
+                    <ReviewBlock>
+                        <img src={review.pictureURL} alt="리뷰자 프로필 이미지" />
+                        <h4>{review.nickname}</h4>
+                        <p>{review.content}</p>
+                    </ReviewBlock>
+                 </Link>
             ))}
         </Body>
     );

@@ -16,7 +16,11 @@ export default function Photos(){
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}/coaches/album`)
+        axios.get(`${apiUrl}/coaches/album/${coachId}`,{
+            headers:{
+                'token':token
+            }
+        })
             .then(response => {
                 const data = response.data;
                 console.log("API 응답:", data);

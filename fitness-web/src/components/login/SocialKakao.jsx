@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import kakaoImg from '../../img/kakaotalk.svg'
+import axios from "axios";
 
 const Button=styled.button`
 background-color: rgba(0, 0, 0, 0);
@@ -39,9 +40,21 @@ const SocialKakao=()=>{
     // oauth 요청 URL
 
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
-    const handleLogin = ()=>{
-        window.location.href = kakaoURL
-    }
+
+    const handleLogin = async () => {
+      try {
+        // 로그인 요청
+        window.location.href = kakaoURL;
+    
+        // 토큰 발급 후의 처리
+        // 이 부분은 서버가 아닌 클라이언트 측에서 처리합니다.
+        // 토큰 발급 후에 바로 원하는 경로로 안내할 수 있습니다.
+        window.location.href = "http://localhost:3000/"; // 사용자를 원하는 경로로 안내
+      } catch (error) {
+        console.error("로그인 후 처리 중 에러:", error);
+        // 에러 처리 로직 추가
+      }
+    };
     return(
     <>
     <Button onClick={handleLogin}>

@@ -34,7 +34,7 @@ export default function ProfileHeader(props) {
             if (data.isSuccess) {
               setUserData({
                 name:data.result.nickname,
-                age:data.result.age,
+                // age:data.result.age,
                 rating:data.result.rating,
                 coachPicture:data.result.coachPicture
               });
