@@ -14,7 +14,7 @@ const ReviewList = () => {
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
-        const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxMzMzNzMsImV4cCI6MTcwODEzNjk3M30.WLDnHmmBAa5BGCwfSUSI8nVfOfnUaK1BmvS-InPv6xw';
+        const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImtpdGM2N0BuYXRlLmNvbSIsImlhdCI6MTcwODE0MDQyNCwiZXhwIjoxNzA4MTQ0MDI0fQ.hq-qa0gbYivAlD_ju2h5dXw-qEr5gs3AWjgxDr1JdyE';
 
         axios.get(`${apiUrl}members/reviews`, {
             headers: {

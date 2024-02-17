@@ -19,7 +19,7 @@ const Reviews = () => {
     
     useEffect(() => {
     // 멤버 토큰
-    const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxMzMzNzMsImV4cCI6MTcwODEzNjk3M30.WLDnHmmBAa5BGCwfSUSI8nVfOfnUaK1BmvS-InPv6xw'
+    const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxNzczMzUsImV4cCI6MTcwODE4MDkzNX0.TeFBX3hKXATmtV133VVi1OXWrp58VmllZfRVly47VfM'
 
         axios.get(`${apiUrl}match/member/success`, {
             headers: {
@@ -44,6 +44,7 @@ const Reviews = () => {
     }, []);
 
     const handleCoachSelect = (coachNickname) => {
+        console.log("선택된 코치:", coachNickname);
         setCoachNickname(coachNickname); // 선택한 코치의 닉네임 업데이트
     };
 
@@ -57,19 +58,15 @@ const Reviews = () => {
             return;
         }
     
-        const newReview = {
-            nickname: coachNickname, // 선택한 코치의 닉네임 사용
-            rating: rating,
-            contents: content
-        };
+        const formData = new FormData();
+        formData.append('nickname', coachNickname);
+        formData.append('rating', rating);
+        formData.append('contents', content);
+        const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxNDkyNzAsImV4cCI6MTcwODE1Mjg3MH0.a_OkGyL1Yynzg0BapgGzfQEQGXtzO6677Afi0AkPReo'
 
-    
-
-        const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxMzMzNzMsImV4cCI6MTcwODEzNjk3M30.WLDnHmmBAa5BGCwfSUSI8nVfOfnUaK1BmvS-InPv6xw'
-
-        axios.post(`${apiUrl}members/reviews`, newReview, {
+        axios.post(`${apiUrl}members/reviews`, formData, {
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
                 'token': token
             }
         })

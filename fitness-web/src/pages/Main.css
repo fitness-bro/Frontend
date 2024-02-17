@@ -29,21 +29,9 @@
 }
 .Sentence {
     font-size: 40px;
-    color: #643E23;
+    color: white;
     font-weight: 700;
-    margin-left: 50px;
-}
-.white1,.white2, .white3, .white4 {
-    width:590px;
-    height: 20px;
-    background-color: white;
-    margin-top: 18px;
-  
-}
-.WhiteContainer {
-    position:absolute;
-    margin-top: 290px;
-    margin-left: 50px;
-    
+    margin-left: 120px;
+    margin-top: 300px;
 }
 

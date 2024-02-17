@@ -3,6 +3,7 @@ import './App.css';
 import MyPageCoach from './pages/MyPageCoach.jsx';
 import MyPageMember from './pages/MyPageMember.jsx';
 import RegistrationCoach from './pages/RegistrationCoach.jsx';
+import RegistrationMember from './pages/RegistrationMember.jsx';
 import ModifyingCoach from './pages/ModifyingCoach.jsx';
 import ModifyingMember from './pages/ModifyingMember.jsx';
 import Header from "./components/header/Header.jsx";
@@ -35,6 +36,7 @@ function App() {
           <Route path="/MyPageCoach" element={<MyPageCoach />} />
           <Route path="/MyPageMember" element={<MyPageMember />} />
           <Route path="/RegistrationCoach" element={<RegistrationCoach />} />
+          <Route path="/RegistrationMember" element={<RegistrationMember />} />
           <Route path="/ModifyingCoach" element={<ModifyingCoach/>} />
           <Route path="/ModifyingMember" element={<ModifyingMember/>} />
           <Route path="/profile" element={<Profile />} />

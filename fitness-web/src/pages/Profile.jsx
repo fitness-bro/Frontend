@@ -8,7 +8,9 @@ export default function Profile(){
   const apiUrl = process.env.REACT_APP_API_URL;
   //const location = useLocation();
     //const coachId = location.state.coachId;
-    const coachId=1;
+
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzA4ODgsImV4cCI6MTcwNzk3NDQ4OH0.eUCRtidXwPcyM5VzPvCaI_jAMDT6_IA4V3Vx3h5Nehc';
+const coachId=552;
 
     const [userData, setUserData] = useState({
       introduction: "",
@@ -19,8 +21,13 @@ export default function Profile(){
     
       useEffect(() => { 
         axios.get(
-          `${apiUrl}/coaches/${coachId}/info`
-          )
+          `${apiUrl}/coaches/${coachId}/info`,
+          {
+            headers: {
+                'token': token
+            }
+        })
+
           .then(response => {
             const data = response.data;
             console.log("API 응답:", response);
