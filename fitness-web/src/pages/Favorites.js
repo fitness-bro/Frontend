@@ -2,23 +2,27 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 // 찜한 형 리스트
 
 const Favorites = () => {
     const navigate = useNavigate();
 
-    const apiUrl="http://dev.fitness-bro.pro/";
+    const apiUrl="https://dev.fitness-bro.pro/";
 
 
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}members/favorites`)
+        const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5OTM1MDksImV4cCI6MTcwNzk5NzEwOX0.AIQ9REDBYdVdXI5u9q-xeMXfGE7A_N7_uTDPFFvcg1k'
+
+        axios.get(`${apiUrl}members/favorites`, {
+            headers: {
+                'token': token
+            }
+        })
+        
             .then(response => {
                 const data = response.data;
                 console.log("API 응답:", response);

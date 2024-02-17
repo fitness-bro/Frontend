@@ -14,25 +14,28 @@ const ReviewList = () => {
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
-        // userId를 사용하여 API에서 후기 목록 데이터를 가져옴
-        const userId=1;
+        const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxMzMzNzMsImV4cCI6MTcwODEzNjk3M30.WLDnHmmBAa5BGCwfSUSI8nVfOfnUaK1BmvS-InPv6xw';
 
-        axios.get(`${apiUrl}members/${userId}/reviews`)
-            .then(response => {
-                const data = response.data;
-                console.log("API 응답:", response);
+        axios.get(`${apiUrl}members/reviews`, {
+            headers: {
+                'token': token
+            }
+        })
+        .then(response => {
+            const data = response.data;
+            console.log("API 응답:", response);
 
-                if (data.isSuccess) {
-                        const results=data.result;
-                        setUserData(results);
-                } else {
-                    console.error("API 요청 실패:", data.message);
-                }
-            })
-            .catch(error => {
-                console.error("API 요청 중 오류 발생:", error);
-                console.error("에러 상세 정보:", error.response);
-            });
+            if (data.isSuccess) {
+                const results = data.result;
+                setUserData(results);
+            } else {
+                console.error("API 요청 실패:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("API 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+        });
     }, []);
 
     const handleWriteReview = () => {
@@ -41,6 +44,10 @@ const ReviewList = () => {
 
     const onClickBackBtn = () => {
         navigate(-1);
+    };
+
+    const goToReviewDetail = (review_id) => { // /review-detail로 review_id를 props로 넘겨주기
+        navigate("/review-detail",{state:{reviewId:review_id}});
     };
 
     return (
@@ -57,7 +64,7 @@ const ReviewList = () => {
             <div className="userList">
                 <ul>
                     {userData.map((item, index) => (
-                        <li key={index}>
+                        <li key={index} onClick={() => goToReviewDetail(item.review_id)}>
                             {/* 프로필 이미지 */}
                             {item.profileImage ? (
                                 <img src={item.profileImage} alt="프로필 이미지" className="profileImage" />

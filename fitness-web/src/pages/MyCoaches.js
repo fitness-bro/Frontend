@@ -4,40 +4,52 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
-import ToggleMenu from '../components/review/ToggleMenu'; // ToggleMenu import 추가
+import ToggleMenu from '../components/review/ToggleMenu';
 
-const MyCoaches = ({ userId }) => {
+// 우리 형 성사 리스트
+
+const MyCoaches = () => {
     const navigate = useNavigate();
 
-    const apiUrl = "http://dev.fitness-bro.pro/";
+    const apiUrl = "https://dev.fitness-bro.pro/";
+
+    const [coachNicknames, setCoachNicknames] = useState([]); // 코치 닉네임 목록 상태 추가
 
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
-        // userId를 사용하여 API에서 성사된 동네형 리스트 데이터를 가져옵니다.
-        const memberId = 1;
 
-        axios.get(`${apiUrl}match/member/success/${memberId}`)
-            .then((response) => {
-                const data = response.data;
-                console.log("API 응답:", response)
+        const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxMzMzNzMsImV4cCI6MTcwODEzNjk3M30.WLDnHmmBAa5BGCwfSUSI8nVfOfnUaK1BmvS-InPv6xw'
 
-                if (data.isSuccess) {
-                    const results = data.result;
-                    setUserData(results);
-                } else {
-                    console.error("API 요청 실패:", data.message);
-                }
+        axios.get(`${apiUrl}match/member/success`, {
+            headers: {
+                'token': token
+            }
+        })
+        .then((response) => {
+            const data = response.data;
+            console.log("API 응답:", response)
+
+            if (data.isSuccess) {
+                const results = data.result;
+                setUserData(results);
+
+                const nicknames = results.map(coach => coach.nickname); // 코치 닉네임만 추출
+                setCoachNicknames(nicknames); // 코치 닉네임 목록 설정
+            } else {
+                console.error("API 요청 실패:", data.message);
+            }
             })
-            .catch(error => {
-                console.error("API 요청 중 오류 발생:", error);
-                console.error("에러 상세 정보:", error.response);
-            });
+        .catch(error => {
+            console.error("API 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+        });
     }, []);
 
     const onClickBackBtn = () => {
         navigate(-1);
     };
+
 
     return (
         <div className="MyCoaches">
@@ -47,13 +59,10 @@ const MyCoaches = ({ userId }) => {
                 <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
             </div>
 
-            {/* ToggleMenu에 userData 전달 */}
-            <ToggleMenu userData={userData} onSelectCoach={(coachName) => console.log(coachName)} />
-
             {/* 성사된 동네형 리스트 */}
             <div className="userList">
                 <ul>
-                    {userData.map((item, index) => (
+                    {userData.length > 0 && userData.map((item, index) => (
                         <li key={index}>
                             {/* 프로필 이미지 */}
                             {item.profileImage ? (
@@ -72,7 +81,10 @@ const MyCoaches = ({ userId }) => {
                         </li>
                     ))}
                 </ul>
+                
             </div>
+            {/* ToggleMenu 컴포넌트에 userData의 닉네임 목록 전달 (후기작성페이지에서만 렌더링) */}
+             {window.location.pathname === '/reviews' && <ToggleMenu coachNicknames={userData.map(coach => coach.nickname)} />}
         </div>
     );
 }

@@ -1,5 +1,4 @@
-// Reviews.js
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './Reviews.css';
 import ImageUtils from "../components/ImageUtils";
 import { useNavigate } from "react-router-dom";
@@ -7,19 +6,48 @@ import StarRating from "../components/review/StarRating";
 import ToggleMenu from '../components/review/ToggleMenu'
 import axios from "axios";
 
+// 후기작성페이지2 (코치에 대한 후기를 작성하는 페이지)
+
 const Reviews = () => {
     const navigate = useNavigate();
-    const apiUrl = "http://dev.fitness-bro.pro/";
+    const apiUrl = "https://dev.fitness-bro.pro/";
 
-    const [coachNickname, setCoachNickname] = useState(""); // 선택한 코치의 닉네임 상태 추가
+    const [coachNickname, setCoachNickname] = useState("");
+    const [coachNicknames, setCoachNicknames] = useState([]); // 선택한 코치의 닉네임 상태 추가
     const [rating, setRating] = useState(0);
     const [content, setContent] = useState("");
+    
+    useEffect(() => {
+    // 멤버 토큰
+    const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxMzMzNzMsImV4cCI6MTcwODEzNjk3M30.WLDnHmmBAa5BGCwfSUSI8nVfOfnUaK1BmvS-InPv6xw'
+
+        axios.get(`${apiUrl}match/member/success`, {
+            headers: {
+                'token': token
+            }
+        })
+        .then((response) => {
+            const data = response.data;
+            console.log("API 응답:", response)
+
+            if (data.isSuccess) {
+                const nicknames = data.result.map(coach => coach.nickname);
+                setCoachNicknames(nicknames); 
+            } else {
+                console.error("API 요청 실패:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("API 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+        });
+    }, []);
 
     const handleCoachSelect = (coachNickname) => {
         setCoachNickname(coachNickname); // 선택한 코치의 닉네임 업데이트
     };
 
-    const handleSubmit = (rolepost) => {
+    const handleSubmit = () => {
         if (rating === 0) {
             alert('별점을 선택해주세요.');
             return;
@@ -34,17 +62,17 @@ const Reviews = () => {
             rating: rating,
             contents: content
         };
+
     
-        // 로그인 후 토큰을 받아오는 요청
-        axios.post(
-            `${apiUrl}/login/select`,
-        ).then(response => {
-            // 토큰을 받아왔으면 후기 작성 요청 보냄
-            axios.post(`${apiUrl}members/reviews`, newReview, {
-                headers: {
-                    'Content-Type': 'application/json' // JSON 형식으로 요청
-                }
-            })
+
+        const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxMzMzNzMsImV4cCI6MTcwODEzNjk3M30.WLDnHmmBAa5BGCwfSUSI8nVfOfnUaK1BmvS-InPv6xw'
+
+        axios.post(`${apiUrl}members/reviews`, newReview, {
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
             .then(response => {
                 console.log("후기가 성공적으로 작성되었습니다.", response);
                 navigate('/review-list');
@@ -52,11 +80,7 @@ const Reviews = () => {
             .catch(error => {
                 console.error("후기 작성 중 오류 발생:", error);
             });
-        }).catch(error => {
-            console.error("토큰 받아오기 중 오류 발생:", error);
-        });
     };
-    
 
     // 별점 설정 함수
     const handleStarClick = (rating) => {
@@ -83,7 +107,9 @@ const Reviews = () => {
             <div className="start-toggle">
 
                 {/* 토글 메뉴 */}
-                <div className="coach-toggle"><ToggleMenu onSelectCoach={handleCoachSelect} /></div>
+                <div className="coach-toggle">
+                    <ToggleMenu coachNicknames={coachNicknames} onCoachSelect={handleCoachSelect}/>
+                </div>
 
                 {/* 별점 주기 */}
                 <div className="stars-for-reviews">
@@ -102,7 +128,7 @@ const Reviews = () => {
 
                     {/* 글자수 세기 */}
                     <div className="charNum">
-                        <p>{1000 - content.length}/1000</p>
+                        <p>{content.length}/1000</p>
                     </div>
                 </div>
 

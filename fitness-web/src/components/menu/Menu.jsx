@@ -16,6 +16,7 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
     setIsLoggedIn(false); // 로그인 상태 변경
   };
 
+
   return (
     <div>
       <Link to="/search" className={`search ${activeMenu === 'search' ? 'active' : ''}`} onClick={() => handleMenuClick('search')}>
@@ -24,7 +25,7 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
       
       {/* 토큰이 존재하는 경우 로그아웃 버튼 표시 */}
       {isLoggedIn ? (
-        <Link to='/MyPageCoach' className={`mypage ${activeMenu === 'mypage' ? 'active' : ''}`} onClick={() => handleMenuClick('mypage')}>
+        <Link to='/MyPageCoach' className={`mypage ${activeMenu === 'mypage' ? 'active' : ''}`} onClick={() => { handleMenuClick('mypage')}}>
           마이 페이지
         </Link>
       ) : (
