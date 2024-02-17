@@ -16,10 +16,12 @@ const Reviews = () => {
     const [coachNicknames, setCoachNicknames] = useState([]); // 선택한 코치의 닉네임 상태 추가
     const [rating, setRating] = useState(0);
     const [content, setContent] = useState("");
+
+    const [image, setImage] = useState(null); // 선택된 이미지를 저장하는 상태 추가
     
     useEffect(() => {
     // 멤버 토큰
-    const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxNzczMzUsImV4cCI6MTcwODE4MDkzNX0.TeFBX3hKXATmtV133VVi1OXWrp58VmllZfRVly47VfM'
+    const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxODYxOTYsImV4cCI6MTcwODE4OTc5Nn0.f9WrqB8suuuEY03WgfsGrQu-IZwc1DqypKcKlVOPq3U'
 
         axios.get(`${apiUrl}match/member/success`, {
             headers: {
@@ -59,10 +61,15 @@ const Reviews = () => {
         }
     
         const formData = new FormData();
-        formData.append('nickname', coachNickname);
-        formData.append('rating', rating);
-        formData.append('contents', content);
-        const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxNDkyNzAsImV4cCI6MTcwODE1Mjg3MH0.a_OkGyL1Yynzg0BapgGzfQEQGXtzO6677Afi0AkPReo'
+        formData.append('request', JSON.stringify({
+          nickname: coachNickname,
+          rating: rating,
+          contents: content,
+          createdAt: ""
+        }));
+        formData.append('files', image); // 파일 업로드
+
+        const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxODYxOTYsImV4cCI6MTcwODE4OTc5Nn0.f9WrqB8suuuEY03WgfsGrQu-IZwc1DqypKcKlVOPq3U'
 
         axios.post(`${apiUrl}members/reviews`, formData, {
             headers: {
@@ -77,6 +84,10 @@ const Reviews = () => {
             .catch(error => {
                 console.error("후기 작성 중 오류 발생:", error);
             });
+    };
+
+    const handleImageSelected = (imageFile) => {
+        setImage(imageFile); // 이미지 선택 시 호출되는 함수
     };
 
     // 별점 설정 함수
@@ -130,7 +141,7 @@ const Reviews = () => {
                 </div>
 
                 {/* 이미지 처리 */}
-                <ImageUtils />
+                <ImageUtils onImageSelected={handleImageSelected} /> {/* 이미지 선택 컴포넌트 */}
 
                 {/* 후기 작성 버튼 */}
                 <div>
