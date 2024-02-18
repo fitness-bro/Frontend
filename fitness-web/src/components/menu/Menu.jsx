@@ -44,6 +44,7 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
     setUserId(false)
   };
 
+
   return (
     <div>
       <Link to="/search" className={`search ${activeMenu === 'search' ? 'active' : ''}`} onClick={() => handleMenuClick('search')}>

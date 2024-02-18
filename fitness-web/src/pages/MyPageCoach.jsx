@@ -4,7 +4,7 @@ import MemberCoach from '../components/member/MemberCoach';
 
 export default function MyPageCoach(){
 
-    const coachId = 2; 
+    const coachId = 552;
 
     const navigate = useNavigate();
     const goToChattinglist = () => {

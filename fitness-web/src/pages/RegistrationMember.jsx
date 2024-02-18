@@ -7,7 +7,7 @@ export default function RegistrationMember() {
     const apiUrl = "http://dev.fitness-bro.pro/";
   const [nickname, setNickname] = useState("");
   const [residence, setResidence] = useState("");
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzM2NjMsImV4cCI6MTcwNzk3NzI2M30.RGOto2i7ckb4lGHimLdfcklznOWbDf9pg9ZpVyCsjxEyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzA4ODgsImV4cCI6MTcwNzk3NDQ4OH0.eUCRtidXwPcyM5VzPvCaI_jAMDT6_IA4V3Vx3h5Nehc';
+  const token = localStorage.getItem("token");
   const hadleNicknameChange = (e) => setNickname(e.target.value);
   const hadleResidenceChange = (e) => setResidence(e.target.value);
   const inputRef = useRef(null);
@@ -65,7 +65,9 @@ export default function RegistrationMember() {
           <thead>
             <tr>
               <td>
+
                 <div style={textStyle}>내 정보 등록하기</div>
+
               </td>
             </tr>
           </thead>
@@ -130,7 +132,9 @@ export default function RegistrationMember() {
             <tr>
               <td>
                 <button type="submit" className="btn-submit">
+
                   등록 완료하기
+
                 </button>
               </td>
             </tr>

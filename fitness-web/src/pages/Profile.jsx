@@ -8,8 +8,10 @@ export default function Profile(props){
   const apiUrl = process.env.REACT_APP_API_URL;
   //const location = useLocation();
     //const coachId = location.state.coachId;
+
     const token=localStorage.getItem("token");
     const userId=props.userId;
+
 
     const [userData, setUserData] = useState({
       introduction: "",
@@ -20,7 +22,9 @@ export default function Profile(props){
     
       useEffect(() => { 
         axios.get(
+
           `${apiUrl}/coaches/${userId}/info`,
+
           {
             headers: {
                 'token': token

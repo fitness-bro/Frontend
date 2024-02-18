@@ -21,7 +21,8 @@ const MapSection = ({ userList, onMarkerClick }) => {
         const container = mapContainer.current;
         const options = {
           center: new kakao.maps.LatLng(37.4966645, 127.0629804),
-          level: 9,
+
+          level: 10,
         };
 
         const map = new kakao.maps.Map(container, options);
@@ -35,6 +36,7 @@ const MapSection = ({ userList, onMarkerClick }) => {
         userList.forEach((user) => {
           const address = user.region + ' ' + user.subAddress + ' ' + user.detailAddress;
 
+
           geocoder.addressSearch(address, (result, status) => {
             if (status === kakao.maps.services.Status.OK) {
               const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -44,6 +46,7 @@ const MapSection = ({ userList, onMarkerClick }) => {
                 new kakao.maps.Size(54, 54),
                 { offset: new kakao.maps.Point(27, 54) }
               );
+
 
               const markerImageSelected = new kakao.maps.MarkerImage(
                 mapmarkerSelected,
@@ -59,19 +62,17 @@ const MapSection = ({ userList, onMarkerClick }) => {
               kakao.maps.event.addListener(marker, 'click', function () {
                 if (onMarkerClick) {
                   if (selectedMarker.current && selectedMarker.current !== marker) {
-                    // 이전에 선택된 마커가 있고, 현재 클릭한 마커가 다르면 이전 마커를 원래대로 돌림
                     selectedMarker.current.setImage(markerImage);
                   }
 
-                  onMarkerClick(user.id);
-
-                  // 현재 클릭한 마커가 이전에 선택된 마커와 같으면 이미지를 원래대로 돌리고 리스트 섹션에 있는 유저 프로필의 색도 원래대로 돌림
+                  onMarkerClick(user.coachId);
                   if (selectedMarker.current === marker) {
                     selectedMarker.current.setImage(markerImage);
-                    selectedMarker.current = null;  // 선택 해제
+                    selectedMarker.current = null;
                   } else {
                     marker.setImage(markerImageSelected);
-                    selectedMarker.current = marker;  // 현재 클릭한 마커를 선택
+                    selectedMarker.current = marker;
+
                   }
                 }
               });

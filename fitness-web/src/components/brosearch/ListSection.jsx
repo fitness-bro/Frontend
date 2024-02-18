@@ -1,4 +1,3 @@
-// ListSection.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ListSection.css';
@@ -9,6 +8,17 @@ const StarIcon = () => {
 };
 
 const ListSection = ({ userList, selectedRegion, selectedSubAddress, selectedUserId }) => {
+  // userList가 배열이 아니라면 빈 배열을 반환
+  const users = Array.isArray(userList) ? userList : [];
+
+  // 전체 유저 리스트 또는 선택한 지역의 유저 리스트를 생성
+  const filteredList = users.filter((user) => {
+    const regionMatch = !selectedRegion || user.region === selectedRegion;
+    const subAddressMatch = !selectedSubAddress || user.subAddress === selectedSubAddress;
+    return regionMatch && subAddressMatch;
+  });
+
+
   const navigate = useNavigate();
 
   const filteredUsers = () => {
@@ -24,29 +34,33 @@ const ListSection = ({ userList, selectedRegion, selectedSubAddress, selectedUse
   };
 
   const handleProfileClick = (userId) => {
+
     navigate(`/profile`);
   };
 
   return (
     <>
-      <div style={{ color: '#ff9549', marginLeft: '19.5%', fontSize: '19px', fontWeight: 'bold', marginTop: '-350px', padding: '10px' }}>
+      <div style={{ color: '#ff9549', marginLeft: '19.5%', fontSize: '19px', fontWeight: 'bold', marginTop: '-410px', padding: '10px', paddingBottom:'30px' }}>
         동네형 리스트
       </div>
-      <div className="ListContainer" style={{ width: '49vh', height: '36vh', marginLeft: '18.9%', backgroundColor: '#643e23' }}>
-        {filteredUsers().map((user) => (
+      <div className="ListContainer" style={{ width: '49vh', height: '40vh', marginLeft: '18.9%', backgroundColor: '#643e23' }}>
+        {filteredList.map((user) => (
           <div
-            className={`UserProfile ${selectedUserId === user.id ? 'clicked' : ''}`}
-            key={user.id}
-            onClick={() => handleProfileClick(user.id)}
+            className={`UserProfile ${selectedUserId === user.coachId ? 'clicked' : ''}`}
+            key={user.coachId}
+            onClick={() => handleProfileClick(user.coachId)}
+
           >
             <div className='UserPic'></div>
             <div className="Userinfo">
-              <table className='listTable'>
-                <tr>
-                  <td className="Td">{user.name}</td>
-                  <td className="Td">{user.age}세 </td>
-                  <td className='lastTd'><StarIcon /> &nbsp; {user.rating}</td>
-                </tr>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>{user.nickname}</td>
+                    <td>{user.age}세 </td>
+                    <td className='lastTd'><StarIcon /> &nbsp; {user.rating}</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>

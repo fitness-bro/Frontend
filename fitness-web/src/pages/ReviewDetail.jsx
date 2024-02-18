@@ -5,17 +5,20 @@ import './ReviewDetail.css'
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useLocation } from 'react-router-dom';
 
 // 받은 후기 상세보기
 
 const ReviewDetail = () => {
-    const apiUrl = "http://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
     
     const [userData, setUserData] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    const location = useLocation();
+    const reviewId = location.state.reviewId;
+
     useEffect(() => {
-        const reviewId = 303;
 
         axios.get(`${apiUrl}coaches/reviews/${reviewId}`)
             .then((response) => {
@@ -33,16 +36,16 @@ const ReviewDetail = () => {
                 console.error("API 요청 중 오류 발생:", error);
                 console.error("에러 상세 정보:", error.response);
             });
-    }, []);
+    }, [reviewId]);
 
     const handlePrev = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? userData.pictureURLs.length - 1 : prevIndex - 1));
     };
-
+      
     const handleNext = () => {
         setCurrentIndex((prevIndex) => (prevIndex === userData.pictureURLs.length - 1 ? 0 : prevIndex + 1));
     };
-
+    
     const navigate = useNavigate();
 
     const onClickBackBtn = () => {
@@ -66,6 +69,12 @@ const ReviewDetail = () => {
         ));
     };
 
+    const renderImages = () => {
+        return userData.pictureURLs.map((url, index) => (
+            <img key={index} src={url} alt={`${index}`} className={index === currentIndex ? 'active' : ''} />
+        ));
+    };
+
     return (
         <div className="ReviewDetail">
 
@@ -82,7 +91,7 @@ const ReviewDetail = () => {
                         </button>
 
                         {userData.pictureURLs && userData.pictureURLs.length > 0 ? (
-                            <img src={userData.pictureURLs[currentIndex]} alt="이미지 없음" />
+                            renderImages()
                         ) : (
                             <Icon className="clipIcon" icon="mdi:paperclip" />
                         )}

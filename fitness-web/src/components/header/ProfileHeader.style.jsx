@@ -117,3 +117,28 @@ export const RatingWrap = styled.div`
     width: 30px;
   }
 `;
+
+export const Requirechat = styled.div`
+  display: flex;
+  
+`
+
+export const Requirebtn = styled.div`
+  width: 80px;
+  height: 15px;
+  padding: 8px 10px 8px 10px;
+  border-radius: 20px;
+  font-size:14px;
+  color:rgba(255, 149, 73, 1);
+  margin: 0 3px 0 3px;
+  font-weight:bold;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgba(255, 149, 73, 1);
+  position: absolute;
+  right: 123px;
+  top: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor:pointer;
+`

@@ -12,8 +12,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const apiUrl = "http://dev.fitness-bro.pro/";
-
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxNzczMzUsImV4cCI6MTcwODE4MDkzNX0.TeFBX3hKXATmtV133VVi1OXWrp58VmllZfRVly47VfM';
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNlb2t3aGFuMTIzQG5hdmVyLmNvbSIsImlhdCI6MTcwODE0MTAzNiwiZXhwIjoxNzA4MTQ0NjM2fQ.aVERbQdbt5b91mY2DpAsShh0ka_vrpKgq4Nb34JsQjQ';
 
     useEffect(() => {
         
@@ -48,9 +47,8 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
             setPrivateChats(new Map(privateChats));
         }
     }
-
     useEffect(() => {
-        axios.get(`${apiUrl}members/chatrooms`, {
+        axios.get(`${apiUrl}coaches/chatrooms`, {
             headers: {
                 'token': token
             }
@@ -84,21 +82,18 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
 
     const sendPrivateValue = async () => {
         if (stompClient) {
-            const chatMessage = {
+            var chatMessage = {
                 chatRoomId: tab,
                 sender: userData.username,
                 message: userData.message,
             };
-            const updatedPrivateChats = new Map(privateChats);
-            const chatMessages = [...updatedPrivateChats.get(tab), chatMessage]; // Create a new array with the new message
-            updatedPrivateChats.set(tab, chatMessages); // Update the map with the new array
-    
-            setPrivateChats(updatedPrivateChats); // Update the state with the new map
+            privateChats.get(tab).push(chatMessage);
+            setPrivateChats(new Map(privateChats));
             stompClient.send("/pub/send", {}, JSON.stringify(chatMessage));
             setUserData({ ...userData, "message": "" });
-        }
-    };
 
+        }
+    }
 
     const handleOnKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -129,6 +124,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         return null;
     }
 
+
     return (
         <div className="modal">
             <div
@@ -149,7 +145,6 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
                         </li>
                     </ul>
                 </div>
-
                 
                 {tab !== "CHATROOM" && (
     <div className="chat-content">

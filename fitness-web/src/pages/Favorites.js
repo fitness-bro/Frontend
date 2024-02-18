@@ -8,14 +8,21 @@ import DefaultImage from '../components/review/DefaultImage';
 const Favorites = () => {
     const navigate = useNavigate();
 
-    const apiUrl="http://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
 
 
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}members/favorites`)
+        const token = localStorage.getItem("token");
+
+        axios.get(`${apiUrl}members/favorites`, {
+            headers: {
+                'token': token
+            }
+        })
+        
             .then(response => {
                 const data = response.data;
                 console.log("API 응답:", response);
@@ -50,8 +57,8 @@ const Favorites = () => {
                     {userData.map((item, index) => (
                         <li key={index}>
                             {/* 프로필 이미지 */}
-                            {item.profileImage ? (
-                                <img src={item.profileImage} alt="프로필 이미지" className="profileImage" />
+                            {item.pictureURL ? (
+                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}
