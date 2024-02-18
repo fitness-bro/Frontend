@@ -25,7 +25,7 @@ export const ModalContainer = styled.div`
   z-index: 2;
   color:white;
   width:400px;
-  height:560px;
+  height:400px;
   flex-direction: column;
   display:flex;
   >img{

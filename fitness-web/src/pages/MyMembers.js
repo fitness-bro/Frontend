@@ -3,8 +3,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import '../components/CommonStyle.css'
 import DefaultImage from '../components/review/DefaultImage';
-import axios from "axios";
-import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 // 수련생 성사 리스트 페이지

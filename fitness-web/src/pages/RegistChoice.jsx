@@ -9,6 +9,7 @@ const RegistChoice = () => {
     const handleRegist = async (rolepost) => {
         const apiUrl=process.env.REACT_APP_API_URL;
         const token=localStorage.getItem("token");
+        
         try {
             // POST 요청 보내기
             const response = await axios.post(
@@ -34,16 +35,19 @@ const RegistChoice = () => {
         <>
             <Text1>회원 등록하기</Text1>
             <BtnWrap>
-            <Link to="/Registration" style={{ textDecoration: "none"}}>
+            <Link to="/RegistrationCoach" style={{ textDecoration: "none"}}>
                 <RegistBro onClick={() => handleRegist('COACH')}>
                     <img src={broImg} alt="bro image" />
                     <p>동네형으로 가입하기</p>
                 </RegistBro>
                 </Link>
+
+                <Link to="/RegistrationMember" style={{ textDecoration: "none"}}>
                 <ReigstMember onClick={() => handleRegist('MEMBER')}>
                     <img src={memberImg} alt="member image" />
                     <p>회원으로 가입하기</p>
                 </ReigstMember>
+                </Link>
             </BtnWrap>
         </>
     );

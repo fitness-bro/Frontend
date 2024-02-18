@@ -25,7 +25,7 @@ export const ModalContainer = styled.div`
   z-index: 2;
   color:white;
   width:400px;
-  height:660px;
+  height:400px;
   flex-direction: column;
   display:flex;
   >img{
@@ -45,4 +45,10 @@ border: 3px solid #ffffff;
   border-radius: 4px;
   cursor: pointer;
   align-self: end;
+  font-weight:bold;
 `;
+
+export const ButtonWrap=styled.div`
+display:flex;
+flex-direction:column;
+`

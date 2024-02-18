@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import axios from "axios";
 
 export default function RegistrationCoach() {
-  const apiUrl = "http://dev.fitness-bro.pro/";
+  const apiUrl = "https://dev.fitness-bro.pro";
   const coachId = 1;
   const [nickname, setNickname] = useState("");
   const [introduction, setIntroduction] = useState("");
