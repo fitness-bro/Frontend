@@ -5,17 +5,16 @@ import reviewerImg from "../img/profile.jpg";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 
-export default function LookReviews() {
+export default function LookReviews(props) {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
     const apiUrl = process.env.REACT_APP_API_URL;
-    //const coachId = location.state.coachId;
-    const coachId=1;
+    const userId=props.userId;
     const token=localStorage.getItem("token");
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}/coaches/${coachId}/reviews`,{
+        axios.get(`${apiUrl}/coaches/${userId}/reviews`,{
             headers:{
                 'token':token
             }
@@ -38,7 +37,7 @@ export default function LookReviews() {
 
     return (
         <Body>
-            <Header id={coachId}/>
+            <Header id={userId}/>
             {error && <p>Error: {error}</p>}
             {reviews && reviews.map((review) => (
                 <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}} key={review.review_id}>

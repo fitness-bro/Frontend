@@ -4,13 +4,14 @@ import ProfileHeader from "../components/header/ProfileHeader";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
-export default function Profile(){
+export default function Profile(props){
   const apiUrl = process.env.REACT_APP_API_URL;
   //const location = useLocation();
     //const coachId = location.state.coachId;
 
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzA4ODgsImV4cCI6MTcwNzk3NDQ4OH0.eUCRtidXwPcyM5VzPvCaI_jAMDT6_IA4V3Vx3h5Nehc';
-const coachId=552;
+    const token=localStorage.getItem("token");
+    const userId=props.userId;
+
 
     const [userData, setUserData] = useState({
       introduction: "",
@@ -21,7 +22,9 @@ const coachId=552;
     
       useEffect(() => { 
         axios.get(
-          `${apiUrl}/coaches/${coachId}/info`,
+
+          `${apiUrl}/coaches/${userId}/info`,
+
           {
             headers: {
                 'token': token
@@ -52,7 +55,7 @@ const coachId=552;
     return(
         <>
         <Body>
-                <ProfileHeader id={coachId}/>
+                <ProfileHeader id={userId}/>
                 <InfLine>{userData.introduction}</InfLine>
                 <InfBlock>
                     <h4>위치</h4>

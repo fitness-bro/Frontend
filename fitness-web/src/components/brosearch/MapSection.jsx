@@ -21,6 +21,7 @@ const MapSection = ({ userList, onMarkerClick }) => {
         const container = mapContainer.current;
         const options = {
           center: new kakao.maps.LatLng(37.4966645, 127.0629804),
+
           level: 10,
         };
 
@@ -35,6 +36,7 @@ const MapSection = ({ userList, onMarkerClick }) => {
         userList.forEach((user) => {
           const address = user.region + ' ' + user.subAddress + ' ' + user.detailAddress;
 
+
           geocoder.addressSearch(address, (result, status) => {
             if (status === kakao.maps.services.Status.OK) {
               const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -44,6 +46,7 @@ const MapSection = ({ userList, onMarkerClick }) => {
                 new kakao.maps.Size(54, 54),
                 { offset: new kakao.maps.Point(27, 54) }
               );
+
 
               const markerImageSelected = new kakao.maps.MarkerImage(
                 mapmarkerSelected,
@@ -69,6 +72,7 @@ const MapSection = ({ userList, onMarkerClick }) => {
                   } else {
                     marker.setImage(markerImageSelected);
                     selectedMarker.current = marker;
+
                   }
                 }
               });

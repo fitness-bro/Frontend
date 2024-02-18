@@ -55,6 +55,7 @@ ul {
   width: 100%;
 }
 
+
 .main-address li{
   cursor: pointer;
   padding: 8px;
@@ -64,6 +65,7 @@ ul {
   justify-content: center;
 
 }.sub-address li {
+
   cursor: pointer;
   padding: 8px;
   border: none;
@@ -80,7 +82,7 @@ ul {
   background-color: #643E23;
   color: #ff9549;
 }
-
+*/
 .selected {
   background-color: #643E23;
   color: #ff9549;

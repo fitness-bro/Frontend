@@ -6,7 +6,7 @@ import RegistrationCoach from './pages/RegistrationCoach.jsx';
 import RegistrationMember from './pages/RegistrationMember.jsx';
 import ModifyingCoach from './pages/ModifyingCoach.jsx';
 import ModifyingMember from './pages/ModifyingMember.jsx';
-import Header from "./components/header/Header.jsx";
+import MainHeader from "./components/header/Header.jsx";
 import Profile from './pages/Profile.jsx';
 import LookReviews from './pages/LookReviews.jsx';
 import Photos from './pages/Photos.jsx';
@@ -20,7 +20,6 @@ import GetReviewList from './pages/GetReviewList.js';
 import MyMembers from './pages/MyMembers.js';
 import BottomHeader from './components/header/BottomHeader.jsx';
 import ChatingList from './pages/ChatingList.jsx';
-import SignUp from './pages/SignUp.jsx'
 import ReviewDetail from './pages/ReviewDetail.jsx';
 import RegistChoice from './pages/RegistChoice.jsx';
 import Login from "./pages/Login.jsx";
@@ -31,7 +30,7 @@ function App() {
   return (
     <div className="root-wrap">
       <Router>
-      <Header/>
+      <MainHeader/>
       <div className="App">
         <Routes>
           <Route path="/MyPageCoach" element={<MyPageCoach />} />
@@ -49,7 +48,6 @@ function App() {
           <Route path="/my-coaches" element={<MyCoaches />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/chatinglist" element={<ChatingList/>}/>
-          <Route path="/signup" element={<SignUp/>}/>
           <Route path="/review-list" element={<ReviewList/>}/>
           <Route path="/get-review-list" element={<GetReviewList/>}/>
           <Route path="/my-members" element={<MyMembers/>}/>

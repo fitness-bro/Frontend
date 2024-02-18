@@ -12,6 +12,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const apiUrl = "http://dev.fitness-bro.pro/";
+
     const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxNzczMzUsImV4cCI6MTcwODE4MDkzNX0.TeFBX3hKXATmtV133VVi1OXWrp58VmllZfRVly47VfM';
 
     useEffect(() => {
@@ -47,6 +48,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
             setPrivateChats(new Map(privateChats));
         }
     }
+
     useEffect(() => {
         axios.get(`${apiUrl}members/chatrooms`, {
             headers: {
@@ -97,6 +99,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         }
     };
 
+
     const handleOnKeyPress = (e) => {
         if (e.key === 'Enter') {
             sendPrivateValue();
@@ -126,7 +129,6 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         return null;
     }
 
-
     return (
         <div className="modal">
             <div
@@ -147,6 +149,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
                         </li>
                     </ul>
                 </div>
+
                 
                 {tab !== "CHATROOM" && (
     <div className="chat-content">
