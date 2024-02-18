@@ -10,7 +10,7 @@ import axios from "axios";
 
 const Reviews = () => {
     const navigate = useNavigate();
-    const apiUrl = "https://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const [coachNickname, setCoachNickname] = useState("");
     const [coachNicknames, setCoachNicknames] = useState([]); // 선택한 코치의 닉네임 상태 추가
@@ -21,7 +21,7 @@ const Reviews = () => {
     
     useEffect(() => {
     // 멤버 토큰
-    const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxODYxOTYsImV4cCI6MTcwODE4OTc5Nn0.f9WrqB8suuuEY03WgfsGrQu-IZwc1DqypKcKlVOPq3U'
+    const token = localStorage.getItem("token");
 
         axios.get(`${apiUrl}match/member/success`, {
             headers: {
@@ -51,6 +51,10 @@ const Reviews = () => {
     };
 
     const handleSubmit = () => {
+        if (!coachNickname) {
+            alert('코치를 선택해주세요.');
+            return;
+        }
         if (rating === 0) {
             alert('별점을 선택해주세요.');
             return;
@@ -64,12 +68,19 @@ const Reviews = () => {
         formData.append('request', JSON.stringify({
           nickname: coachNickname,
           rating: rating,
-          contents: content,
-          createdAt: ""
+          contents: content
         }));
-        formData.append('files', image); // 파일 업로드
+        
+        if (image) {
+            for (let i = 0; i < image.length; i++) {
+                formData.append('files', image[i]);
+            }
+        } // 이미지 파일 업로드
 
-        const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxODYxOTYsImV4cCI6MTcwODE4OTc5Nn0.f9WrqB8suuuEY03WgfsGrQu-IZwc1DqypKcKlVOPq3U'
+        
+        console.log("전송할 데이터:", formData); // 추가된 부분
+
+        const token = localStorage.getItem("token");
 
         axios.post(`${apiUrl}members/reviews`, formData, {
             headers: {

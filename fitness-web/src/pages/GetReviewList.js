@@ -9,7 +9,7 @@ import {useLocation} from "react-router-dom";
 const GetReviewList = () => {
     const navigate = useNavigate();
 
-    const apiUrl="https://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const [userData, setUserData] = useState([]);
 
@@ -57,8 +57,8 @@ const GetReviewList = () => {
                     {userData.map((item, index) => (
                         <li key={index} onClick={() => goToReviewDetail(item.review_id)}>
                             {/* 프로필 이미지 */}
-                            {item.profileImage ? (
-                                <img src={item.profileImage} alt="프로필 이미지" className="profileImage" />
+                            {item.pictureURL ? (
+                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}

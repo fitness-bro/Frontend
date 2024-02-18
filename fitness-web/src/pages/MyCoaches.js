@@ -11,7 +11,7 @@ import ToggleMenu from '../components/review/ToggleMenu';
 const MyCoaches = () => {
     const navigate = useNavigate();
 
-    const apiUrl = "https://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const [coachNicknames, setCoachNicknames] = useState([]); // 코치 닉네임 목록 상태 추가
 
@@ -19,7 +19,7 @@ const MyCoaches = () => {
 
     useEffect(() => {
 
-        const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxODYxOTYsImV4cCI6MTcwODE4OTc5Nn0.f9WrqB8suuuEY03WgfsGrQu-IZwc1DqypKcKlVOPq3U'
+        const token = localStorage.getItem("token");
 
         axios.get(`${apiUrl}match/member/success`, {
             headers: {
@@ -65,8 +65,8 @@ const MyCoaches = () => {
                     {userData.length > 0 && userData.map((item, index) => (
                         <li key={index}>
                             {/* 프로필 이미지 */}
-                            {item.profileImage ? (
-                                <img src={item.profileImage} alt="프로필 이미지" className="profileImage" />
+                            {item.pictureURL ? (
+                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}

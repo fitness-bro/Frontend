@@ -1,4 +1,4 @@
-import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap } from "./ProfileHeader.style";
+import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap, Requirebtn, Requirechat } from "./ProfileHeader.style";
 import React, { useState,useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import backImg from "../../img/back.jpg";
@@ -87,6 +87,21 @@ export default function ProfileHeader(props) {
             });
     };
 
+    const handleRequireClick = () => {
+
+        const coachId = 552;
+        axios.post(`${apiUrl}/match/member`, { coachId })
+        .then(response => {
+            console.log("성사 요청 API 응답:", response);
+          
+        })
+        .catch(error => {
+            console.error("성사 API 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+        });
+
+    }
+
     return (
         <>  
         <TopWrap>
@@ -103,10 +118,16 @@ export default function ProfileHeader(props) {
                     사진첩
                 </Btn>
             </BtnWrap>
+
             
-            <Link to="/chatinglist" style={{ textDecoration: "none"}}>
-            <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
-            </Link>
+            <Requirechat>
+                <Requirebtn onClick={handleRequireClick}>성사 요청</Requirebtn>
+                    <Link to="/chatinglist" style={{ textDecoration: "none"}}>
+                        <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
+                    </Link>
+            </Requirechat>
+            
+            
             </TopWrap>
 
             <Wrapper>

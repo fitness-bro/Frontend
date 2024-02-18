@@ -9,12 +9,12 @@ import DefaultImage from '../components/review/DefaultImage';
 const ReviewList = () => {
     const navigate = useNavigate();
 
-    const apiUrl="http://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
-        const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxODYxOTYsImV4cCI6MTcwODE4OTc5Nn0.f9WrqB8suuuEY03WgfsGrQu-IZwc1DqypKcKlVOPq3U';
+        const token = localStorage.getItem("token");
 
         axios.get(`${apiUrl}members/reviews`, {
             headers: {
@@ -66,8 +66,8 @@ const ReviewList = () => {
                     {userData.map((item, index) => (
                         <li key={index} onClick={() => goToReviewDetail(item.review_id)}>
                             {/* 프로필 이미지 */}
-                            {item.profileImage ? (
-                                <img src={item.profileImage} alt="프로필 이미지" className="profileImage" />
+                            {item.pictureURL ? (
+                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}

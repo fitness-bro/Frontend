@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom';
 // 받은 후기 상세보기
 
 const ReviewDetail = () => {
-    const apiUrl = "https://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
     
     const [userData, setUserData] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,11 +41,11 @@ const ReviewDetail = () => {
     const handlePrev = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? userData.pictureURLs.length - 1 : prevIndex - 1));
     };
-
+      
     const handleNext = () => {
         setCurrentIndex((prevIndex) => (prevIndex === userData.pictureURLs.length - 1 ? 0 : prevIndex + 1));
     };
-
+    
     const navigate = useNavigate();
 
     const onClickBackBtn = () => {
@@ -69,6 +69,12 @@ const ReviewDetail = () => {
         ));
     };
 
+    const renderImages = () => {
+        return userData.pictureURLs.map((url, index) => (
+            <img key={index} src={url} alt={`${index}`} className={index === currentIndex ? 'active' : ''} />
+        ));
+    };
+
     return (
         <div className="ReviewDetail">
 
@@ -85,7 +91,7 @@ const ReviewDetail = () => {
                         </button>
 
                         {userData.pictureURLs && userData.pictureURLs.length > 0 ? (
-                            <img src={userData.pictureURLs[currentIndex]} alt="이미지 없음" />
+                            renderImages()
                         ) : (
                             <Icon className="clipIcon" icon="mdi:paperclip" />
                         )}
