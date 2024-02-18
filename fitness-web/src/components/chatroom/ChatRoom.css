@@ -39,8 +39,10 @@
     left: 10px;
     font-size: 20px;
   }
-  
-
+  .modalClose
+{
+    color: white;
+}
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -59,15 +61,6 @@
     padding: 10px;
     font-size: 1.2em;
   }
-  button{
-    border: none;
-    padding: 10px;
-    background: #FF9549;
-    color:#fff;
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-  
   
   .container{
     position: relative;
@@ -76,7 +69,6 @@
   .register{
     position: fixed;
     padding:30px;
-    
     top:35%;
     left:32%;
     display: flex;
@@ -98,9 +90,18 @@
   }
   
   .chat-content{
-    height:65%;
+    height:70%;
     width:100%;
     
+  }
+  .chat-messages::-webkit-scrollbar {
+    width: 5px; /* 스크롤 바의 너비 설정 */
+  }
+  
+  .chat-messages::-webkit-scrollbar-thumb {
+    background-color: #ff9549; /* 스크롤 바의 색상 설정 */
+    border-radius: 5px; /* 둥근 형태로 만들기 */
+    height: 10px; /* 스크롤 바의 높이 설정 */
   }
   
   .chat-messages{
@@ -109,7 +110,6 @@
     overflow: auto;
     background-color: #FFE8D8;
  
-
   }
   
   .send-message{
@@ -121,8 +121,11 @@
   
   .input-message{
     width:90%;
-
-    border-radius: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border-style: none;
+    margin-left: 12px;
+    margin-top: 10px;
   }
   
   ul {
@@ -135,9 +138,18 @@
     width: 90%;
   }
   .send-button{
-    width:20%;
+    border: none;
+    padding: 10px;
+    background: #FFD6B9;
+    color:#FF9549;
+    font-size: 1.2em;
+    font-weight: bold;
+    width:100px;
+    height: 50px;
     border-radius: 50px;
+    margin-top: 20px;
     margin-left: 5px;
+    margin-right: 5px;
     cursor: pointer;
   }
   .member{
@@ -157,12 +169,7 @@
     color:#fff;
   }
   
-  .avatar{
-    background-color: cornflowerblue;
-    padding: 3px 5px;
-    border-radius: 5px;
-    color:#fff;
-  }
+  
   .avatar.self{
     color:#000;
    
@@ -173,7 +180,6 @@
     width: 200px;
     display: flex;
     flex-direction: row;
-   
     margin: 5px 10px;
     align-items: flex-end;
     text-align: left;
@@ -193,7 +199,6 @@
   .message-box {
    
     padding: 10px;
-    
     display: inline-block;
     max-width: 100%; /* 최대 너비를 조절할 수 있습니다. */
     word-wrap: break-word;
@@ -221,6 +226,7 @@
     margin-right:5%
   }
   .request-btn{
+    margin-right: 30px;
     color:#FF9549;
     border-radius: 15px;
     width: 100px;
@@ -235,8 +241,8 @@
   }
   .receiver-name{
     font-weight: 700;
-    padding-top: 12px;
-    margin-bottom: 0px;
+    padding-top: 17px;
+    margin-bottom: 15px;
     padding-bottom: 0px;
     color: #FFFFFF;
   }

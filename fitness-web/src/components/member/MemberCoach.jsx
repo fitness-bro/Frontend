@@ -5,7 +5,7 @@ import "./Member.css";
 import axios from "axios";
 
 function MemberCoach({ coachId }) { // coachId prop을 받음
-    const apiUrl = "http://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [userData, setUserData] = useState({
         nickname: "",
         match_num: 0,

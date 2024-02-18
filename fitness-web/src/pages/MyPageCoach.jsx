@@ -4,17 +4,17 @@ import MemberCoach from '../components/member/MemberCoach';
 
 export default function MyPageCoach(){
 
-    const coachId = 2; 
+    const coachId=localStorage.getItem("userId");
 
     const navigate = useNavigate();
     const goToChattinglist = () => {
-        navigate("/chatinglist",{state:{coachId:coachId}});
+        navigate("/chatinglist");
     };
     const goToMymembers = () => {
-        navigate("/my-members",{state:{coachId:coachId}});
+        navigate("/my-members");
     };
     const goToGetreviews = () => {
-        navigate("/get-review-list",{state:{coachId:coachId}});
+        navigate("/get-review-list");
     };
     const textStyle={
         color:"#FF9549",
@@ -35,7 +35,7 @@ export default function MyPageCoach(){
                 </thead>
                 <tbody className="mypageContainerTableBody">
                     <tr>
-                        <td colSpan={2} style={{width:"50px"}}><MemberCoach coachId={coachId} /></td>
+                        <td colSpan={2} style={{width:"50px"}}><MemberCoach /></td>
                     </tr>
                     <tr>
                         <td> <button className="buttonStyle" onClick={goToChattinglist}>채팅 하기 ›</button></td>

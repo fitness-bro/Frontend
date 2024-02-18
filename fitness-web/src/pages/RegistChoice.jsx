@@ -9,6 +9,8 @@ const RegistChoice = () => {
     const handleRegist = async (rolepost) => {
         const apiUrl=process.env.REACT_APP_API_URL;
         // const token=localStorage.getItem("token");
+        const token=localStorage.getItem("token");
+
         try {
             // POST 요청 보내기
             const response = await axios.post(

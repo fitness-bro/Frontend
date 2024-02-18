@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import ChatRoom from "../components/chatroom/ChatRoom";
+import ChatRoomCoach from "../components/chatroom/ChatRoomCoach";
 import { All, FrontWrap, Ul, Li } from "./ChatingList.style";
 import axios from "axios";
 
-const Chattinglist = () => {
+const ChattingListCoach = () => {
   const [tab, setTab] = useState("CHATROOM");
   const [userData, setUserData] = useState({
     username: "",
@@ -15,14 +15,13 @@ const Chattinglist = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-  
   const [initialChats, setInitialChats] = useState(new Map());
 
   useEffect(() => {
     let source = axios.CancelToken.source(); // Axios 요청 취소를 위한 CancelToken 생성
 
     axios
-      .get(`${apiUrl}/members/chatrooms`, {
+      .get(`${apiUrl}/coaches/chatrooms`, {
         headers: {
           token: token,
         },
@@ -35,10 +34,11 @@ const Chattinglist = () => {
         if (responseData.isSuccess) {
           const { result } = responseData;
           setUserData({
-            username: result[0].userName,
-          });
+            username : result[0].userName,
+         });
           const updatedChats = new Map();
           result.forEach((chat) => {
+            
             updatedChats.set(chat.chatRoomId, chat); // 채팅방 ID를 키로 사용하여 채팅방 정보를 추가
           });
           console.log("초기 채팅 정보:", updatedChats);
@@ -82,32 +82,26 @@ const Chattinglist = () => {
                   className={`member ${tab === chatRoomId && "active"}`}
                   key={chatRoomId}
                 >
-                  <div >
-                   <table>
-                    <tr>
-                        <td>
-                 <img src={initialChats.get(chatRoomId).pictureUrl}  style={{
-                        width: "50px",
-                        height: "50px",
-                        alignItems: "center",
-                        borderRadius: "100px",
-                      }}></img>
-                      <div>{initialChats.get(chatRoomId).partnerName}</div>
-                      
-                      </td>
-                     <td> {initialChats.get(chatRoomId).lastChatMessage}</td></tr>
-       
-              </table>
+                  <div className="chatPatner">
+                    <div></div>
+                    <div>
+                      <div>
+                        <span>{initialChats.get(chatRoomId).partnerName}</span>
+                        <span>{initialChats.get(chatRoomId).updatedAt}</span>
+                      </div>
+                    </div>
+                    <div>{initialChats.get(chatRoomId).lastChatMessage}</div>
                   </div>
                 </Li>
               ))}
             </Ul>
           </div>
           {/* 모달 */}
-          <ChatRoom
+          <ChatRoomCoach
             isOpen={isModalOpen}
             onClose={closeModal}
             tab={tab}
+            setTab={setTab}
             userData={userData}
             initialChats={initialChats}
             setUserData={setUserData}
@@ -118,4 +112,4 @@ const Chattinglist = () => {
   );
 };
 
-export default Chattinglist;
+export default ChattingListCoach;

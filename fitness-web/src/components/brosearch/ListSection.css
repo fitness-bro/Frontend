@@ -8,10 +8,9 @@
     width : 375px;
     height : 60px;
     margin-top: 10px;
-}
-.ListContainer {
+  }
+  .ListContainer {
     display: flex;
-    justify-content: center;
     background-color: #643E23;
     width: 390px;
     height: 445px;
@@ -21,54 +20,55 @@
     overflow-y: auto;
     padding: 15px;
     overflow-x: hidden;
-}
-.UserPic {
+  }
+  .UserPic {
     width : 49px;
     height : 49px;
     background-color: gray;
     border-radius: 50%;
     
-}
-.Userinfo{
+  }
+  .Userinfo{
     color: #643E23;
     font-weight: 700;
     margin-left: 10%;
-}
-
-.UserProfile:hover {
+  }
+  
+  .UserProfile:hover {
     background-color: #ff9549; /* 마우스 오버 시 배경색 변경 */
     color: #fff ;
-}
-
-.UserProfile:hover .StarIcon {
+  }
+  
+  .UserProfile:hover .StarIcon {
     color: white; /* 마우스 오버 시 별 아이콘 색 변경 */
-}
-
-
-.ListContainer::-webkit-scrollbar {
+  }
+  
+  
+  .ListContainer::-webkit-scrollbar {
     width: 5px; /* 스크롤 바의 너비 설정 */
   }
   
-.ListContainer::-webkit-scrollbar-thumb {
+  .ListContainer::-webkit-scrollbar-thumb {
     background-color: #ff9549; /* 스크롤 바의 색상 설정 */
     border-radius: 5px; /* 둥근 형태로 만들기 */
     height: 10px; /* 스크롤 바의 높이 설정 */
   }
   
-.ListContainer::-webkit-scrollbar-track {
+  .ListContainer::-webkit-scrollbar-track {
     background-color: #643E23; /* 스크롤 바 트랙의 색상 설정 */
   }
   
-  .listTable{
+  table{
     width: 250px;
   }
-  .Td{
+  
+  .listId{
     
     text-align: center;
     border-right: 1px solid black;
-
+  
   }
-
+  
   .lastTd {
     border-right: none;
   }
@@ -77,4 +77,4 @@
     background-color: #ff9549; /* 선택된 유저 프로필의 배경색을 변경합니다. */
     color: #fff; /* 선택된 유저 프로필의 텍스트 색상을 변경합니다. */
   }
-  
+

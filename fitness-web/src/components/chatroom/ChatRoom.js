@@ -12,33 +12,46 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const apiUrl = "http://dev.fitness-bro.pro/";
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDc5NzgwNDgsImV4cCI6MTcwNzk4MTY0OH0.OEx1FO7dgtbQidIsxkt0sH5URVy3PMFJHRhhfR12b1w';
-
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgyNzg5MzQsImV4cCI6MTcwODYzODkzNH0.hxF8EDOwKGUHjx0nr0kt767H4ktpG9bMeN6kev9bCI0';
     
     useEffect(() => {
-        let Sock = new SockJS('http://dev.fitness-bro.pro/stomp/chat');
+        let Sock = new SockJS("http://dev.fitness-bro.pro/stomp/chat");
         stompClient = over(Sock);
-
-        Sock.onopen = () => {
-            console.log('WebSocket connected');
-            // 연결이 열리면 해당 채팅방 구독
-            stompClient.subscribe(`/sub/queue/chat/${tab}`, message => {
-                const newMessage = JSON.parse(message.body);
-                setPrivateChats(prevChats => {
-                    const updatedChats = new Map(prevChats);
-                    const messages = updatedChats.get(tab);
-                    messages.push(newMessage);
-                    updatedChats.set(tab, messages);
-                    return updatedChats;
-                });
-            });
-        };
-
+        stompClient.connect({}, onConnected, onError);
+    
         return () => {
-            Sock.close();
+          Sock.close();
         };
-    }, [tab]);
-
+      }, []);
+    
+      useEffect(() => {
+        if (stompClient && tab !== "CHATROOM") {
+          stompClient.subscribe(`/user/${tab}/private`, onPrivateMessage);
+        }
+      }, [tab]);
+    
+      const onConnected = () => {
+        setUserData({ ...userData, connected: true });
+        stompClient.subscribe(`/user/${tab}/private`, onPrivateMessage);
+      };
+    
+      const onError = (err) => {
+        console.log(err);
+      };
+    
+      const onPrivateMessage = (payload) => {
+        console.log(payload);
+        var payloadData = JSON.parse(payload.body);
+    
+        if (privateChats.get(payloadData.chatRoomId)) {
+          privateChats.get(payloadData.chatRoomId).push(payloadData);
+          setPrivateChats(new Map(privateChats));
+        } else {
+          privateChats.set(payloadData.chatRoomId, []);
+          setPrivateChats(new Map(privateChats));
+        }
+      };
+    
     useEffect(() => {
         axios.get(`${apiUrl}members/chatrooms`, {
             headers: {
@@ -74,20 +87,20 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
 
     const sendPrivateValue = async () => {
         if (stompClient) {
-            var chatMessage = {
-                roomId: tab,
+            const chatMessage = {
+                chatRoomId: tab,
                 sender: userData.username,
                 message: userData.message,
             };
-
+            const updatedPrivateChats = new Map(privateChats);
+            const chatMessages = [...updatedPrivateChats.get(tab), chatMessage]; // Create a new array with the new message
+            updatedPrivateChats.set(tab, chatMessages); // Update the map with the new array
+    
+            setPrivateChats(updatedPrivateChats); // Update the state with the new map
             stompClient.send("/pub/send", {}, JSON.stringify(chatMessage));
             setUserData({ ...userData, "message": "" });
-
-            const updatedChats = new Map(privateChats);
-            updatedChats.get(tab).push(chatMessage);
-            setPrivateChats(updatedChats);
         }
-    }
+    };
 
     const handleOnKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -118,6 +131,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         return null;
     }
 
+
     return (
         <div className="modal">
             <div
@@ -133,34 +147,35 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
                         <li className='receiver-name'>
                             {initialChats.get(tab).partnerName}
                         </li>
-                        <li>
-                            <input className="request-btn" type="button" value="동네형 등록" />
-                        </li>
                     </ul>
                 </div>
+                
                 {tab !== "CHATROOM" && (
-                    <div className="chat-content">
-                        <ul className="chat-messages">
-                        {initialChats.get(tab).chatMessageList.map((message, index) => (
-                <li className="message" key={index}>
-                    <div className="message-box">{message}</div>
+    <div className="chat-content">
+        <ul className="chat-messages">
+            {initialChats.get(tab)?.chatMessageDTOList?.map((chatMessageDTOList, index) => (
+                <li className={`message ${chatMessageDTOList.sender === userData.username && "self"}`} key={index}>
+                     {chatMessageDTOList.sender !== userData.username && <div className="avatar"></div>}
+                     <div className="message-data">
+                    <div className="message-box">{chatMessageDTOList.message}</div>
+                    </div>
                 </li>
             ))}
-                            {[...privateChats.get(tab)].map((chat, index) => (
-                                <li className={`message ${chat.sender === userData.username && "self"}`} key={index}>
-                                    {chat.sender !== userData.username && <div className="avatar">{chat.sender}</div>}
-                                    <div className="message-data">
-                                        <div className="message-box">{chat.message}</div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="send-message">
-                            <input type="text" className="input-message" placeholder="메시지 입력" value={userData.message} onChange={handleMessage} onKeyPress={handleOnKeyPress} />
-                            <button type="button" className="send-button" onClick={sendPrivateValue}>전송</button>
-                        </div>
+            {[...privateChats.get(tab)].map((chat, index) => (
+                <li className={`message ${chat.sender === userData.username && "self"}`} key={index}>
+                    {chat.sender !== userData.username && <div className="avatar"></div>}
+                    <div className="message-data">
+                        <div className="message-box">{chat.message}</div>
                     </div>
-                )}
+                </li>
+            ))}
+        </ul>
+        <div className="send-message">
+            <input type="text" className="input-message" placeholder="메시지 입력" value={userData.message} onChange={handleMessage} onKeyPress={handleOnKeyPress} />
+            <button type="button" className="send-button" onClick={sendPrivateValue}>전송</button>
+        </div>
+    </div>
+)}
             </div>
         </div>
     );

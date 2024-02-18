@@ -3,6 +3,7 @@ import Member from "../components/member/MemberCoach";
 import { useNavigate } from "react-router-dom";
 
 export default function MyPageMember() {
+    const memberId =localStorage.getItem("userId");
   const navigate = useNavigate();
   const goToChatinglist = () => {
     navigate("/chatinglist");

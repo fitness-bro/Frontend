@@ -1,91 +1,199 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./ModifyingInformation.css";
 import { Icon } from "@iconify/react";
 import axios from "axios";
+import ModalSearch from "../components/modalsearch/ModalSearch";
+import { FaSearch } from 'react-icons/fa';
 
-export default function ModifyingCoach({ coachId }) {
+export default function ModifyingCoach() {
+const apiUrl = process.env.REACT_APP_API_URL;
+  const [nickname, setNickname] = useState("");
+  const [age, setAge] = useState("");
+  const [introduction, setIntroduction] = useState("");
+  const [schedule, setSchedule] = useState("");
+  const [price, setPrice] = useState("");
+  const [comment, setComment] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedGym, setSelectedGym] = useState();
+  const [keyword, setKeyword] = useState("");
+  const [albumImages, setAlbumImages] = useState([]); // 앨범이미지 저장
+  const [profileImage, setProfileImage] = useState(""); // 프로필 이미지
+  const [coachInfo, setCoachInfo] = useState(null); // 코치 정보 추가
 
-    const apiUrl = "http://dev.fitness-bro.pro/";
-  const [coach, setCoach] = useState({
-    nickname: "",
-    address: "",
-    comment: "",
-    price: 0,
-    schedule: "",
-    introduction: "",
-  });
-  const [updatedCoach, setUpdatedCoach] = useState({});
-  const [showImages, setShowImages] = useState([]);
+  const profilePictureUrl = coachInfo?.result?.coachPicture;
+  const token = localStorage.getItem("token");
+  const coachId = localStorage.getItem("userId");
+  useEffect(() => {
+    const fetchCoachInfo = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/coaches/${coachId}/info`, {
+          headers: {
+            'token': token,
+          },
+        });
 
-  //다중 이미지 첨부, 삭제
+        // 서버로부터 받아온 데이터
+        const coachInfoData = response.data;
+
+        // 받아온 데이터를 활용하여 필요한 처리 수행
+        console.log('Coach Info:', coachInfoData);
+
+        // 받아온 코치 정보를 각 입력창에 설정
+        setNickname(coachInfoData.result.nickname || '');
+        setAge(coachInfoData.result.age || '');
+        setIntroduction(coachInfoData.result.introduction || '');
+        setSchedule(coachInfoData.result.schedule || '');
+        setPrice(coachInfoData.result.price || '');
+        setComment(coachInfoData.result.comment || '');
+        setKeyword(coachInfoData.result.address || '');
+        setSelectedGym({
+          ...coachInfoData.result,
+        });
+
+        setCoachInfo(coachInfoData); // 코치 정보 설정
+
+        // 이미지 설정은 따로 로직을 추가해야 합니다.
+        // setProfileImage(coachInfoData.result.profileImage || ''); // 예시일 뿐, 실제로는 파일 처리가 필요
+        // setAlbumImages(coachInfoData.result.albumImages || []); // 예시일 뿐, 실제로는 파일 처리가 필요
+      } catch (error) {
+        console.error('Error fetching coach info:', error);
+
+        // 에러 처리
+        if (error.response && error.response.data) {
+          console.error('서버 응답 데이터:', error.response.data);
+        }
+      }
+    };
+
+    fetchCoachInfo();
+  }, []);
+
+
+  const fullAddress = selectedGym
+    ? `${selectedGym.region} ${selectedGym.subAddress} ${selectedGym.detailAddress}`
+    : "";
+
+  const inputRef = useRef(null);
+
+  const handleImageClick = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const files = e.target.files;
+
+    if (files && files.length > 0) {
+      const file = files[0];
+      console.log(file);
+      setProfileImage(file);
+    }
+  };
+
   const handleAddImages = (event) => {
-    const imageLists = event.target.files;
-    let imageUrlLists = [...showImages];
+    const imageFiles = event.target.files;
+    let imageFileObjects = [...albumImages];
 
-    for (let i = 0; i < imageLists.length; i++) {
-      const currentImageUrl = URL.createObjectURL(imageLists[i]);
-      imageUrlLists.push(currentImageUrl);
+    for (let i = 0; i < imageFiles.length; i++) {
+      const currentImageFile = imageFiles[i];
+      imageFileObjects.push(currentImageFile);
     }
 
-    // 최대 6개로 제한
-    imageUrlLists = imageUrlLists.slice(0, 6);
+    imageFileObjects = imageFileObjects.slice(0, 6);
+    setAlbumImages(imageFileObjects);
 
-    setShowImages(imageUrlLists);
+    console.log('Selected Images:', imageFileObjects);
   };
 
   const handleDeleteImage = (id) => {
-    setShowImages((prevImages) =>
+    setAlbumImages((prevImages) =>
       prevImages.filter((_, index) => index !== id)
     );
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    // 수정된 정보 업데이트
-    setUpdatedCoach((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const handleGymClick = (gym) => {
+    setSelectedGym(gym);
+    setKeyword(`${gym.name} ${gym.region} ${gym.subAddress} ${gym.detailAddress}`);
+    setModalOpen(false);
   };
 
-  useEffect(() => {
-    // 회원 정보 가져오기
-    axios
-      .get(`${apiUrl}coaches/${coachId}/info`)
-      
-      .then((response) => {
-        const resdata = response.data;
-        if (resdata.isSuccess) {
-            setCoach(response.data.result);
-            setUpdatedCoach(response.data.result); // 수정된 정보를 초기화
-        } else {
-            console.log("API 요청 실패:", resdata.message);
-        }
-    })
-        
-      .catch((error) => {
-        console.error("API 요청 중 오류 발생", error);
-        console.error("에러 상세보기", error.response);
-      });
-  }, [coachId]);
+  const handleSearch = async (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      try {
+        const response = await axios.get(`${apiUrl}/gym/search?keyword=${keyword}`);
+        setSearchResults(response.data.result);
+        setModalOpen(true);
+      } catch (error) {
+        console.error("Error fetching gym search results:", error);
+      }
+    }
+  };
 
-  const handleSubmit = (e) => {
+  const handleNicknameChange = (e) => setNickname(e.target.value);
+  const handleCommentChange = (e) => setComment(e.target.value);
+  const handleIntroductionChange = (e) => setIntroduction(e.target.value);
+  const handleScheduleChange = (e) => setSchedule(e.target.value);
+  const handlePriceChange = (e) => setPrice(e.target.value);
+  const handleAgeChange = (e) => setAge(e.target.value);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 수정된 정보를 서버로 전송
-    axios
-      .put(`${apiUrl}coaches/${coachId}`, updatedCoach)
-      .then((response) => {
-        console.log("코치 정보 수정 완료:", response.data);
-        // 성공적으로 업데이트되었다는 메시지 등 처리
-      })
-      .catch((error) => {
-        console.error("코치 정보 수정 실패:", error);
-        // 오류 처리
-      });
+
+    const formData = new FormData();
+
+    formData.append('request', JSON.stringify({
+      nickname: nickname,
+      age: parseInt(age),
+      introduction: introduction,
+      schedule: schedule,
+      comment: comment,
+      address: fullAddress,
+      region: selectedGym.region,
+      subAddress: selectedGym.subAddress,
+      detailAddress: selectedGym.detailAddress,
+      price: parseInt(price)
+    }));
+
+    if (profileImage) {
+      formData.append('picture', profileImage, `@${profileImage.name};type=${profileImage.type}`);
+    }
+    
+    for (let i = 0; i < albumImages.length; i++) {
+      formData.append('album', albumImages[i], `@${albumImages[i].name};type=${albumImages[i].type}`);
+    }
+
+    try {
+      const response = await axios.put(
+        `${apiUrl}/coaches/update`,
+        formData,
+        {
+          headers: {
+            'token': token,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      console.log("Coach updated:", response.data);
+      alert("회원 정보를 등록했습니다!");
+    } catch (error) {
+      console.error('Error:', error);
+      console.error('에러 상세 정보:', error.response);
+
+      if (error.response && error.response.data) {
+        console.error('서버 응답 데이터:', error.response.data);
+      }
+
+      alert("등록에 실패했습니다ㅠㅠ");
+    }
   };
+
   const textStyle = {
     color: "#FF9549",
-    fontWeight: 1000,
+    fontWeight: 'bold',
     textAlign: "left",
   };
 
@@ -96,14 +204,10 @@ export default function ModifyingCoach({ coachId }) {
     width: "600px",
     height: "30px",
     marginTop: "5px",
-    outline: "none",
-  };
-
-  boxStyle1[":focus"] = {
-    boxShadow: "0 0 5px rgba(255, 149, 73, 0.8)", // 포커스일 때의 테두리 효과 추가
   };
 
   const boxStyle2 = {
+    resize: "none",
     backgroundColor: "#FFE0CA",
     borderRadius: "10px",
     border: "0px",
@@ -131,7 +235,7 @@ export default function ModifyingCoach({ coachId }) {
   return (
     <div className="registrationContainer">
       <form onSubmit={handleSubmit}>
-        <table>
+        <table className="regTable">
           <thead>
             <tr>
               <td>
@@ -142,14 +246,33 @@ export default function ModifyingCoach({ coachId }) {
           <tbody>
             <tr>
               <td>
-                <div className="bgprofile">
-                  <div className="profile">
-                    <Icon
-                      className="icon"
-                      icon="ic:baseline-person-outline"
-                      alt="기본 이미지"
+              <div onClick={handleImageClick}>
+                  {profilePictureUrl ? (
+                    <img
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        alignItems: "center",
+                        borderRadius: "100px",
+                      }}
+                      src={profilePictureUrl}
+                      alt=""
                     />
-                  </div>
+                  ) : (
+                    <div className="regmemberbgprofile">
+                      <Icon
+                        className="regmemberIcon"
+                        icon="ic:baseline-person-outline"
+                        alt="기본 이미지"
+                      />
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    ref={inputRef}
+                    onChange={handleImageChange}
+                    style={{ display: "none" }}
+                  />
                 </div>
               </td>
             </tr>
@@ -158,22 +281,30 @@ export default function ModifyingCoach({ coachId }) {
                 <div style={textStyle}>닉네임 </div>
                 <input
                   type="text"
-                  name="nickname"
-                  value={updatedCoach.nickname || ''} 
-                  onChange={handleInputChange}
+                  value={nickname}
+                  onChange={handleNicknameChange}
                   style={{ ...boxStyle1 }}
                 />
               </td>
             </tr>
-
+            <tr>
+              <td>
+                <div style={textStyle}>나이</div>
+                <input
+                  type="text"
+                  value={age}
+                  onChange={handleAgeChange}
+                  style={{ ...boxStyle1 }}
+                />
+              </td>
+            </tr>
             <tr>
               <td>
                 <div style={textStyle}>선생님 소개</div>
                 <input
                   type="text"
-                  name="introduction"
-                  value={updatedCoach.introduction || ""}
-                  onChange={handleInputChange}
+                  value={introduction}
+                  onChange={handleIntroductionChange}
                   style={{ ...boxStyle1 }}
                 />
               </td>
@@ -183,9 +314,8 @@ export default function ModifyingCoach({ coachId }) {
                 <div style={textStyle}>주 운동 시간</div>
                 <input
                   type="text"
-                  name="schedule"
-                  value={updatedCoach.schedule || ""}
-                  onChange={handleInputChange}
+                  value={schedule}
+                  onChange={handleScheduleChange}
                   style={{ ...boxStyle1 }}
                 />
               </td>
@@ -193,22 +323,41 @@ export default function ModifyingCoach({ coachId }) {
             <tr>
               <td>
                 <div style={textStyle}>이용 가격</div>
+                <input
+                  value={price}
+                  onChange={handlePriceChange}
+                  style={{ ...boxStyle1 }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div style={textStyle}> 한 줄 인사말</div>
                 <textarea
-                  name="price"
-                  value={updatedCoach.price || 0}
-                  onChange={handleInputChange}
+                  value={comment}
+                  onChange={handleCommentChange}
                   style={{ ...boxStyle2 }}
                 />
               </td>
             </tr>
             <tr>
               <td>
-                <div style={textStyle}>한 줄 인사말</div>
-                <textarea
-                  name="comment"
-                  value={updatedCoach.comment || ""}
-                  onChange={handleInputChange}
-                  style={{ ...boxStyle2 }}
+                <div style={{ ...textStyle, color: '#643E23', fontWeight: '600' }}>헬스장 찾기</div>
+                <FaSearch style={{ color: '#fff', fontWeight: 'bold', position: 'absolute', marginLeft: '580px', marginTop: '13px', width: '14px', height: '14px' }} />
+                <style>
+                  {`
+                    ::placeholder {
+                      color: white;
+                      font-weight : bold;
+                    }
+                  `}
+                </style>
+                <input style={{ fontWeight: 'bold', color: '#643E23', backgroundColor: '#D1B5A1  ', borderRadius: "10px", border: "0px", width: "600px", height: "30px", marginTop: "5px", }}
+                  type="text"
+                  placeholder=" &nbsp; 주변 헬스장을 찾아보세요"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
+                  onKeyDown={handleSearch}
                 />
               </td>
             </tr>
@@ -218,7 +367,7 @@ export default function ModifyingCoach({ coachId }) {
                 <div className="imageGallery" style={imageContainerStyle}>
                   {[...Array(6)].map((_, id) => (
                     <div className="imageContainer" key={id}>
-                      {showImages[id] ? (
+                      {albumImages[id] ? (
                         <div>
                           <div
                             className="close"
@@ -237,10 +386,10 @@ export default function ModifyingCoach({ coachId }) {
                                 />
                               </svg>
                             </div>
-                          </div>
+                          </div>{" "}
                           <img
-                            src={showImages[id]}
-                            alt={`${showImages[id]}-${id}`}
+                            src={URL.createObjectURL(albumImages[id])}
+                            alt={`${albumImages[id].name}-${id}`}
                           />
                         </div>
                       ) : (
@@ -257,6 +406,7 @@ export default function ModifyingCoach({ coachId }) {
                 </div>
               </td>
             </tr>
+
             <tr>
               <td>
                 <input
@@ -264,6 +414,7 @@ export default function ModifyingCoach({ coachId }) {
                   id="input-file"
                   style={{ display: "none" }}
                   onChange={handleAddImages}
+                  multiple // allow multiple file selection
                 />
                 <label htmlFor="input-file" className="addButton">
                   이미지 불러오기
@@ -273,13 +424,22 @@ export default function ModifyingCoach({ coachId }) {
             <tr>
               <td>
                 <button type="submit" className="btn-submit">
-                  수정 완료하기
+                  수정 완료
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
       </form>
+      {modalOpen && (
+        <ModalSearch
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        gymList={searchResults}
+        onGymClick={handleGymClick}
+        keyword={keyword}
+      />
+      )}
     </div>
   );
 }

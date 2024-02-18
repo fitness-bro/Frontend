@@ -31,7 +31,7 @@ flex-direction: column;
 
 export const InfoWrap = styled.div`
   justify-content: space-between;
-  align-items: center;
+
   flex-direction: row;
   display:flex;
 
@@ -47,7 +47,7 @@ export const InfoWrap = styled.div`
  export const Ul=styled.div`
  display: flex;
  flex-direction: column;
- align-items: center;
+
  `
   
 export const Li=styled.div`
@@ -59,18 +59,14 @@ padding:0 0 0 10px;
 color: #643E23;
 font-size:15px;
 font-weight:bold;
-align-items:center;
+justify-content: flesx-start;
 margin: auto;
 margin-top:10px;
 margin-bottom: 15px;
 display:flex;
+display: flex;
 
->img{
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    margin-right: 10px;
-}
+
 `
 
 export const ChatMessage=styled.div`

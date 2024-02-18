@@ -9,7 +9,7 @@ import ToggleMenu from '../components/review/ToggleMenu'; // ToggleMenu import �
 const MyCoaches = ({ userId }) => {
     const navigate = useNavigate();
 
-    const apiUrl = "http://dev.fitness-bro.pro/";
+    const apiUrl = "http://dev.fitness-bro.pro";
 
     const [userData, setUserData] = useState([]);
 
@@ -17,7 +17,7 @@ const MyCoaches = ({ userId }) => {
         // userId를 사용하여 API에서 성사된 동네형 리스트 데이터를 가져옵니다.
         const memberId = 1;
 
-        axios.get(`${apiUrl}match/member/success/${memberId}`)
+        axios.get(`${apiUrl}/match/member/success/${memberId}`)
             .then((response) => {
                 const data = response.data;
                 console.log("API 응답:", response)

@@ -7,21 +7,26 @@ import { useLocation } from "react-router-dom";
 
 
 export default function Photos(){
-    const [data,setData]=useState([1,2,3,4,5,6,7,8,9])
+    const [pictures, setPictures] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL;
     const location = useLocation();
     //const coachId = location.state.coachId;
-    const coachId=1;
+    const coachId=602;
+    const token=localStorage.getItem("token");
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}/coaches/album`)
+        axios.get(`${apiUrl}/coaches/album/${coachId}`,{
+            headers:{
+                'token':token
+            }
+        })
             .then(response => {
                 const data = response.data;
                 console.log("API 응답:", data);
 
                 if (data.isSuccess) {
-                    setData([data.result]); // 서버에서 받아온 데이터를 배열로 감싸서 설정
+                    setPictures(data.result.pictureURLs); // 서버에서 받아온 데이터를 배열로 감싸서 설정
                 } else {
                     console.error("API 요청 실패:", data.message);
                 }
@@ -37,11 +42,9 @@ export default function Photos(){
         <Body>
             <Header id={coachId}/>
             <ImgWrap>
-            {data.map(function(){
-                    return(
-                        <img src={reviewImg} alt="리뷰 이미지" />
-                    )
-            })}
+            {pictures.map((pictureURL, index) => (
+                        <img key={index} src={pictureURL} alt={`사진 ${index + 1}`} />
+                    ))}
             </ImgWrap>
             
         </Body>
