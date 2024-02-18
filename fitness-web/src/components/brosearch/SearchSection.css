@@ -55,7 +55,7 @@ ul {
   margin: 0;
   width: 100%;
 }
-
+/*
 li {
   cursor: pointer;
   padding: 8px;
@@ -69,7 +69,7 @@ li:hover {
   background-color: #643E23;
   color: #ff9549;
 }
-
+*/
 .selected {
   background-color: #643E23;
   color: #ff9549;

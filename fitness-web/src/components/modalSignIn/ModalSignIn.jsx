@@ -1,9 +1,9 @@
 import React from 'react';
-import { ModalButton, ModalContainer, ModalOverlay,ButtonWrap } from './ModalSignUp.style';
-import SocialUpGoogle from '../signup/SocialUpGoogle';
+import { ModalButton, ModalContainer, ModalOverlay,ButtonWrap } from './ModalSignIn.style';
+import SocialGoogle from '../login/SocialGoogle';
 import loginLogo from '../../img/loginLogo.svg';
 
-const ModalSignUp = ({ isOpen,closeModalUp }) => {
+const ModalSignIn = ({ isOpen,closeModalIn }) => {
 return (
     <div style={{display:isOpen?"block":"none"}}>
         <ModalOverlay></ModalOverlay>
@@ -11,12 +11,12 @@ return (
                     <img src={loginLogo}/>
                     <h2>로그인</h2>
                     <ButtonWrap>
-                    <SocialUpGoogle></SocialUpGoogle>
+                    <SocialGoogle></SocialGoogle>
                     </ButtonWrap>
-                    <ModalButton onClick={closeModalUp}>닫기</ModalButton>
+                    <ModalButton onClick={closeModalIn}>닫기</ModalButton>
             </ModalContainer>
     </div>
 );
 };
 
-export default ModalSignUp;
+export default ModalSignIn;

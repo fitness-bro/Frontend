@@ -2,12 +2,14 @@ import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap
 import React, { useState,useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import backImg from "../../img/back.jpg";
-import likeBtn from "../../img/like.svg";
+import unlikeBtn from "../../img/unlike.svg";
+import likeBtn from '../../img/like.svg';
 import star from "../../img/review.svg";
 import axios from "axios";
 
 export default function ProfileHeader(props) {
     const navigate = useNavigate();
+    const userRole=localStorage.getItem("role");
     const [btnStates, setBtnStates] = useState({
         프로필: false,
         후기: false,
@@ -20,7 +22,40 @@ export default function ProfileHeader(props) {
       rating:0,
       coachPicture:null
     });
+    const [likeBtnClicked, setLikeBtnClicked] = useState(false);
     const coachId=props.id;
+    const token=localStorage.getItem("token");
+
+    const handleImgClick = () => {
+        const coachId = props.id; // 코치 아이디
+
+        if(userRole=="COACH"){
+          alert("같은 동네형이므로 찜할 수 없습니다!");
+          return;
+        }
+
+        if (!token) {
+          // 토큰이 없는 경우 알림 표시
+          alert("로그인 후에 사용할 수 있습니다!");
+          return;
+      }
+
+        const config = {
+          headers: {
+            'token': token // 'token' 헤더 추가
+        }
+        };
+    
+        axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
+          .then(response => {
+            console.log("즐겨찾기 추가 응답:", response);
+            setLikeBtnClicked(prevState => !prevState);
+          })
+          .catch(error => {
+            console.error("즐겨찾기 추가 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+          });
+      };
     
       useEffect(() => {
       
@@ -76,10 +111,17 @@ export default function ProfileHeader(props) {
         const userId = 1; // 예: 유저 아이디
         const coachId = 1; // 예: 코치 아이디
 
+        if (!token) {
+          // 토큰이 없는 경우 알림 표시
+          alert("로그인 후에 사용할 수 있습니다!");
+          return;
+      }
+
         axios.post(`${apiUrl}/chatinglist`, { userId, coachId })
             .then(response => {
                 console.log("채팅하기 API 응답:", response);
                 // 채팅하기 요청에 대한 응답 처리
+                navigate("/chatinglist");
             })
             .catch(error => {
                 console.error("채팅하기 API 요청 중 오류 발생:", error);
@@ -92,7 +134,7 @@ export default function ProfileHeader(props) {
         <TopWrap>
             <Backimgage src={backImg} alt="배경" />
             <BtnWrap>
-                <img src={likeBtn} style={{width:"20px", paddingRight:"10px"}}/>
+                <img src={likeBtnClicked ? likeBtn : unlikeBtn} style={{width:"20px", paddingRight:"10px",cursor:"pointer"}} onClick={handleImgClick}/>
                 <Btn onClick={() => handleBtnClick("프로필")} style={{backgroundColor: btnStates["프로필"] ? "rgba(255, 149, 73, 1)" : "",}}>                    
                 프로필
                 </Btn>
@@ -104,9 +146,9 @@ export default function ProfileHeader(props) {
                 </Btn>
             </BtnWrap>
             
-            <Link to="/chatinglist" style={{ textDecoration: "none"}}>
+            {/* <Link to="/chatinglist" style={{ textDecoration: "none"}}> */}
             <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
-            </Link>
+            {/* </Link> */}
             </TopWrap>
 
             <Wrapper>
