@@ -1,4 +1,4 @@
-// SearchPage.js
+
 import React, { useState, useEffect } from 'react';
 import SearchSection from '../components/brosearch/SearchSection';
 import MapSection from '../components/brosearch/MapSection';

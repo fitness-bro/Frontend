@@ -11,14 +11,17 @@ import ToggleMenu from '../components/review/ToggleMenu';
 const MyCoaches = () => {
     const navigate = useNavigate();
 
+
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const [coachNicknames, setCoachNicknames] = useState([]); // 코치 닉네임 목록 상태 추가
+
 
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
 
+              
         const token = localStorage.getItem("token");
 
         axios.get(`${apiUrl}match/member/success`, {
@@ -39,6 +42,7 @@ const MyCoaches = () => {
             } else {
                 console.error("API 요청 실패:", data.message);
             }
+
             })
         .catch(error => {
             console.error("API 요청 중 오류 발생:", error);

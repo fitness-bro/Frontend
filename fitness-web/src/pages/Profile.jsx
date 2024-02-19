@@ -2,12 +2,13 @@ import {React,useState,useEffect} from "react";
 import { InfBlock,InfLine,Body} from "./Profile.style";
 import ProfileHeader from "../components/header/ProfileHeader";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 export default function Profile(props){
   const apiUrl = process.env.REACT_APP_API_URL;
   //const location = useLocation();
     //const coachId = location.state.coachId;
+
 
     const token=localStorage.getItem("token");
     const userId=props.userId;
@@ -23,7 +24,9 @@ export default function Profile(props){
       useEffect(() => { 
         axios.get(
 
+
           `${apiUrl}/coaches/${userId}/info`,
+
 
           {
             headers: {
@@ -73,10 +76,7 @@ export default function Profile(props){
                     <h4>가격</h4>
                     <p>{userData.price}</p>
                 </InfBlock>
-                <InfBlock>
-                    <h4>주의사항</h4>
-                    <p>{userData.price}</p>
-                </InfBlock>
+
         </Body>
         </>
     );

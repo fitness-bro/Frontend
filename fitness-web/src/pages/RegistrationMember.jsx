@@ -1,45 +1,72 @@
-import React, { useState,useRef } from "react";
+
+import React, { useState, useRef } from "react";
 import "./ModifyingInformation.css";
 import { Icon } from "@iconify/react";
 import axios from "axios";
-
 export default function RegistrationMember() {
-    const apiUrl = "http://dev.fitness-bro.pro/";
-  const [nickname, setNickname] = useState("");
-  const [residence, setResidence] = useState("");
+    const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
-  const hadleNicknameChange = (e) => setNickname(e.target.value);
-  const hadleResidenceChange = (e) => setResidence(e.target.value);
-  const inputRef = useRef(null);
-  const [image, setImage] = useState("");
+  
+  const [nickname, setNickname] = useState("");
+  const [address, setAddress] = useState("");
+  const [profileImage, setProfileImage] = useState(""); // 프로필 이미지
+
+  const handleNicknameChange = (e) => setNickname(e.target.value);
+  const handleAddressChange = (e) => setAddress(e.target.value);
 
   const handleImageClick = () => {
-    inputRef.current.click();
+    // 이미지 선택 input 클릭
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
   };
+
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    console.log(file);
-    setImage(e.target.files[0]);
+    // 선택한 이미지를 상태에 저장
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setProfileImage(files[0]);
+    }
   };
 
-  const hadleSubmit = async (e) => {
-    const updateData = {
-        nickname,
-        residence
-      };
-  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(`${apiUrl}/members/sign-up`, 
-        { updateData }, {
-            headers: {
-                'token': token
-            }
-      });
 
-      console.log("서버 응답:", response.data);
+    const formData = new FormData();
+    formData.append('request', JSON.stringify({
+      "nickname": nickname,
+      "address": address
+    }));
+    
+    if (profileImage) {
+      formData.append('picture', profileImage, `@${profileImage.name};type=${profileImage.type}`);
+    }
+    
+    try {
+      const response = await axios.post(
+        `${apiUrl}/members/sign-up`,
+        formData,
+        {
+          headers: {
+            'token': token,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+    
+      // 여기서 응답 처리
+      console.log("Coach updated:", response.data);
+      alert("회원 정보를 등록했습니다!");
     } catch (error) {
-      console.error("서버에 데이터를 보내는 동안 오류 발생:", error);
+      console.error('Error:', error);
+      console.error('에러 상세 정보:', error.response);
+
+      if (error.response && error.response.data) {
+        console.error('서버 응답 데이터:', error.response.data);
+      }
+
+      alert("등록에 실패했습니다ㅠㅠ");
+
     }
   };
 
@@ -58,15 +85,19 @@ export default function RegistrationMember() {
     marginTop: "5px",
   };
 
+
+  const inputRef = useRef(null);
+
   return (
     <div className="registrationContainer">
-      <form onSubmit={hadleSubmit}>
+      <form onSubmit={handleSubmit}>
+
         <table>
           <thead>
             <tr>
               <td>
-
                 <div style={textStyle}>내 정보 등록하기</div>
+
 
               </td>
             </tr>
@@ -74,35 +105,37 @@ export default function RegistrationMember() {
           <tbody>
             <tr>
               <td>
-                <div className="bgprofile"  onClick={handleImageClick}>
-                  <div className="profile">
-                  {image ? (
-                <img
-                  style={{
-                    width: "150px",
-                    height: "150px",
-                    alignItems: "center",
-                    borderRadius: "100px",
-                  }}
-                  src={URL.createObjectURL(image)}
-                  alt=""
-                />
-              ) : (
-                <div className="memberbgprofile">
-                  <Icon
-                    className="memberIcon"
-                    icon="ic:baseline-person-outline"
-                    alt="기본 이미지"
-                  />
-                   <input
-                type="file"
-                ref={inputRef}
-                onChange={handleImageChange}
-                style={{ display: "none" }}
-              />
-                </div>
-              )}
-                  </div>
+
+              <div onClick={handleImageClick}>
+                {profileImage ? (
+                      <img
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          alignItems: "center",
+                          borderRadius: "100px",
+                        }}
+                        src={profileImage ? URL.createObjectURL(profileImage) : ''}
+                        alt=""
+                      />
+                    ) : (
+                      <div className="regmemberbgprofile">
+                        <Icon
+                          className="regmemberIcon"
+                          icon="ic:baseline-person-outline"
+                          alt="기본 이미지"
+                        />
+                       
+                      </div>
+                    )}
+                     <input
+                          type="file"
+                          ref={inputRef}
+                          onChange={handleImageChange}
+                          style={{ display: "none" }}
+                        />
+
+               
                 </div>
               </td>
             </tr>
@@ -112,7 +145,9 @@ export default function RegistrationMember() {
                 <input
                   type="text"
                   value={nickname}
-                  onChange={hadleNicknameChange}
+
+                  onChange={handleNicknameChange}
+
                   style={{ ...boxStyle1 }}
                 />
               </td>
@@ -122,18 +157,21 @@ export default function RegistrationMember() {
                 <div style={textStyle}>거주 지역</div>
                 <input
                   type="text"
-                  value={residence}
-                  onChange={hadleResidenceChange}
+
+                  value={address}
+                  onChange={handleAddressChange}
                   style={{ ...boxStyle1 }}
                 />
-                
+
+
               </td>
             </tr>
             <tr>
               <td>
                 <button type="submit" className="btn-submit">
 
-                  등록 완료하기
+                  회원 등록 완료하기
+
 
                 </button>
               </td>
@@ -143,4 +181,6 @@ export default function RegistrationMember() {
       </form>
     </div>
   );
+
 }
+

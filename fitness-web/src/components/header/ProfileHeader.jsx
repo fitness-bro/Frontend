@@ -7,6 +7,7 @@ import likeBtn from '../../img/like.svg';
 import star from "../../img/review.svg";
 import axios from "axios";
 
+
 export default function ProfileHeader(props) {
     const navigate = useNavigate();
     const userRole=localStorage.getItem("role");
@@ -24,7 +25,9 @@ export default function ProfileHeader(props) {
     });
     const [likeBtnClicked, setLikeBtnClicked] = useState(false);
     const coachId=props.id;
+
     const token=localStorage.getItem("token");
+
 
     const handleImgClick = () => {
         const coachId = props.id; // 코치 아이디
@@ -45,6 +48,19 @@ export default function ProfileHeader(props) {
             'token': token // 'token' 헤더 추가
         }
         };
+
+    
+        axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
+          .then(response => {
+            console.log("즐겨찾기 추가 응답:", response);
+            setLikeBtnClicked(prevState => !prevState);
+          })
+          .catch(error => {
+            console.error("즐겨찾기 추가 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+          });
+      };
+
     
         axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
           .then(response => {
@@ -57,6 +73,7 @@ export default function ProfileHeader(props) {
           });
       };
     
+
       useEffect(() => {
       
         axios.get(
@@ -108,26 +125,24 @@ export default function ProfileHeader(props) {
     };
 
     const handleChatClick = () => {
-        const userId = 1; // 예: 유저 아이디
-        const coachId = 1; // 예: 코치 아이디
 
-        if (!token) {
-          // 토큰이 없는 경우 알림 표시
-          alert("로그인 후에 사용할 수 있습니다!");
-          return;
-      }
 
-        axios.post(`${apiUrl}/chatinglist`, { userId, coachId })
+        axios.post(`${apiUrl}/chat/connect`, { coachId},{
+            headers: {
+                'token': token
+            }
+        })
             .then(response => {
                 console.log("채팅하기 API 응답:", response);
                 // 채팅하기 요청에 대한 응답 처리
-                navigate("/chatinglist");
             })
             .catch(error => {
                 console.error("채팅하기 API 요청 중 오류 발생:", error);
                 console.error("에러 상세 정보:", error.response);
             });
     };
+
+
 
     const handleRequireClick = () => {
 
@@ -143,6 +158,7 @@ export default function ProfileHeader(props) {
         });
 
     }
+
 
     return (
         <>  
@@ -170,6 +186,13 @@ export default function ProfileHeader(props) {
             </Requirechat>
             
             
+
+            <Link to={{pathname:"/chatinglist",state: { coachId: coachId }}} style={{ textDecoration: "none"}}>
+            <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
+            </Link>
+          
+            {/* </Link> */}
+
             </TopWrap>
 
             <Wrapper>
@@ -185,3 +208,4 @@ export default function ProfileHeader(props) {
         </>
     );
 }
+

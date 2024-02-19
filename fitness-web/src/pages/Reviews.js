@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import './Reviews.css';
 import ImageUtils from "../components/ImageUtils";
@@ -10,12 +11,40 @@ import axios from "axios";
 
 const Reviews = () => {
     const navigate = useNavigate();
+
     const apiUrl = process.env.REACT_APP_API_URL;
+
 
     const [coachNickname, setCoachNickname] = useState("");
     const [coachNicknames, setCoachNicknames] = useState([]); // 선택한 코치의 닉네임 상태 추가
     const [rating, setRating] = useState(0);
     const [content, setContent] = useState("");
+    
+    useEffect(() => {
+    // 멤버 토큰
+    const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgwOTg3NzQsImV4cCI6MTcwODEwMjM3NH0.PZBT7DXsx4ItDlHaqY4QzvCEcEgFMVi9SxTWdlU8moE'
+
+        axios.get(`${apiUrl}match/member/success`, {
+            headers: {
+                'token': token
+            }
+        })
+        .then((response) => {
+            const data = response.data;
+            console.log("API 응답:", response)
+
+            if (data.isSuccess) {
+                const nicknames = data.result.map(coach => coach.nickname);
+                setCoachNicknames(nicknames); 
+            } else {
+                console.error("API 요청 실패:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("API 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+        });
+    }, []);
 
     const [image, setImage] = useState(null); // 선택된 이미지를 저장하는 상태 추가
     
@@ -51,10 +80,12 @@ const Reviews = () => {
     };
 
     const handleSubmit = () => {
+
         if (!coachNickname) {
             alert('코치를 선택해주세요.');
             return;
         }
+
         if (rating === 0) {
             alert('별점을 선택해주세요.');
             return;
@@ -64,6 +95,7 @@ const Reviews = () => {
             return;
         }
     
+
         const formData = new FormData();
         formData.append('request', JSON.stringify({
           nickname: coachNickname,
@@ -85,6 +117,7 @@ const Reviews = () => {
         axios.post(`${apiUrl}members/reviews`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
+
                 'token': token
             }
         })
@@ -97,9 +130,11 @@ const Reviews = () => {
             });
     };
 
+
     const handleImageSelected = (imageFile) => {
         setImage(imageFile); // 이미지 선택 시 호출되는 함수
     };
+
 
     // 별점 설정 함수
     const handleStarClick = (rating) => {

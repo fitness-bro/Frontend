@@ -6,46 +6,46 @@ import axios from "axios";
 
 //import { useSelector} from "react-redux";
 
-function Member() {
+function Member({memberId}) {
   // const user = useSelector((state) => state.user);
-  const apiUrl="http://dev.fitness-bro.pro/";
+  const apiUrl = process.env.REACT_APP_API_URL;
+  
+
   const [userData,setUserData] = useState({
     nickname:"",
     match_num:0,
-    review_num:0
+    review_num:0,
+    memberImage:"", 
   });
 
   const textStyle = {
     color: "#FF9549",
   };
 
-  const inputRef = useRef(null);
-  const [image, setImage] = useState("");
-
-  const handleImageClick = () => {
-    inputRef.current.click();
-  };
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    console.log(file);
-    setImage(e.target.files[0]);
-  };
+  const token=localStorage.getItem("token");
 
   useEffect(()=>{
-    const usersId =1; //예 1243
 
     axios.get(
-        `${apiUrl}/members/${usersId}`
+        `${apiUrl}/members`, 
+        {
+            headers: {
+              'token': token
+            }
+        }
     )
+
     .then(response=>{
         const data=response.data;
         console.log("API응답:", response);
 
         if(data.isSuccess){
             setUserData({
+
                 nickname:data.result.nickname,
                 match_num:data.result.match_num,
-                review_num:data.result.review_num
+                review_num:data.result.review_num,
+                memberImage:data.result.memberImage,
             });
         }
         else{
@@ -66,7 +66,7 @@ function Member() {
         <tr>
           <td colSpan={2}>
             <div
-              onClick={handleImageClick}
+           
               style={{
                 marginLeft: "auto",
                 marginRight: "auto",
@@ -77,7 +77,7 @@ function Member() {
                 height: "150px",
               }}
             >
-              {image ? (
+              {userData.memberImage ? (
                 <img
                   style={{
                     width: "150px",
@@ -85,7 +85,7 @@ function Member() {
                     alignItems: "center",
                     borderRadius: "100px",
                   }}
-                  src={URL.createObjectURL(image)}
+                  src={userData.memberImage}
                   alt=""
                 />
               ) : (
@@ -97,12 +97,6 @@ function Member() {
                   />
                 </div>
               )}
-              <input
-                type="file"
-                ref={inputRef}
-                onChange={handleImageChange}
-                style={{ display: "none" }}
-              />
             </div>
             <Link to="/ModifyingInformation" style={{ color: "#FF9549" }}>
               나의 정보 수정하기

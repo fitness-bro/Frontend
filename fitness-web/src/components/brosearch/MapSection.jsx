@@ -21,11 +21,11 @@ const MapSection = ({ userList, onMarkerClick }) => {
         const container = mapContainer.current;
         const options = {
           center: new kakao.maps.LatLng(37.4966645, 127.0629804),
-
           level: 10,
         };
 
         const map = new kakao.maps.Map(container, options);
+
 
         markers.current.forEach(marker => marker.setMap(null));
         markers.current = [];
@@ -46,7 +46,6 @@ const MapSection = ({ userList, onMarkerClick }) => {
                 new kakao.maps.Size(54, 54),
                 { offset: new kakao.maps.Point(27, 54) }
               );
-
 
               const markerImageSelected = new kakao.maps.MarkerImage(
                 mapmarkerSelected,

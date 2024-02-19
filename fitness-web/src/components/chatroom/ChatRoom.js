@@ -13,42 +13,46 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
     const [isDragging, setIsDragging] = useState(false);
     const apiUrl = "http://dev.fitness-bro.pro/";
 
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgxNzczMzUsImV4cCI6MTcwODE4MDkzNX0.TeFBX3hKXATmtV133VVi1OXWrp58VmllZfRVly47VfM';
-
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgyNzg5MzQsImV4cCI6MTcwODYzODkzNH0.hxF8EDOwKGUHjx0nr0kt767H4ktpG9bMeN6kev9bCI0';
+    
     useEffect(() => {
-        
-        let Sock = new SockJS('http://dev.fitness-bro.pro/stomp/chat');
+        let Sock = new SockJS("http://dev.fitness-bro.pro/stomp/chat");
         stompClient = over(Sock);
-        stompClient.connect({},onConnected, onError);
-
+        stompClient.connect({}, onConnected, onError);
+    
         return () => {
-            Sock.close()
-      }
-        
+          Sock.close();
+        };
       }, []);
+    
+      useEffect(() => {
+        if (stompClient && tab !== "CHATROOM") {
+          stompClient.subscribe(`/user/${tab}/private`, onPrivateMessage);
+        }
+      }, [tab]);
+    
       const onConnected = () => {
-        setUserData({...userData,"connected": true});
-        stompClient.subscribe('/user/'+7+'/private', onPrivateMessage);
-
-    }
-
+        setUserData({ ...userData, connected: true });
+        stompClient.subscribe(`/user/${tab}/private`, onPrivateMessage);
+      };
+    
       const onError = (err) => {
         console.log(err);
-        
-    }
-    const onPrivateMessage = (payload)=>{
+      };
+    
+      const onPrivateMessage = (payload) => {
         console.log(payload);
         var payloadData = JSON.parse(payload.body);
-
-        if(privateChats.get(payloadData.chatRoomId)){
-            privateChats.get(payloadData.chatRoomId).push(payloadData);
-            setPrivateChats(new Map(privateChats));
-        }else{
-            privateChats.set(payloadData.chatRoomId,[]);
-            setPrivateChats(new Map(privateChats));
+    
+        if (privateChats.get(payloadData.chatRoomId)) {
+          privateChats.get(payloadData.chatRoomId).push(payloadData);
+          setPrivateChats(new Map(privateChats));
+        } else {
+          privateChats.set(payloadData.chatRoomId, []);
+          setPrivateChats(new Map(privateChats));
         }
-    }
-
+      };
+   
     useEffect(() => {
         axios.get(`${apiUrl}members/chatrooms`, {
             headers: {
@@ -99,7 +103,6 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         }
     };
 
-
     const handleOnKeyPress = (e) => {
         if (e.key === 'Enter') {
             sendPrivateValue();
@@ -129,6 +132,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         return null;
     }
 
+
     return (
         <div className="modal">
             <div
@@ -144,9 +148,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
                         <li className='receiver-name'>
                             {initialChats.get(tab).partnerName}
                         </li>
-                        <li>
-                            <input className="request-btn" type="button" value="동네형 등록" />
-                        </li>
+
                     </ul>
                 </div>
 
@@ -156,7 +158,11 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         <ul className="chat-messages">
             {initialChats.get(tab)?.chatMessageDTOList?.map((chatMessageDTOList, index) => (
                 <li className={`message ${chatMessageDTOList.sender === userData.username && "self"}`} key={index}>
-                     {chatMessageDTOList.sender !== userData.username && <div className="avatar">{chatMessageDTOList.sender}</div>}
+
+                     {chatMessageDTOList.sender !== userData.username && <div className="avatar"></div>}
+
+                    
+
                      <div className="message-data">
                     <div className="message-box">{chatMessageDTOList.message}</div>
                     </div>
@@ -164,7 +170,9 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
             ))}
             {[...privateChats.get(tab)].map((chat, index) => (
                 <li className={`message ${chat.sender === userData.username && "self"}`} key={index}>
-                    {chat.sender !== userData.username && <div className="avatar">{chat.sender}</div>}
+
+                    {chat.sender !== userData.username && <div className="avatar"></div>}
+
                     <div className="message-data">
                         <div className="message-box">{chat.message}</div>
                     </div>

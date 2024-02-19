@@ -35,8 +35,12 @@ const ListSection = ({ userList, selectedRegion, selectedSubAddress, selectedUse
 
   const handleProfileClick = (userId) => {
 
-    navigate(`/profile`);
+    // 클릭된 프로필의 userId를 사용하여 프로필 페이지로 이동
+    console.log(userId)
+    navigate("/profile",{state:{userId:userId}});
+
   };
+
 
   return (
     <>
@@ -56,8 +60,10 @@ const ListSection = ({ userList, selectedRegion, selectedSubAddress, selectedUse
               <table>
                 <tbody>
                   <tr>
-                    <td>{user.nickname}</td>
-                    <td>{user.age}세 </td>
+
+                    <td className='listTd'>{user.nickname}</td>
+                    <td lassName='listTd'>{user.age}세 </td>
+
                     <td className='lastTd'><StarIcon /> &nbsp; {user.rating}</td>
                   </tr>
                 </tbody>

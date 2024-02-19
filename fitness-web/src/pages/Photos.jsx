@@ -10,7 +10,9 @@ export default function Photos(){
     const [pictures, setPictures] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL;
     const location = useLocation();
+
     const userId = localStorage.getItem("userId");
+
     const token=localStorage.getItem("token");
 
     useEffect(() => {
