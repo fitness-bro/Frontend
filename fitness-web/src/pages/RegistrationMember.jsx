@@ -1,8 +1,8 @@
+
 import React, { useState, useRef } from "react";
 import "./ModifyingInformation.css";
 import { Icon } from "@iconify/react";
 import axios from "axios";
-
 export default function RegistrationMember() {
     const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
@@ -66,6 +66,7 @@ export default function RegistrationMember() {
       }
 
       alert("등록에 실패했습니다ㅠㅠ");
+
     }
   };
 
@@ -84,22 +85,27 @@ export default function RegistrationMember() {
     marginTop: "5px",
   };
 
+
   const inputRef = useRef(null);
 
   return (
     <div className="registrationContainer">
       <form onSubmit={handleSubmit}>
+
         <table>
           <thead>
             <tr>
               <td>
-                <div style={textStyle}>회원으로 가입하기</div>
+                <div style={textStyle}>내 정보 등록하기</div>
+
+
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
+
               <div onClick={handleImageClick}>
                 {profileImage ? (
                       <img
@@ -128,6 +134,8 @@ export default function RegistrationMember() {
                           onChange={handleImageChange}
                           style={{ display: "none" }}
                         />
+
+               
                 </div>
               </td>
             </tr>
@@ -137,7 +145,9 @@ export default function RegistrationMember() {
                 <input
                   type="text"
                   value={nickname}
+
                   onChange={handleNicknameChange}
+
                   style={{ ...boxStyle1 }}
                 />
               </td>
@@ -147,16 +157,22 @@ export default function RegistrationMember() {
                 <div style={textStyle}>거주 지역</div>
                 <input
                   type="text"
+
                   value={address}
                   onChange={handleAddressChange}
                   style={{ ...boxStyle1 }}
                 />
+
+
               </td>
             </tr>
             <tr>
               <td>
                 <button type="submit" className="btn-submit">
+
                   회원 등록 완료하기
+
+
                 </button>
               </td>
             </tr>
@@ -165,4 +181,6 @@ export default function RegistrationMember() {
       </form>
     </div>
   );
+
 }
+

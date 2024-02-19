@@ -26,6 +26,7 @@ const MapSection = ({ userList, onMarkerClick }) => {
 
         const map = new kakao.maps.Map(container, options);
 
+
         markers.current.forEach(marker => marker.setMap(null));
         markers.current = [];
         selectedMarker.current = null;
@@ -34,6 +35,7 @@ const MapSection = ({ userList, onMarkerClick }) => {
 
         userList.forEach((user) => {
           const address = user.region + ' ' + user.subAddress + ' ' + user.detailAddress;
+
 
           geocoder.addressSearch(address, (result, status) => {
             if (status === kakao.maps.services.Status.OK) {
@@ -69,6 +71,7 @@ const MapSection = ({ userList, onMarkerClick }) => {
                   } else {
                     marker.setImage(markerImageSelected);
                     selectedMarker.current = marker;
+
                   }
                 }
               });

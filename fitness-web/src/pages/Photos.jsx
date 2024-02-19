@@ -10,13 +10,14 @@ export default function Photos(){
     const [pictures, setPictures] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL;
     const location = useLocation();
-    //const coachId = location.state.coachId;
-    const coachId=602;
+
+    const userId = localStorage.getItem("userId");
+
     const token=localStorage.getItem("token");
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}/coaches/album/${coachId}`,{
+        axios.get(`${apiUrl}/coaches/album/${userId}`,{
             headers:{
                 'token':token
             }
@@ -40,7 +41,7 @@ export default function Photos(){
     return(
         <>
         <Body>
-            <Header id={coachId}/>
+            <Header id={userId}/>
             <ImgWrap>
             {pictures.map((pictureURL, index) => (
                         <img key={index} src={pictureURL} alt={`사진 ${index + 1}`} />

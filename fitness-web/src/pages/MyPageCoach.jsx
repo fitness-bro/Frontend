@@ -4,7 +4,9 @@ import MemberCoach from '../components/member/MemberCoach';
 
 export default function MyPageCoach(){
 
+
     const coachId=localStorage.getItem("userId");
+
 
     const navigate = useNavigate();
     const goToChattinglist = () => {

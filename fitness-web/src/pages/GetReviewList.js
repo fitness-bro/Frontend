@@ -2,20 +2,22 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
+import {useLocation} from "react-router-dom";
 
 // 받은 후기 리스트
 
-const GetReviewList = ({ coachId }) => {
+const GetReviewList = () => {
     const navigate = useNavigate();
 
-    const apiUrl="http://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const [userData, setUserData] = useState([]);
 
-    useEffect(() => {
+    
+    const location = useLocation();
+    const coachId = location.state.coachId;
 
-        // coachId를 사용하여 API에서 후기 데이터를 가져옵니다.
-        const coachId=1;
+    useEffect(() => {
 
         axios.get(`${apiUrl}coaches/${coachId}/reviews`)
             .then((response) => {
@@ -39,6 +41,10 @@ const GetReviewList = ({ coachId }) => {
         navigate(-1);
     };
 
+    const goToReviewDetail = (review_id) => { // /review-detail로 review_id를 props로 넘겨주기
+        navigate("/review-detail",{state:{reviewId:review_id}});
+    };
+
     return (
         <div className="GetReviewList">
             <div className="titleAndBack">
@@ -49,10 +55,10 @@ const GetReviewList = ({ coachId }) => {
             <div className="userList">
                 <ul>
                     {userData.map((item, index) => (
-                        <li key={index}>
+                        <li key={index} onClick={() => goToReviewDetail(item.review_id)}>
                             {/* 프로필 이미지 */}
-                            {item.profileImage ? (
-                                <img src={item.profileImage} alt="프로필 이미지" className="profileImage" />
+                            {item.pictureURL ? (
+                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}

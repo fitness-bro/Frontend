@@ -18,14 +18,29 @@ const ListSection = ({ userList, selectedRegion, selectedSubAddress, selectedUse
     return regionMatch && subAddressMatch;
   });
 
+
   const navigate = useNavigate();
 
+  const filteredUsers = () => {
+    if (!selectedRegion) {
+      return userList;
+    }
+
+    return userList.filter((user) => {
+      const regionMatch = user.region === selectedRegion;
+      const subAddressMatch = selectedSubAddress === null || user.subAddress === selectedSubAddress;
+      return regionMatch && subAddressMatch;
+    });
+  };
+
   const handleProfileClick = (userId) => {
+
     // 클릭된 프로필의 userId를 사용하여 프로필 페이지로 이동
     console.log(userId)
     navigate("/profile",{state:{userId:userId}});
 
   };
+
 
   return (
     <>
@@ -38,14 +53,17 @@ const ListSection = ({ userList, selectedRegion, selectedSubAddress, selectedUse
             className={`UserProfile ${selectedUserId === user.coachId ? 'clicked' : ''}`}
             key={user.coachId}
             onClick={() => handleProfileClick(user.coachId)}
+
           >
             <div className='UserPic'></div>
             <div className="Userinfo">
               <table>
                 <tbody>
                   <tr>
+
                     <td className='listTd'>{user.nickname}</td>
                     <td lassName='listTd'>{user.age}세 </td>
+
                     <td className='lastTd'><StarIcon /> &nbsp; {user.rating}</td>
                   </tr>
                 </tbody>

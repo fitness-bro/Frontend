@@ -1,4 +1,4 @@
-import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap } from "./ProfileHeader.style";
+import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap, Requirebtn, Requirechat } from "./ProfileHeader.style";
 import React, { useState,useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import backImg from "../../img/back.jpg";
@@ -25,7 +25,9 @@ export default function ProfileHeader(props) {
     });
     const [likeBtnClicked, setLikeBtnClicked] = useState(false);
     const coachId=props.id;
-    const token="eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imh1bnhiYW5nQGdtYWlsLmNvbSIsImlhdCI6MTcwODI5NTQ5OSwiZXhwIjoxNzA4NjU1NDk5fQ.-bDD6ZnqMuaC4W3ANMpdpIshMTlQtTreDgffan0AiFs";
+
+    const token=localStorage.getItem("token");
+
 
     const handleImgClick = () => {
         const coachId = props.id; // 코치 아이디
@@ -46,6 +48,19 @@ export default function ProfileHeader(props) {
             'token': token // 'token' 헤더 추가
         }
         };
+
+    
+        axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
+          .then(response => {
+            console.log("즐겨찾기 추가 응답:", response);
+            setLikeBtnClicked(prevState => !prevState);
+          })
+          .catch(error => {
+            console.error("즐겨찾기 추가 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+          });
+      };
+
     
         axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
           .then(response => {
@@ -110,8 +125,7 @@ export default function ProfileHeader(props) {
     };
 
     const handleChatClick = () => {
-        const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgyNzU2MzksImV4cCI6MTcwODYzNTYzOX0.dXquUGs6NJF3nTP3a_r7aPdYiuzcHSouT1mWT9PnLYA';
-        // 예: 코치 아이디
+
 
         axios.post(`${apiUrl}/chat/connect`, { coachId},{
             headers: {
@@ -128,7 +142,24 @@ export default function ProfileHeader(props) {
             });
     };
 
- 
+
+
+    const handleRequireClick = () => {
+
+        const coachId = 552;
+        axios.post(`${apiUrl}/match/member`, { coachId })
+        .then(response => {
+            console.log("성사 요청 API 응답:", response);
+          
+        })
+        .catch(error => {
+            console.error("성사 API 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+        });
+
+    }
+
+
     return (
         <>  
         <TopWrap>
@@ -145,12 +176,23 @@ export default function ProfileHeader(props) {
                     사진첩
                 </Btn>
             </BtnWrap>
+
             
+            <Requirechat>
+                <Requirebtn onClick={handleRequireClick}>성사 요청</Requirebtn>
+                    <Link to="/chatinglist" style={{ textDecoration: "none"}}>
+                        <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
+                    </Link>
+            </Requirechat>
+            
+            
+
             <Link to={{pathname:"/chatinglist",state: { coachId: coachId }}} style={{ textDecoration: "none"}}>
             <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
             </Link>
-            <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
+          
             {/* </Link> */}
+
             </TopWrap>
 
             <Wrapper>

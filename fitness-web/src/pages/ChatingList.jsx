@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import ChatRoom from "../components/chatroom/ChatRoom";
 import { All, FrontWrap, Ul, Li } from "./ChatingList.style";
@@ -82,6 +83,7 @@ const Chattinglist = () => {
                   className={`member ${tab === chatRoomId && "active"}`}
                   key={chatRoomId}
                 >
+
                   <div >
                    <table>
                     <tr>
@@ -98,6 +100,7 @@ const Chattinglist = () => {
                      <td> {initialChats.get(chatRoomId).lastChatMessage}</td></tr>
        
               </table>
+     
                   </div>
                 </Li>
               ))}

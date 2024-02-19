@@ -12,6 +12,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const apiUrl = "http://dev.fitness-bro.pro/";
+
     const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgyNzg5MzQsImV4cCI6MTcwODYzODkzNH0.hxF8EDOwKGUHjx0nr0kt767H4ktpG9bMeN6kev9bCI0';
     
     useEffect(() => {
@@ -51,7 +52,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
           setPrivateChats(new Map(privateChats));
         }
       };
-    
+   
     useEffect(() => {
         axios.get(`${apiUrl}members/chatrooms`, {
             headers: {
@@ -147,15 +148,21 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
                         <li className='receiver-name'>
                             {initialChats.get(tab).partnerName}
                         </li>
+
                     </ul>
                 </div>
+
                 
                 {tab !== "CHATROOM" && (
     <div className="chat-content">
         <ul className="chat-messages">
             {initialChats.get(tab)?.chatMessageDTOList?.map((chatMessageDTOList, index) => (
                 <li className={`message ${chatMessageDTOList.sender === userData.username && "self"}`} key={index}>
+
                      {chatMessageDTOList.sender !== userData.username && <div className="avatar"></div>}
+
+                    
+
                      <div className="message-data">
                     <div className="message-box">{chatMessageDTOList.message}</div>
                     </div>
@@ -163,7 +170,9 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
             ))}
             {[...privateChats.get(tab)].map((chat, index) => (
                 <li className={`message ${chat.sender === userData.username && "self"}`} key={index}>
+
                     {chat.sender !== userData.username && <div className="avatar"></div>}
+
                     <div className="message-data">
                         <div className="message-box">{chat.message}</div>
                     </div>

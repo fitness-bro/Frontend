@@ -3,24 +3,24 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import '../components/CommonStyle.css'
 import DefaultImage from '../components/review/DefaultImage';
-import { useLocation } from "react-router-dom";
 
 // 수련생 성사 리스트 페이지
 
 const MyMembers = ()=>{
 
-    const apiUrl="http://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
 
-    const location = useLocation();
-    const coachId = location.state.coachId;
 
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
-        // userId를 사용하여 API에서 후기 목록 데이터를 가져옴
-       
+        const token = localStorage.getItem("token");
 
-        axios.get(`${apiUrl}match/coach/success/${coachId}`)
+        axios.get(`${apiUrl}match/coach/success/`, {
+            headers: {
+                'token': token
+            }
+        })
             .then((response) => {
                 const data = response.data;
                 console.log("API 응답:", response);
@@ -36,7 +36,7 @@ const MyMembers = ()=>{
                 console.error("API 요청 중 오류 발생:", error);
                 console.error("에러 상세 정보:", error.response);
             });
-    }, [coachId]);
+    }, []);
 
     const navigate = useNavigate();
     const onClickBackBtn = ()=>{
@@ -58,8 +58,8 @@ const MyMembers = ()=>{
                     {userData.map((item, index) =>(
                         <li key={index}>
                             {/* 프로필 이미지 */}
-                            {item.profileImage ? (
-                                <img src={item.profileImage} alt="프로필 이미지" className="profileImage" />
+                            {item.pictureURL ? (
+                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}

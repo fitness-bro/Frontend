@@ -3,22 +3,37 @@ import './ImageUtils.css';
 import { Icon } from "@iconify/react";
 
 // 이미지 처리
-const ImageUtils = ()=>{
+const ImageUtils = ({onImageSelected}) => {
   const [showImages, setShowImages] = useState([]);
 
-  const handleAddImages = (event) => {
+  const handleAddImages = async (event) => {
     const imageLists = event.target.files;
     let imageUrlLists = [...showImages];
-    
-    for (let i = 0; i < imageLists.length; i++) {
-      const currentImageUrl = URL.createObjectURL(imageLists[i]);
-      imageUrlLists.push(currentImageUrl);
+    const formData = new FormData();
+
+    try {
+        for (let i = 0; i < imageLists.length; i++) {
+            const currentImage = imageLists[i];
+            imageUrlLists.push(URL.createObjectURL(currentImage));
+            formData.append('files', currentImage); // 각 이미지를 FormData에 추가
+        }
+
+        // for (let i = 0; i < imageLists.length; i++) {
+        //   formData.append('album', imageLists[i], `@${imageLists[i].name};type=${imageLists[i].type}`);
+        // }
+
+        // 최대 6개까지 제한합니다.
+        imageUrlLists = imageUrlLists.slice(0, 6);
+        setShowImages(imageUrlLists);
+
+        // 선택된 이미지로 콜백 함수를 호출합니다.
+        onImageSelected(imageLists);
+
+    } catch (error) {
+        console.error("이미지 업로드 중 오류 발생: ", error);
     }
-    
-    // 최대 6개로 제한
-    imageUrlLists = imageUrlLists.slice(0, 6);
-    setShowImages(imageUrlLists);
-  };
+};
+
     
   const handleDeleteImage = (id) => {
     setShowImages((prevImages) => prevImages.filter((_, index) => index !== id));

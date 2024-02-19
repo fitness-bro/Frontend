@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import SearchSection from '../components/brosearch/SearchSection';
 import MapSection from '../components/brosearch/MapSection';
@@ -5,7 +6,9 @@ import ListSection from '../components/brosearch/ListSection';
 import axios from 'axios';
 
 const SearchPage = () => {
+
   const [userList, setUserList] = useState([]);
+
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedSubAddress, setSelectedSubAddress] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null);

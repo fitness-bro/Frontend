@@ -6,7 +6,7 @@ import RegistrationCoach from './pages/RegistrationCoach.jsx';
 import RegistrationMember from './pages/RegistrationMember.jsx';
 import ModifyingCoach from './pages/ModifyingCoach.jsx';
 import ModifyingMember from './pages/ModifyingMember.jsx';
-import Header from "./components/header/Header.jsx";
+import MainHeader from "./components/header/Header.jsx";
 import Profile from './pages/Profile.jsx';
 import LookReviews from './pages/LookReviews.jsx';
 import Photos from './pages/Photos.jsx';
@@ -25,13 +25,13 @@ import SignUp from './pages/SignUp.jsx'
 import ReviewDetail from './pages/ReviewDetail.jsx';
 import RegistChoice from './pages/RegistChoice.jsx';
 import Login from "./pages/Login.jsx";
-
+import Require from "./pages/Require.jsx"
 
 function App() {
   return (
     <div className="root-wrap">
       <Router>
-      <Header/>
+      <MainHeader/>
       <div className="App">
         <Routes>
           <Route path="/MyPageCoach" element={<MyPageCoach />} />
@@ -57,6 +57,7 @@ function App() {
           <Route path="/review-detail" element={<ReviewDetail/>}/>
             <Route path='/registchoice' element={<RegistChoice/>}/>
             <Route path='/login' element={<Login/>}/>
+            <Route path='/require' element={<Require/>}/>
           </Routes>
         </div>
         <BottomHeader />

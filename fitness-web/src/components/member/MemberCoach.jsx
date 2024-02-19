@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import "./Member.css";
 import axios from "axios";
 
+
 function MemberCoach({ coachId }) { // coachId prop을 받음
     const apiUrl = process.env.REACT_APP_API_URL;
     const [userData, setUserData] = useState({

@@ -1,4 +1,5 @@
 .UserProfile {
+
     display: flex;
     align-items: center;
     
@@ -77,4 +78,3 @@
     background-color: #ff9549; /* 선택된 유저 프로필의 배경색을 변경합니다. */
     color: #fff; /* 선택된 유저 프로필의 텍스트 색상을 변경합니다. */
   }
-
