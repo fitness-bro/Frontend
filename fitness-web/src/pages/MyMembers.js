@@ -8,7 +8,7 @@ import DefaultImage from '../components/review/DefaultImage';
 
 const MyMembers = ()=>{
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = 'http://dev.fitness-bro.pro';
 
 
     const [userData, setUserData] = useState([]);
@@ -16,7 +16,7 @@ const MyMembers = ()=>{
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        axios.get(`${apiUrl}match/coach/success/`, {
+        axios.get(`${apiUrl}/match/coach/success/`, {
             headers: {
                 'token': token
             }

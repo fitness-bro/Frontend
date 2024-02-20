@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
+import {useLocation} from "react-router-dom";
 
 // 찜한 형 리스트
 
 const Favorites = () => {
     const navigate = useNavigate();
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = 'http://dev.fitness-bro.pro';
 
 
     const [userData, setUserData] = useState([]);
@@ -17,7 +18,7 @@ const Favorites = () => {
 
         const token = localStorage.getItem("token");
 
-        axios.get(`${apiUrl}members/favorites`, {
+        axios.get(`${apiUrl}/members/favorites`, {
             headers: {
                 'token': token
             }

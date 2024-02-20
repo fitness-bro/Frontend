@@ -20,9 +20,9 @@ const ChatRoom = ({
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const apiUrl = "http://dev.fitness-bro.pro/";
-  const token =
-    "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNlb2t3aGFuMTIzQG5hdmVyLmNvbSIsImlhdCI6MTcwODI5MjkzNSwiZXhwIjoxNzA4NjUyOTM1fQ.0LfgwMkaTMewJtRlGY8umLIH_8H4L9lUrcE_ftUyIuM";
+  const apiUrl = "http://dev.fitness-bro.pro";
+  const token ="eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNlb2t3aGFuMTIzQG5hdmVyLmNvbSIsImlhdCI6MTcwODMyMTE0MywiZXhwIjoxNzA4NjgxMTQzfQ.wavnk6K6R6FqWryZvggmmjVyZx3TQ78kw-1g60A9Z4k";
+
 
   useEffect(() => {
     let Sock = new SockJS("http://dev.fitness-bro.pro/stomp/chat");
@@ -64,7 +64,7 @@ const ChatRoom = ({
 
   useEffect(() => {
     axios
-      .get(`${apiUrl}coaches/chatrooms`, {
+      .get(`${apiUrl}/coaches/chatrooms`, {
         headers: {
           token: token,
         },

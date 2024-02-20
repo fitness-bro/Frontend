@@ -5,18 +5,19 @@ import MemberCoach from '../components/member/MemberCoach';
 export default function MyPageCoach(){
 
 
-    const coachId=localStorage.getItem("userId");
+    const coachId=602;
+    const token ="eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNlb2t3aGFuMTIzQG5hdmVyLmNvbSIsImlhdCI6MTcwODMyMTE0MywiZXhwIjoxNzA4NjgxMTQzfQ.wavnk6K6R6FqWryZvggmmjVyZx3TQ78kw-1g60A9Z4k";
 
 
     const navigate = useNavigate();
     const goToChattinglist = () => {
-        navigate("/chatinglist");
+        navigate("/chatinglist", {state: {token: token}});
     };
     const goToMymembers = () => {
-        navigate("/my-members");
+        navigate("/my-members", {state: {token: token}});
     };
     const goToGetreviews = () => {
-        navigate("/get-review-list");
+        navigate("/get-review-list",{state:{coachId:coachId}});
     };
     const textStyle={
         color:"#FF9549",

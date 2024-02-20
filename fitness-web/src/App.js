@@ -21,7 +21,6 @@ import MyMembers from './pages/MyMembers.js';
 import BottomHeader from './components/header/BottomHeader.jsx';
 import ChatingList from './pages/ChatingList.jsx';
 import ChattingListCoach from './pages/ChattingListCoach.jsx';
-import SignUp from './pages/SignUp.jsx'
 import ReviewDetail from './pages/ReviewDetail.jsx';
 import RegistChoice from './pages/RegistChoice.jsx';
 import Login from "./pages/Login.jsx";
@@ -50,7 +49,6 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/chatinglist" element={<ChatingList/>}/>
           <Route path="/chattinglistcoach" element={<ChattingListCoach/>}/>
-          <Route path="/signup" element={<SignUp/>}/>
           <Route path="/review-list" element={<ReviewList/>}/>
           <Route path="/get-review-list" element={<GetReviewList/>}/>
           <Route path="/my-members" element={<MyMembers/>}/>

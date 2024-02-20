@@ -15,25 +15,23 @@ const ImageUtils = ({onImageSelected}) => {
         for (let i = 0; i < imageLists.length; i++) {
             const currentImage = imageLists[i];
             imageUrlLists.push(URL.createObjectURL(currentImage));
-            formData.append('files', currentImage); // 각 이미지를 FormData에 추가
+            formData.append('files', currentImage); // 파일 객체를 FormData에 추가
         }
 
-        // for (let i = 0; i < imageLists.length; i++) {
-        //   formData.append('album', imageLists[i], `@${imageLists[i].name};type=${imageLists[i].type}`);
-        // }
-
-        // 최대 6개까지 제한합니다.
+        // 최대 6개로 제한
         imageUrlLists = imageUrlLists.slice(0, 6);
         setShowImages(imageUrlLists);
 
-        // 선택된 이미지로 콜백 함수를 호출합니다.
+        // 이미지 선택 콜백 함수 호출
+        onImageSelected(imageLists);
+
+        // 이미지 선택 콜백 함수 호출
         onImageSelected(imageLists);
 
     } catch (error) {
         console.error("이미지 업로드 중 오류 발생: ", error);
     }
 };
-
     
   const handleDeleteImage = (id) => {
     setShowImages((prevImages) => prevImages.filter((_, index) => index !== id));
@@ -78,5 +76,4 @@ const ImageUtils = ({onImageSelected}) => {
   );
 };
     
-
 export default ImageUtils;

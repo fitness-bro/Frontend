@@ -9,7 +9,7 @@ import './Require.css';
 const Require = () => {
     const navigate = useNavigate();
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = 'http://dev.fitness-bro.pro';
 
 
     const [userData, setUserData] = useState([]);
@@ -18,7 +18,7 @@ const Require = () => {
 
         const token = localStorage.getItem("token");
 
-        axios.get(`${apiUrl}match/coach/register-list`, {
+        axios.get(`${apiUrl}/match/coach/register-list`, {
             headers: {
                 'Content-Type': 'application/json',
                 'token': token
@@ -50,7 +50,7 @@ const Require = () => {
         const token = localStorage.getItem("token");
         console.log(`사용자 수락: ${memberId}`);
 
-        axios.post(`${apiUrl}match/coach/approve/${memberId}`,{memberId}, {
+        axios.post(`${apiUrl}/match/coach/approve`,{memberId}, {
             headers: {
                 'Content-Type': 'application/json',
                 'token': token
@@ -70,7 +70,7 @@ const Require = () => {
         const token = localStorage.getItem("token");
         console.log(`사용자 거절: ${memberId}`);
 
-        axios.post(`${apiUrl}match/coach/reject/${memberId}`,{memberId}, {
+        axios.post(`${apiUrl}/match/coach/reject`,{memberId}, {
             headers: {
                 'Content-Type': 'application/json',
                 'token': token

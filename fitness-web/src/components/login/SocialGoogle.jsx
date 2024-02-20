@@ -39,9 +39,13 @@ justify-content:center;
 `;
 
 
-const SocialGoogle = () => {
+const SocialUpGoogle = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const GOOGLE_AUTH_URL = process.env.REACT_APP_GOOGLE_AUTH_URL;
+  const clientId = '293755776535-kp2pp4pfe0c4401civ1g2fum81f3etdo.apps.googleusercontent.com'
+  const google_redirect_uri='http://localhost:3000/'
+  const GOOGLE_SCOPE='https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+  const GOOGLE_AUTH_URL=`https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${google_redirect_uri}&response_type=token&scope=${GOOGLE_SCOPE}`;
+
 
   const GoogleLogin=()=>{
       window.location.href=GOOGLE_AUTH_URL;
@@ -56,7 +60,7 @@ const SocialGoogle = () => {
 
       axios.get(`${apiUrl}/login/oauth2/code/google/token?accessToken=${access_token}`)
         .then(response => {
-          console.log("백엔드로부터 응답:", response);
+          console.log("백엔드로부터 응답:", response.data);
 
           const { userToken, userId, role } = response.data.result;
           localStorage.setItem('token', userToken);
@@ -82,4 +86,4 @@ const SocialGoogle = () => {
 
 };
     
-export default SocialGoogle;
+export default SocialUpGoogle;

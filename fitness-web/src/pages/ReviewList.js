@@ -9,7 +9,7 @@ import DefaultImage from '../components/review/DefaultImage';
 const ReviewList = () => {
     const navigate = useNavigate();
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = 'http://dev.fitness-bro.pro';
 
     const [userData, setUserData] = useState([]);
 

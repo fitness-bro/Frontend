@@ -11,7 +11,7 @@ const Chattinglist = () => {
     connected: false,
     message: "",
   });
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = "http://dev.fitness-bro.pro";
   const token=localStorage.getItem("token");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
