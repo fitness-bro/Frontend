@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
-import {useLocation} from "react-router-dom";
 
 // 찜한 형 리스트
 
@@ -45,6 +44,10 @@ const Favorites = () => {
         navigate(-1);
     };
 
+    const goToCoachProfile = (userId) => {
+        navigate("/profile",{state:{userId:userId}});
+    };
+
     return (
         <div className="Favorites">
 
@@ -56,10 +59,10 @@ const Favorites = () => {
             <div className="userList">
                 <ul>
                     {userData.map((item, index) => (
-                        <li key={index}>
+                        <li key={index} onClick={() => goToCoachProfile(item.coachId)}>
                             {/* 프로필 이미지 */}
-                            {item.pictureURL ? (
-                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
+                            {item.coachImage ? (
+                                <img src={item.coachImage} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}

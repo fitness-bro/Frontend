@@ -114,7 +114,7 @@ function Member({ memberId }) { // coachId prop을 받음
                                 style={{ display: "none" }}
                             />
                         </div>
-                        <Link to="/ModifyingCoach" style={{ color: "#FF9549" }}>
+                        <Link to="/ModifyingMember" style={{ color: "#FF9549" }}>
                             나의 정보 수정하기
                         </Link>
                     </td>

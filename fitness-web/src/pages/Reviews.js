@@ -18,10 +18,11 @@ const Reviews = () => {
     const [coachNicknames, setCoachNicknames] = useState([]); // 선택한 코치의 닉네임 상태 추가
     const [rating, setRating] = useState(0);
     const [content, setContent] = useState("");
-    const token = localStorage.getItem("token");
     const [image, setImage] = useState(null); // 선택된 이미지를 저장하는 상태 추가
 
     useEffect(() => {
+        
+        const token = localStorage.getItem("token");
        
         axios.get(`${apiUrl}/match/member/success`, {
             headers: {
@@ -84,8 +85,9 @@ const Reviews = () => {
         console.log("전송할 데이터:", formData); // 추가된 부분
 
         
+        const token = localStorage.getItem("token");
 
-        axios.post(`${apiUrl}members/reviews`, formData, {
+        axios.post(`${apiUrl}/members/reviews`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'token': token

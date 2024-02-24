@@ -4,20 +4,19 @@ import MemberCoach from '../components/member/MemberCoach';
 
 export default function MyPageCoach(){
 
-
-    const coachId=602;
-    const token ="eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNlb2t3aGFuMTIzQG5hdmVyLmNvbSIsImlhdCI6MTcwODMyMTE0MywiZXhwIjoxNzA4NjgxMTQzfQ.wavnk6K6R6FqWryZvggmmjVyZx3TQ78kw-1g60A9Z4k";
-
-
+    const coachId=localStorage.getItem("userId");
     const navigate = useNavigate();
     const goToChattinglist = () => {
-        navigate("/chatinglist", {state: {token: token}});
+        navigate("/chattinglistcoach",{state:{coachId:coachId}});
     };
     const goToMymembers = () => {
-        navigate("/my-members", {state: {token: token}});
+        navigate("/my-members",{state:{coachId:coachId}});
     };
     const goToGetreviews = () => {
         navigate("/get-review-list",{state:{coachId:coachId}});
+    };
+    const goTorequire = () => {
+        navigate("/require",{state:{coachId:coachId}});
     };
     const textStyle={
         color:"#FF9549",
@@ -38,7 +37,7 @@ export default function MyPageCoach(){
                 </thead>
                 <tbody className="mypageContainerTableBody">
                     <tr>
-                        <td colSpan={2} style={{width:"50px"}}><MemberCoach /></td>
+                        <td colSpan={2} style={{width:"50px"}}><MemberCoach coachId={coachId} /></td>
                     </tr>
                     <tr>
                         <td> <button className="buttonStyle" onClick={goToChattinglist}>채팅 하기 ›</button></td>
@@ -46,6 +45,7 @@ export default function MyPageCoach(){
                     </tr>
                     <tr>
                         <td><button className="buttonStyle" onClick={goToGetreviews}>받은 후기 ›</button></td>
+                        <td><button className="buttonStyle" onClick={goTorequire}>성사 수락 요청 ›</button></td>
                     </tr>
                 </tbody>
             </table>

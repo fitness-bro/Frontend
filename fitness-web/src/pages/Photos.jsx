@@ -8,12 +8,11 @@ import { useLocation } from "react-router-dom";
 
 export default function Photos(){
     const [pictures, setPictures] = useState([]);
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = "http://dev.fitness-bro.pro";
     const location = useLocation();
 
-    const userId = localStorage.getItem("userId");
-
-    const token=localStorage.getItem("token");
+    const userId= location.state.userId;
+    const token= location.state.token;
 
     useEffect(() => {
 

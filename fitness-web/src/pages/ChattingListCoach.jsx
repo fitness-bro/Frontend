@@ -11,7 +11,7 @@ const ChattingListCoach = () => {
     message: "",
   });
   const apiUrl = "http://dev.fitness-bro.pro";
-  const token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNlb2t3aGFuMTIzQG5hdmVyLmNvbSIsImlhdCI6MTcwODMyMTE0MywiZXhwIjoxNzA4NjgxMTQzfQ.wavnk6K6R6FqWryZvggmmjVyZx3TQ78kw-1g60A9Z4k';
+  const token=localStorage.getItem("token");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);

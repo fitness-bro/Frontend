@@ -8,7 +8,7 @@ import SockJS from "sockjs-client";
 let stompClient = null;
 
 
-const ChatRoom = ({
+const ChatRoomCoach = ({
   isOpen,
   onClose,
   tab,
@@ -21,8 +21,7 @@ const ChatRoom = ({
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const apiUrl = "http://dev.fitness-bro.pro";
-  const token ="eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNlb2t3aGFuMTIzQG5hdmVyLmNvbSIsImlhdCI6MTcwODMyMTE0MywiZXhwIjoxNzA4NjgxMTQzfQ.wavnk6K6R6FqWryZvggmmjVyZx3TQ78kw-1g60A9Z4k";
-
+  const token=localStorage.getItem("token");
 
   useEffect(() => {
     let Sock = new SockJS("http://dev.fitness-bro.pro/stomp/chat");
@@ -66,7 +65,7 @@ const ChatRoom = ({
     axios
       .get(`${apiUrl}/coaches/chatrooms`, {
         headers: {
-          token: token,
+          "token": token,
         },
       })
       .then((response) => {
@@ -152,9 +151,9 @@ const ChatRoom = ({
         onMouseUp={handleMouseUp}
       >
         <div className="modal-header">
-          <span className="modalClose" onClick={() => onClose()}>
-          <iconify-icon icon="lucide:x-circle"></iconify-icon>
-          </span>
+          
+          <span className="modalClose" onClick={() => onClose()}>&times;</span>
+          
           <ul>
             <li className="receiver-name">
                 {initialChats.get(tab).partnerName}
@@ -231,5 +230,4 @@ const ChatRoom = ({
   );
 };
 
-export default ChatRoom;
-
+export default ChatRoomCoach;

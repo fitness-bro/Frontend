@@ -6,7 +6,7 @@ import ModalSearch from "../components/modalsearch/ModalSearch";
 import { FaSearch } from 'react-icons/fa';
 
 export default function ModifyingCoach() {
-const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = "http://dev.fitness-bro.pro";
   const [nickname, setNickname] = useState("");
   const [age, setAge] = useState("");
   const [introduction, setIntroduction] = useState("");
@@ -221,8 +221,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
   };
 
   const emptyImageStyle = {
-    width: "80px",
-    height: "80px",
+    width: "70px",
+    height: "70px",
     border: "3px dashed #cccccc",
     margin: "5px",
     borderRadius: "5px",

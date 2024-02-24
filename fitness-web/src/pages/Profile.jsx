@@ -9,8 +9,7 @@ export default function Profile(props) {
   //const location = useLocation();
   //const coachId = location.state.coachId;
 
-  const token =
-    "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgzMjAyMDQsImV4cCI6MTcwODY4MDIwNH0.KwemvrlpaxnxPynXSv5pJg9SGsVY5ItYvUZAImAzEpc";
+  const token = localStorage.getItem("token");
   const location = useLocation();
   const userId = location.state.userId;
 

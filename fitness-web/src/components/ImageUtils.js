@@ -38,10 +38,10 @@ const ImageUtils = ({onImageSelected}) => {
   };
       
   const emptyImageStyle = { // 기본 이미지 스타일
-    width: '80px',
-    height: '80px',
+    width: '90px',
+    height: '90px',
     border: '3px dashed #cccccc',
-    margin: '5px',
+    margin: '15px',
     borderRadius: '5px',
     color: '#919191',
     display: 'flex',

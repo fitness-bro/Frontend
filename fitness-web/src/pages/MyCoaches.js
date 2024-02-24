@@ -54,6 +54,10 @@ const MyCoaches = () => {
         navigate(-1);
     };
 
+    const goToCoachProfile = (coachId) => {
+        navigate("/profile",{state:{coachId:coachId}});
+    };
+
 
     return (
         <div className="MyCoaches">
@@ -67,7 +71,7 @@ const MyCoaches = () => {
             <div className="userList">
                 <ul>
                     {userData.length > 0 && userData.map((item, index) => (
-                        <li key={index}>
+                        <li key={index} onClick={() => goToCoachProfile(item.coachId)}>
                             {/* 프로필 이미지 */}
                             {item.pictureURL ? (
                                 <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
