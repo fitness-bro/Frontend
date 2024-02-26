@@ -54,8 +54,8 @@ const MyCoaches = () => {
         navigate(-1);
     };
 
-    const goToCoachProfile = (coachId) => {
-        navigate("/profile",{state:{coachId:coachId}});
+    const goToCoachProfile = (userId) => {
+        navigate("/profile",{state:{userId:userId}});
     };
 
 
@@ -73,8 +73,8 @@ const MyCoaches = () => {
                     {userData.length > 0 && userData.map((item, index) => (
                         <li key={index} onClick={() => goToCoachProfile(item.coachId)}>
                             {/* 프로필 이미지 */}
-                            {item.pictureURL ? (
-                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
+                            {item.coachPicture ? (
+                                <img src={item.coachPicture} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}

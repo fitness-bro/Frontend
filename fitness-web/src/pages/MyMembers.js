@@ -58,8 +58,8 @@ const MyMembers = ()=>{
                     {userData.map((item, index) =>(
                         <li key={index}>
                             {/* 프로필 이미지 */}
-                            {item.pictureURL ? (
-                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
+                            {item.memberPicture ? (
+                                <img src={item.memberPicture} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}
