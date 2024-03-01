@@ -6,7 +6,7 @@ import ModalSearch from "../components/modalsearch/ModalSearch";
 import { FaSearch } from 'react-icons/fa';
 
 export default function ModifyingCoach() {
-const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = "http://dev.fitness-bro.pro";
   const [nickname, setNickname] = useState("");
   const [age, setAge] = useState("");
   const [introduction, setIntroduction] = useState("");
@@ -18,16 +18,16 @@ const apiUrl = process.env.REACT_APP_API_URL;
   const [selectedGym, setSelectedGym] = useState();
   const [keyword, setKeyword] = useState("");
   const [albumImages, setAlbumImages] = useState([]); // 앨범이미지 저장
-  const [profileImage, setProfileImage] = useState(""); // 프로필 이미지
-  const [coachInfo, setCoachInfo] = useState(null); // 코치 정보 추가
+  const [newProfileImage, setNewProfileImage] = useState(null);
+  const [profilePictureUrl, setProfilePictureUrl] = useState(null); // 프로필 이미지
 
-  const profilePictureUrl = coachInfo?.result?.coachPicture;
+
   const token = localStorage.getItem("token");
   const coachId = localStorage.getItem("userId");
   useEffect(() => {
     const fetchCoachInfo = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/coaches/${coachId}/info`, {
+        const response = await axios.get(`${apiUrl}/coaches/my-info`, {
           headers: {
             'token': token,
           },
@@ -51,11 +51,11 @@ const apiUrl = process.env.REACT_APP_API_URL;
           ...coachInfoData.result,
         });
 
-        setCoachInfo(coachInfoData); // 코치 정보 설정
+       
+        setProfilePictureUrl(coachInfoData.result.coachPicture);
 
         // 이미지 설정은 따로 로직을 추가해야 합니다.
-        // setProfileImage(coachInfoData.result.profileImage || ''); // 예시일 뿐, 실제로는 파일 처리가 필요
-        // setAlbumImages(coachInfoData.result.albumImages || []); // 예시일 뿐, 실제로는 파일 처리가 필요
+       setAlbumImages(coachInfoData.result.pictureURLs); // 예시일 뿐, 실제로는 파일 처리가 필요
       } catch (error) {
         console.error('Error fetching coach info:', error);
 
@@ -83,14 +83,10 @@ const apiUrl = process.env.REACT_APP_API_URL;
   };
 
   const handleImageChange = (e) => {
-    const files = e.target.files;
-
-    if (files && files.length > 0) {
-      const file = files[0];
-      console.log(file);
-      setProfileImage(file);
-    }
-  };
+    const file = e.target.files[0];
+    console.log(file);
+    setNewProfileImage(file);
+};
 
   const handleAddImages = (event) => {
     const imageFiles = event.target.files;
@@ -157,10 +153,13 @@ const apiUrl = process.env.REACT_APP_API_URL;
       price: parseInt(price)
     }));
 
-    if (profileImage) {
-      formData.append('picture', profileImage, `@${profileImage.name};type=${profileImage.type}`);
+    if (newProfileImage) {
+      formData.append('picture', newProfileImage, `@${newProfileImage.name};type=${newProfileImage.type}`);
     }
-    
+    else {
+        formData.append('picture', profilePictureUrl);
+      }
+      
     for (let i = 0; i < albumImages.length; i++) {
       formData.append('album', albumImages[i], `@${albumImages[i].name};type=${albumImages[i].type}`);
     }
@@ -178,7 +177,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
       );
 
       console.log("Coach updated:", response.data);
-      alert("회원 정보를 등록했습니다!");
+      alert("수정이 완료됐습니다!");
     } catch (error) {
       console.error('Error:', error);
       console.error('에러 상세 정보:', error.response);
@@ -187,7 +186,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
         console.error('서버 응답 데이터:', error.response.data);
       }
 
-      alert("등록에 실패했습니다ㅠㅠ");
+      alert("등록에 실패했습니다");
     }
   };
 
@@ -221,8 +220,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
   };
 
   const emptyImageStyle = {
-    width: "80px",
-    height: "80px",
+    width: "70px",
+    height: "70px",
     border: "3px dashed #cccccc",
     margin: "5px",
     borderRadius: "5px",
@@ -247,33 +246,49 @@ const apiUrl = process.env.REACT_APP_API_URL;
             <tr>
               <td>
               <div onClick={handleImageClick}>
-                  {profilePictureUrl ? (
-                    <img
-                      style={{
-                        width: "100px",
-                        height: "100px",
-                        alignItems: "center",
-                        borderRadius: "100px",
-                      }}
-                      src={profilePictureUrl}
-                      alt=""
-                    />
-                  ) : (
-                    <div className="regmemberbgprofile">
-                      <Icon
-                        className="regmemberIcon"
-                        icon="ic:baseline-person-outline"
-                        alt="기본 이미지"
-                      />
-                    </div>
-                  )}
-                  <input
-                    type="file"
-                    ref={inputRef}
-                    onChange={handleImageChange}
-                    style={{ display: "none" }}
-                  />
-                </div>
+        {newProfileImage ? (
+            <img
+                style={{
+                    width: "100px",
+                    height: "100px",
+                    alignItems: "center",
+                    borderRadius: "100px",
+                    marginBottom:"25px",
+                    marginTop:"25px"
+                }}
+                src={URL.createObjectURL(newProfileImage)}
+                alt=""
+            />
+        ) : profilePictureUrl ? (
+            <img
+                style={{
+                    width: "100px",
+                    height: "100px",
+                    alignItems: "center",
+                    borderRadius: "100px",
+                    marginBottom:"25px",
+                    marginTop:"25px"
+                }}
+                src={profilePictureUrl}
+                alt=""
+            />
+        ) : (
+            <div className="regmemberbgprofile">
+                <Icon
+                    className="regmemberIcon"
+                    icon="ic:baseline-person-outline"
+                    alt="기본 이미지"
+                />
+            </div>
+        )}
+        <input
+            type="file"
+            ref={inputRef}
+            onChange={handleImageChange}
+            style={{ display: "none" }}
+        />
+    </div>
+
               </td>
             </tr>
             <tr>

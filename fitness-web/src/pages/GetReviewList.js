@@ -9,7 +9,7 @@ import {useLocation} from "react-router-dom";
 const GetReviewList = () => {
     const navigate = useNavigate();
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = 'http://dev.fitness-bro.pro';
 
     const [userData, setUserData] = useState([]);
 
@@ -19,7 +19,7 @@ const GetReviewList = () => {
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}coaches/${coachId}/reviews`)
+        axios.get(`${apiUrl}/coaches/${coachId}/reviews`)
             .then((response) => {
                 const data = response.data;
                 console.log("API 응답:", response);

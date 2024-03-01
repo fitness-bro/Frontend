@@ -8,7 +8,7 @@ import { FaSearch } from 'react-icons/fa';
 export default function RegistrationCoach() {
 
 
-const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = "http://dev.fitness-bro.pro";
 
 
    const coachId =localStorage.getItem("userId");
@@ -137,7 +137,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
       );
 
       console.log("Coach updated:", response.data);
-      alert("회원 정보를 등록했습니다!");
+      alert("회원 정보 등록에 성공했습니다");
     } catch (error) {
       console.error('Error:', error);
       console.error('에러 상세 정보:', error.response);
@@ -146,7 +146,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
         console.error('서버 응답 데이터:', error.response.data);
       }
 
-      alert("등록에 실패했습니다ㅠㅠ");
+      alert("등록에 실패했습니다");
     }
   };
 
@@ -180,8 +180,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
   };
 
   const emptyImageStyle = {
-    width: "80px",
-    height: "80px",
+    width: "70px",
+    height: "70px",
     border: "3px dashed #cccccc",
     margin: "5px",
     borderRadius: "5px",
@@ -213,6 +213,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
                           height: "100px",
                           alignItems: "center",
                           borderRadius: "100px",
+                          marginBottom: "25px",
+                          marginTop: "25px"
                         }}
                         src={profileImage ? URL.createObjectURL(profileImage) : ''}
                         alt=""
@@ -346,7 +348,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
                                 />
                               </svg>
                             </div>
-                          </div>{" "}
+                          </div>
                           <img
                             src={URL.createObjectURL(albumImages[id])}
                             alt={`${albumImages[id].name}-${id}`}

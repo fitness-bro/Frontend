@@ -1,30 +1,34 @@
 import './Mypage.css';
-import Member from "../components/member/MemberCoach";
 import { useNavigate } from "react-router-dom";
+import Member from '../components/member/Member';
 
-export default function MyPageMember() {
-    const memberId =localStorage.getItem("userId");
-  const navigate = useNavigate();
-  const goToChatinglist = () => {
-    navigate("/chatinglist");
-  };
-  const goToFavorites = () => {
-    navigate("/favorites");
-  };
-  const goToReviews = () => {
-    navigate("/reviews");
-  };
-  const goToMyCoaches = () => {
-    navigate("/my-coaches");
-  };
+export default function MyPageMember(){
 
-  const textStyle = {
-    color: "#FF9549",
-    fontWeight: "800",
-    fontSize: "20px",
-    paddingBottom: "50px",
-  };
-  return (
+    const memberId=localStorage.getItem("userId");
+    const navigate = useNavigate();
+    const goToChatinglist = () => {
+      navigate("/chatinglist",{state:{memberId:memberId}});
+    };
+    const goToFavorites = () => {
+      navigate("/favorites",{state:{memberId:memberId}});
+    };
+    const goToReviews = () => {
+      navigate("/reviews",{state:{memberId:memberId}});
+    };
+    const goToMyCoaches = () => {
+      navigate("/my-coaches",{state:{memberId:memberId}});
+    };
+
+    const textStyle={
+        color:"#FF9549",
+        fontWeight:"800",
+        fontSize:"20px",
+        paddingBottom:"50px",
+    };
+
+  // coachId 설정
+
+   return (
     <div className="mypageContainer">
       <table className="mypageContainerTable">
         <thead>
@@ -37,7 +41,7 @@ export default function MyPageMember() {
         <tbody className="mypageContainerTableBody">
           <tr>
             <td colSpan={2} style={{ width: "50px" }}>
-              <Member />
+              <Member memberId={memberId} />
             </td>
           </tr>
 

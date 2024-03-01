@@ -12,7 +12,7 @@ const MyCoaches = () => {
     const navigate = useNavigate();
 
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = 'http://dev.fitness-bro.pro';
 
     const [coachNicknames, setCoachNicknames] = useState([]); // 코치 닉네임 목록 상태 추가
 
@@ -24,7 +24,7 @@ const MyCoaches = () => {
               
         const token = localStorage.getItem("token");
 
-        axios.get(`${apiUrl}match/member/success`, {
+        axios.get(`${apiUrl}/match/member/success`, {
             headers: {
                 'token': token
             }
@@ -54,6 +54,10 @@ const MyCoaches = () => {
         navigate(-1);
     };
 
+    const goToCoachProfile = (userId) => {
+        navigate("/profile",{state:{userId:userId}});
+    };
+
 
     return (
         <div className="MyCoaches">
@@ -67,10 +71,10 @@ const MyCoaches = () => {
             <div className="userList">
                 <ul>
                     {userData.length > 0 && userData.map((item, index) => (
-                        <li key={index}>
+                        <li key={index} onClick={() => goToCoachProfile(item.coachId)}>
                             {/* 프로필 이미지 */}
-                            {item.pictureURL ? (
-                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
+                            {item.coachPicture ? (
+                                <img src={item.coachPicture} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}

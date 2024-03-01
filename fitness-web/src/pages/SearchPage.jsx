@@ -15,6 +15,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     const apiUrl = "https://dev.fitness-bro.pro/coaches/search";
+    
   
     const fetchData = async () => {
       try {
@@ -44,6 +45,7 @@ const SearchPage = () => {
         map={null}
         onRegionSelect={handleRegionSelect}
         userList={userList}
+     
       />
       <MapSection userList={userList} onMarkerClick={handleMarkerClick} />
       <ListSection
