@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ChatRoomCoach from "../components/chatroom/ChatRoomCoach";
 import { All, FrontWrap, Ul, Li } from "./ChatingList.style";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const ChattingListCoach = () => {
   const [tab, setTab] = useState("CHATROOM");
   const [userData, setUserData] = useState({
@@ -10,7 +10,7 @@ const ChattingListCoach = () => {
     connected: false,
     message: "",
   });
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = "http://dev.fitness-bro.pro";
   const token=localStorage.getItem("token");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
@@ -61,13 +61,16 @@ const ChattingListCoach = () => {
       source.cancel("Component unmounted");
     };
   }, []); // 빈 의존성 배열을 사용하여 컴포넌트가 처음 렌더링될 때만 API 요청을 수행
-
+  const navigate = useNavigate();
+  const onClickBackBtn = () => {
+    navigate(-1);
+};
   return (
     <div className="container">
       <All>
         <FrontWrap>
           <p>채팅 리스트</p>
-          <button>뒤로가기</button>
+          <button onClick={onClickBackBtn}>뒤로가기</button>
         </FrontWrap>
 
         <div className="chat-box">
@@ -82,15 +85,24 @@ const ChattingListCoach = () => {
                   className={`member ${tab === chatRoomId && "active"}`}
                   key={chatRoomId}
                 >
-                  <div className="chatPatner">
-                    <div></div>
-                    <div>
-                      <div>
-                        <span>{initialChats.get(chatRoomId).partnerName}</span>
-                        <span>{initialChats.get(chatRoomId).updatedAt}</span>
-                      </div>
-                    </div>
-                    <div>{initialChats.get(chatRoomId).lastChatMessage}</div>
+                  
+                  <div >
+                   <table>
+                    <tr>
+                        <td>
+                 <img src={initialChats.get(chatRoomId).pictureUrl}  style={{
+                        width: "50px",
+                        height: "50px",
+                        alignItems: "center",
+                        borderRadius: "100px",
+                      }}></img>
+                      <div>{initialChats.get(chatRoomId).partnerName}</div>
+                      
+                      </td>
+                     <td> {initialChats.get(chatRoomId).lastChatMessage}</td></tr>
+       
+              </table>
+     
                   </div>
                 </Li>
               ))}

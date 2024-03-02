@@ -4,13 +4,14 @@ import { Icon } from "@iconify/react";
 import "./Member.css";
 import axios from "axios";
 
-
 function MemberCoach({ coachId }) { // coachId prop을 받음
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = "https://dev.fitness-bro.pro";
+    const token=localStorage.getItem("token");
     const [userData, setUserData] = useState({
         nickname: "",
         match_num: 0,
         review_num: 0,
+        coachImage:"",
     });
 
     const textStyle = {
@@ -30,25 +31,43 @@ function MemberCoach({ coachId }) { // coachId prop을 받음
     };
 
     useEffect(() => {
-        axios.get(`${apiUrl}coaches/${coachId}`)
-        .then((response) => {
-            const data = response.data;
-            console.log("API 응답:", response);
-
-            if (data.isSuccess) {
-                setUserData({
-                    nickname: data.result.nickname,
-                    match_num: data.result.matchNum,
-                    review_num: data.result.reviewNum,
-                });
-            } else {
-                console.log("API 요청 실패:", data.message);
+        axios.get(`${apiUrl}/coaches/my-page`,{
+            headers:{
+                'token':token
             }
         })
-        .catch((error) => {
-            console.error("API 요청 중 오류 발생", error);
-            console.error("에러 상세보기", error.response);
-        });
+            .then((response) => {
+                const data = response.data;
+                console.log("API 응답:", response);
+
+                if (data.isSuccess) {
+                    setUserData({
+                        nickname: data.result.nickname,
+                        match_num: data.result.matchNum,
+                        review_num: data.result.reviewNum,
+                        coachImage:data.result.coachImage
+                    });
+                } else {
+                    console.log("API 요청 실패:", data.message);
+                }
+            })
+            .catch((error) => {
+                console.error("API 요청 중 오류 발생", error);
+              
+                if (error.response) {
+                  // The request was made and the server responded with a status code
+                  // that falls out of the range of 2xx
+                  console.error("에러 상세보기", error.response.data);
+                  console.error("상태 코드", error.response.status);
+                  console.error("응답 헤더", error.response.headers);
+                } else if (error.request) {
+                  // The request was made but no response was received
+                  console.error("서버 응답 없음");
+                } else {
+                  // Something happened in setting up the request that triggered an Error
+                  console.error("에러 메시지", error.message);
+                }
+              });
     }, [coachId]);
 
     return (

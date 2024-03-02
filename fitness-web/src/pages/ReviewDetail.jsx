@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom';
 // 받은 후기 상세보기
 
 const ReviewDetail = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = 'http://dev.fitness-bro.pro';
     
     const [userData, setUserData] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,7 +20,7 @@ const ReviewDetail = () => {
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}coaches/reviews/${reviewId}`)
+        axios.get(`${apiUrl}/coaches/reviews/${reviewId}`)
             .then((response) => {
                 const data = response.data;
                 console.log("API 응답:", response);

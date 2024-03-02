@@ -8,7 +8,7 @@ import DefaultImage from '../components/review/DefaultImage';
 const Favorites = () => {
     const navigate = useNavigate();
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = 'http://dev.fitness-bro.pro';
 
 
     const [userData, setUserData] = useState([]);
@@ -17,7 +17,7 @@ const Favorites = () => {
 
         const token = localStorage.getItem("token");
 
-        axios.get(`${apiUrl}members/favorites`, {
+        axios.get(`${apiUrl}/members/favorites`, {
             headers: {
                 'token': token
             }
@@ -44,6 +44,10 @@ const Favorites = () => {
         navigate(-1);
     };
 
+    const goToCoachProfile = (userId) => {
+        navigate("/profile",{state:{userId:userId}});
+    };
+
     return (
         <div className="Favorites">
 
@@ -55,10 +59,10 @@ const Favorites = () => {
             <div className="userList">
                 <ul>
                     {userData.map((item, index) => (
-                        <li key={index}>
+                        <li key={index} onClick={() => goToCoachProfile(item.coachId)}>
                             {/* 프로필 이미지 */}
-                            {item.pictureURL ? (
-                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
+                            {item.coachImage ? (
+                                <img src={item.coachImage} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}

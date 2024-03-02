@@ -1,4 +1,4 @@
-import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap, Requirebtn, Requirechat } from "./ProfileHeader.style";
+import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap, Requirechat, Requirebtn } from "./ProfileHeader.style";
 import React, { useState,useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import backImg from "../../img/back.jpg";
@@ -46,7 +46,11 @@ export default function ProfileHeader(props) {
         }
         };
     
+<<<<<<< HEAD
         axios.post(`${apiUrl}/members/favorite/${userId}`, null, config)
+=======
+        axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
+>>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
           .then(response => {
             console.log("즐겨찾기 추가 응답:", response);
             setLikeBtnClicked(prevState => !prevState);
@@ -95,28 +99,37 @@ export default function ProfileHeader(props) {
             case '후기':
                 navigate("/lookreviews", {
                     state: {
+<<<<<<< HEAD
                       userId: coachId
+=======
+                      userId: coachId, token:token
+>>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
                     }
                   });
                 break;
             case '사진첩':
-                navigate("/photos");
+                navigate("/photos",{
+                    state: {
+                      userId: coachId, token:token
+                    }
+                  });;
                 break;
             default:
                 break;
         }
 
     };
-
     const handleChatClick = () => {
 
 
-        axios.post(`${apiUrl}/chat/connect`, { coachId},{
+        axios.post(`${apiUrl}/chat/connect`, {coachId},{
             headers: {
                 'token': token
             }
         })
+        
             .then(response => {
+                console.log(coachId);
                 console.log("채팅하기 API 응답:", response);
                 // 채팅하기 요청에 대한 응답 처리
             })
@@ -125,20 +138,29 @@ export default function ProfileHeader(props) {
                 console.error("에러 상세 정보:", error.response);
             });
     };
+<<<<<<< HEAD
+=======
+
+>>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
     const handleRequireClick = () => {
-
-        const coachId = 552;
-        axios.post(`${apiUrl}/match/member`, { coachId })
-        .then(response => {
-            console.log("성사 요청 API 응답:", response);
-          
-        })
-        .catch(error => {
-            console.error("성사 API 요청 중 오류 발생:", error);
-            console.error("에러 상세 정보:", error.response);
-        });
-
+      axios.post(`${apiUrl}/match/member`, { coachId }, {
+        headers:{
+          'token':token
+        }
+      })
+      .then(response => {
+          console.log("성사 요청 API 응답:", response);
+        
+      })
+      .catch(error => {
+          console.error("성사 API 요청 중 오류 발생:", error);
+          console.error("에러 상세 정보:", error.response);
+      });
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
     return (
         <>  
         <TopWrap>
@@ -155,10 +177,21 @@ export default function ProfileHeader(props) {
             
             <Requirechat>
                 <Requirebtn onClick={handleRequireClick}>성사 요청</Requirebtn>
+<<<<<<< HEAD
                 <Link to="/chatinglist" style={{ textDecoration: "none"}}>
                         <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
                     </Link>
             </Requirechat>
+=======
+                  <Link to={{
+                    pathname: '/chatinglist',
+                    state: {token:token }
+                  }} style={{ textDecoration: "none"}}>
+                  <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
+                  </Link>
+            </Requirechat>
+
+>>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
             </TopWrap>
 
             <Wrapper>

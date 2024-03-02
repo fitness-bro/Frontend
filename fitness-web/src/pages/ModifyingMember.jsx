@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import axios from "axios";
 
 export default function ModifyingMember() {
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = "http://dev.fitness-bro.pro";
   const token = localStorage.getItem("token");
 
   const [nickname, setNickname] = useState("");
@@ -205,7 +205,7 @@ export default function ModifyingMember() {
                   type="text"
                   value={nickname}
                   onChange={handleNicknameChange}
-                  style={{ boxStyle1 }}
+                  style={{ ...boxStyle1 }}
                 />
               </td>
             </tr>
@@ -216,7 +216,7 @@ export default function ModifyingMember() {
                   type="text"
                   value={address}
                   onChange={handleAddressChange}
-                  style={{boxStyle1 }}
+                  style={{...boxStyle1 }}
                 />
               </td>
             </tr>

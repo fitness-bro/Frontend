@@ -13,8 +13,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
     const [isDragging, setIsDragging] = useState(false);
     const apiUrl = "http://dev.fitness-bro.pro/";
 
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImhlZXN1bjEwN0BrYWthby5jb20iLCJpYXQiOjE3MDgyNzg5MzQsImV4cCI6MTcwODYzODkzNH0.hxF8EDOwKGUHjx0nr0kt767H4ktpG9bMeN6kev9bCI0';
-    
+    const token=localStorage.getItem("token");
     useEffect(() => {
         let Sock = new SockJS("http://dev.fitness-bro.pro/stomp/chat");
         stompClient = over(Sock);

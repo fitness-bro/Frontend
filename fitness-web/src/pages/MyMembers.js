@@ -8,7 +8,7 @@ import DefaultImage from '../components/review/DefaultImage';
 
 const MyMembers = ()=>{
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = 'http://dev.fitness-bro.pro';
 
 
     const [userData, setUserData] = useState([]);
@@ -16,7 +16,7 @@ const MyMembers = ()=>{
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        axios.get(`${apiUrl}match/coach/success/`, {
+        axios.get(`${apiUrl}/match/coach/success/`, {
             headers: {
                 'token': token
             }
@@ -58,8 +58,8 @@ const MyMembers = ()=>{
                     {userData.map((item, index) =>(
                         <li key={index}>
                             {/* 프로필 이미지 */}
-                            {item.pictureURL ? (
-                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
+                            {item.memberPicture ? (
+                                <img src={item.memberPicture} alt="프로필 이미지" className="profileImage" />
                             ) : (
                                 <DefaultImage />
                             )}
