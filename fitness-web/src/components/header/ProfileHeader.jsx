@@ -7,7 +7,6 @@ import likeBtn from '../../img/like.svg';
 import star from "../../img/review.svg";
 import axios from "axios";
 
-
 export default function ProfileHeader(props) {
     const navigate = useNavigate();
     const userRole=localStorage.getItem("role");
@@ -25,12 +24,10 @@ export default function ProfileHeader(props) {
     });
     const [likeBtnClicked, setLikeBtnClicked] = useState(false);
     const coachId=props.id;
-
     const token=localStorage.getItem("token");
 
-
     const handleImgClick = () => {
-        const coachId = props.id; // 코치 아이디
+        const userId = props.id; // 코치 아이디
 
         if(userRole=="COACH"){
           alert("같은 동네형이므로 찜할 수 없습니다!");
@@ -48,21 +45,8 @@ export default function ProfileHeader(props) {
             'token': token // 'token' 헤더 추가
         }
         };
-
     
-        axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
-          .then(response => {
-            console.log("즐겨찾기 추가 응답:", response);
-            setLikeBtnClicked(prevState => !prevState);
-          })
-          .catch(error => {
-            console.error("즐겨찾기 추가 요청 중 오류 발생:", error);
-            console.error("에러 상세 정보:", error.response);
-          });
-      };
-
-    
-        axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
+        axios.post(`${apiUrl}/members/favorite/${userId}`, null, config)
           .then(response => {
             console.log("즐겨찾기 추가 응답:", response);
             setLikeBtnClicked(prevState => !prevState);
@@ -73,7 +57,6 @@ export default function ProfileHeader(props) {
           });
       };
     
-
       useEffect(() => {
       
         axios.get(
@@ -102,18 +85,19 @@ export default function ProfileHeader(props) {
 
     const handleBtnClick = (name) => {
         setBtnStates({
-            프로필: false,
             후기: false,
             사진첩: false,
             [name]: true
         });
 
         switch (name) {
-            case '프로필':
-                navigate("/profile");
-                break;
+        
             case '후기':
-                navigate("/lookreviews");
+                navigate("/lookreviews", {
+                    state: {
+                      userId: coachId
+                    }
+                  });
                 break;
             case '사진첩':
                 navigate("/photos");
@@ -141,9 +125,6 @@ export default function ProfileHeader(props) {
                 console.error("에러 상세 정보:", error.response);
             });
     };
-
-
-
     const handleRequireClick = () => {
 
         const coachId = 552;
@@ -158,17 +139,12 @@ export default function ProfileHeader(props) {
         });
 
     }
-
-
     return (
         <>  
         <TopWrap>
             <Backimgage src={backImg} alt="배경" />
             <BtnWrap>
                 <img src={likeBtnClicked ? likeBtn : unlikeBtn} style={{width:"20px", paddingRight:"10px",cursor:"pointer"}} onClick={handleImgClick}/>
-                <Btn onClick={() => handleBtnClick("프로필")} style={{backgroundColor: btnStates["프로필"] ? "rgba(255, 149, 73, 1)" : "",}}>                    
-                프로필
-                </Btn>
                 <Btn onClick={() => handleBtnClick('후기')} style={{ backgroundColor: btnStates['후기'] ? "rgba(255, 149, 73, 1)" : "" }}>
                     후기
                 </Btn>
@@ -176,23 +152,13 @@ export default function ProfileHeader(props) {
                     사진첩
                 </Btn>
             </BtnWrap>
-
             
             <Requirechat>
                 <Requirebtn onClick={handleRequireClick}>성사 요청</Requirebtn>
-                    <Link to="/chatinglist" style={{ textDecoration: "none"}}>
+                <Link to="/chatinglist" style={{ textDecoration: "none"}}>
                         <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
                     </Link>
             </Requirechat>
-            
-            
-
-            <Link to={{pathname:"/chatinglist",state: { coachId: coachId }}} style={{ textDecoration: "none"}}>
-            <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
-            </Link>
-          
-            {/* </Link> */}
-
             </TopWrap>
 
             <Wrapper>
@@ -208,4 +174,3 @@ export default function ProfileHeader(props) {
         </>
     );
 }
-

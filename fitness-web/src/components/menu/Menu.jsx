@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './Menu.css';
 import SignUpModal from '../modalSignUp/ModalSignUp';
 import SignInModal from '../modalSignIn/ModalSignIn';
-import axios from 'axios';
 
 const Menu = ({ activeMenu, handleMenuClick }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
@@ -23,7 +22,7 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
     const role = localStorage.getItem('role');
     const id=localStorage.getItem('userId')
 
-  if (token && role) {
+  if (token &&id) {
     setIsLoggedIn(true);
     setUserRole(role);
     setUserId(true)
@@ -33,7 +32,7 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
     setUserRole('');
     setUserId(false)
   }
-}, []); // 컴포넌트가 처음 렌더링될 때만 실행
+}, []); 
 
   const handleLogout = () => {
     localStorage.removeItem('token');
