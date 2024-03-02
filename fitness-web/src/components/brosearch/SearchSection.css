@@ -106,11 +106,7 @@
   .main-address .sub-address::-webkit-scrollbar-track {
     background-color: #643E23; /* 스크롤 바 트랙의 색상 설정 */
   }
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
 .search-section {
   width: 400px;
   padding: 7px;

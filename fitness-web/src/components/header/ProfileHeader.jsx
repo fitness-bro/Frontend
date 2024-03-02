@@ -46,11 +46,9 @@ export default function ProfileHeader(props) {
         }
         };
     
-<<<<<<< HEAD
         axios.post(`${apiUrl}/members/favorite/${userId}`, null, config)
-=======
-        axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
->>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
+
+
           .then(response => {
             console.log("즐겨찾기 추가 응답:", response);
             setLikeBtnClicked(prevState => !prevState);
@@ -99,11 +97,8 @@ export default function ProfileHeader(props) {
             case '후기':
                 navigate("/lookreviews", {
                     state: {
-<<<<<<< HEAD
-                      userId: coachId
-=======
-                      userId: coachId, token:token
->>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
+                      userId: coachId, 
+                      token:token
                     }
                   });
                 break;
@@ -138,10 +133,6 @@ export default function ProfileHeader(props) {
                 console.error("에러 상세 정보:", error.response);
             });
     };
-<<<<<<< HEAD
-=======
-
->>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
     const handleRequireClick = () => {
       axios.post(`${apiUrl}/match/member`, { coachId }, {
         headers:{
@@ -157,10 +148,7 @@ export default function ProfileHeader(props) {
           console.error("에러 상세 정보:", error.response);
       });
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
     return (
         <>  
         <TopWrap>
@@ -177,12 +165,7 @@ export default function ProfileHeader(props) {
             
             <Requirechat>
                 <Requirebtn onClick={handleRequireClick}>성사 요청</Requirebtn>
-<<<<<<< HEAD
-                <Link to="/chatinglist" style={{ textDecoration: "none"}}>
-                        <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
-                    </Link>
-            </Requirechat>
-=======
+
                   <Link to={{
                     pathname: '/chatinglist',
                     state: {token:token }
@@ -191,7 +174,7 @@ export default function ProfileHeader(props) {
                   </Link>
             </Requirechat>
 
->>>>>>> c9b18531003dc134d48820cc5f85d8ae12319512
+
             </TopWrap>
 
             <Wrapper>
