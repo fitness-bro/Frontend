@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Menu.css';
-import SignUpModal from '../modalSignUp/ModalSignUp';
 import SignInModal from '../modalSignIn/ModalSignIn';
 
 const Menu = ({ activeMenu, handleMenuClick }) => {
@@ -9,9 +8,7 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
   const [userRole, setUserRole] = useState('');
   const [userId, setUserId] = useState(!!localStorage.getItem("userId"));
 
-  const [isModalUpOpen, setIsModalUpOpen] = useState(false);
-  const openModalUp = () => setIsModalUpOpen(true);
-  const closeModalUp = () => setIsModalUpOpen(false);
+
   
   const [isModalInOpen, setIsModalInOpen] = useState(false);
   const openModalIn = () => setIsModalInOpen(true);
@@ -65,22 +62,17 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
 
       {!isLoggedIn && (
         <div className={`login ${activeMenu === 'login' ? 'active' : ''}`} onClick={() => { handleMenuClick('login'); openModalIn(); }}>
-          로그인
+          로그인/회원가입
         </div>
       )}
 
-      <SignUpModal isOpen={isModalUpOpen} closeModalUp={closeModalUp}/>
       <SignInModal isOpen={isModalInOpen} closeModalIn={closeModalIn}/>
 
       {isLoggedIn ? (
         <div className={`logout ${activeMenu === 'logout' ? 'active' : ''}`} onClick={handleLogout}>
           로그 아웃
         </div>
-      ) : (
-        <div className={`signup ${activeMenu === 'signup' ? 'active' : ''}`} onClick={() => { handleMenuClick('signup'); openModalUp(); }}>
-          회원가입
-        </div>
-      )}
+      ):(null)}
     </div>
   );
 };
