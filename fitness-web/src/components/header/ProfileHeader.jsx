@@ -1,7 +1,7 @@
 import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap, Requirechat, Requirebtn } from "./ProfileHeader.style";
 import React, { useState,useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
-import backImg from "../../img/back.jpg";
+import backImg from "../../img/back.svg";
 import unlikeBtn from "../../img/unlike.svg";
 import likeBtn from '../../img/like.svg';
 import star from "../../img/review.svg";
@@ -27,7 +27,6 @@ export default function ProfileHeader(props) {
     const token=localStorage.getItem("token");
 
     const handleImgClick = () => {
-        const userId = props.id; // 코치 아이디
 
         if(userRole=="COACH"){
           alert("같은 동네형이므로 찜할 수 없습니다!");
@@ -46,7 +45,7 @@ export default function ProfileHeader(props) {
         }
         };
     
-        axios.post(`${apiUrl}/members/favorite/${userId}`, null, config)
+        axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
 
 
           .then(response => {
@@ -87,17 +86,26 @@ export default function ProfileHeader(props) {
 
     const handleBtnClick = (name) => {
         setBtnStates({
+          프로필: false,
             후기: false,
             사진첩: false,
             [name]: true
         });
 
         switch (name) {
+          case '프로필':
+                navigate("/profile",{
+                  state: {
+                    coachId: coachId, 
+                    token:token
+                  }
+                });
+                break;
         
             case '후기':
                 navigate("/lookreviews", {
                     state: {
-                      userId: coachId, 
+                      coachId: coachId, 
                       token:token
                     }
                   });
@@ -105,7 +113,7 @@ export default function ProfileHeader(props) {
             case '사진첩':
                 navigate("/photos",{
                     state: {
-                      userId: coachId, token:token
+                      coachId: coachId, token:token
                     }
                   });;
                 break;
@@ -155,6 +163,9 @@ export default function ProfileHeader(props) {
             <Backimgage src={backImg} alt="배경" />
             <BtnWrap>
                 <img src={likeBtnClicked ? likeBtn : unlikeBtn} style={{width:"20px", paddingRight:"10px",cursor:"pointer"}} onClick={handleImgClick}/>
+                <Btn onClick={() => handleBtnClick("프로필")} style={{backgroundColor: btnStates["프로필"] ? "rgba(255, 149, 73, 1)" : "",}}>                    
+                프로필
+                </Btn>
                 <Btn onClick={() => handleBtnClick('후기')} style={{ backgroundColor: btnStates['후기'] ? "rgba(255, 149, 73, 1)" : "" }}>
                     후기
                 </Btn>

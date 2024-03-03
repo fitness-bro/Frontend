@@ -1,7 +1,6 @@
 import {React,useState,useEffect} from "react";
 import {ImgWrap,Body} from "./Photos.style";
-import Header from "../components/header/ProfileHeader";
-import reviewImg from "../img/profile.jpg";
+import ProfileHeader from '../components/header/ProfileHeader';
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
@@ -10,17 +9,12 @@ export default function Photos(){
     const [pictures, setPictures] = useState([]);
     const apiUrl = "http://dev.fitness-bro.pro";
     const location = useLocation();
-
-    const userId= location.state.userId;
+    const coachId= location.state.coachId;
     const token= location.state.token;
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}/coaches/album/${userId}`,{
-            headers:{
-                'token':token
-            }
-        })
+        axios.get(`${apiUrl}/coaches/album/${coachId}`)
             .then(response => {
                 const data = response.data;
                 console.log("API 응답:", data);
@@ -40,7 +34,7 @@ export default function Photos(){
     return(
         <>
         <Body>
-            <Header id={userId}/>
+            <ProfileHeader id={coachId}/>
             <ImgWrap>
             {pictures.map((pictureURL, index) => (
                         <img key={index} src={pictureURL} alt={`사진 ${index + 1}`} />

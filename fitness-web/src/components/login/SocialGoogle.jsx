@@ -2,7 +2,8 @@ import googleImg from "../../img/google.svg"
 import styled from "styled-components";
 import { useEffect,useState } from "react";
 import axios from "axios";
-import Menu from "../menu/Menu";
+;
+
 
 const Button=styled.button`
 background-color: rgba(0, 0, 0, 0);
@@ -37,15 +38,12 @@ justify-content:center;
 `;
 
 
-
-const SocialGoogle = () => {
+const SocialGoogle = ({ onGoogleLoginResult, setIsLoggedIn }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const clientId = '293755776535-kp2pp4pfe0c4401civ1g2fum81f3etdo.apps.googleusercontent.com';
   const google_redirect_uri = 'http://localhost:3000/';
   const GOOGLE_SCOPE = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${google_redirect_uri}&response_type=token&scope=${GOOGLE_SCOPE}`;
-
-
 
   const GoogleLogin = () => {
     window.location.href = GOOGLE_AUTH_URL;
@@ -58,20 +56,39 @@ const SocialGoogle = () => {
     if (access_token) {
       axios.get(`${apiUrl}/login/oauth2/code/google/token?accessToken=${access_token}`)
         .then(response => {
-
           console.log("백엔드로부터 응답:", response.data);
-
-
           const { userToken, userId, role } = response.data.result;
           localStorage.setItem('token', userToken);
           localStorage.setItem('userId', userId);
           localStorage.setItem('role', role);
+          setIsLoggedIn(true);
+
+          // 이메일 중복 검사 수행
+          axios.get(`${apiUrl}/check-email/${userId}`)
+            .then(response => {
+              const { exists } = response.data;
+              onGoogleLoginResult(exists); // 결과를 Menu 컴포넌트로 전달
+              
+            })
+            .catch(error => {
+              console.error("이메일 중복 검사 오류:", error);
+            });
         })
         .catch(error => {
           console.error("에러 발생:", error);
-        });    
+        });
+
+        if (localStorage.getItem("token")){
+          setIsLoggedIn(true);
+        }else{
+          setIsLoggedIn(false);
+        }
     }
-  }, []);
+
+    
+  },[apiUrl,onGoogleLoginResult]);
+  
+
 
   return (
     <>
@@ -83,5 +100,6 @@ const SocialGoogle = () => {
   );
 };
 
-export default SocialGoogle;
 
+
+export default SocialGoogle;

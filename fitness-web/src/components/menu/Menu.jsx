@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './Menu.css';
 import SignInModal from '../modalSignIn/ModalSignIn';
+import SocialGoogle from '../login/SocialGoogle';
+import styled from 'styled-components';
 
-const Menu = ({ activeMenu, handleMenuClick }) => {
+const MenuContainer = styled.div`
+  display: flex;
+  align-items: center; 
+`;
+
+const Menu = ({ activeMenu, handleMenuClick}) => {
+
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [userRole, setUserRole] = useState('');
-  const [userId, setUserId] = useState(!!localStorage.getItem("userId"));
-
+ 
+  const handleGoogleLoginResult = (isEmailExists) => {
+    if (isEmailExists) {
+      setIsLoggedIn(true);
+    } else  {
+      navigate("/registchoice")
+    }
+  };
 
   
   const [isModalInOpen, setIsModalInOpen] = useState(false);
@@ -17,32 +33,31 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
-    const id=localStorage.getItem('userId')
-
-  if (token &&id) {
+  
+  if (token ) {
     setIsLoggedIn(true);
     setUserRole(role);
-    setUserId(true)
 
   } else {
     setIsLoggedIn(false);
     setUserRole('');
-    setUserId(false)
   }
-}, []); 
+}, [activeMenu,isLoggedIn]); 
 
   const handleLogout = () => {
+    //localStorage.clear();
     localStorage.removeItem('token');
     localStorage.removeItem("userId");
     localStorage.removeItem('role');
-    setIsLoggedIn(false);
     setUserRole('');
-    setUserId(false)
+    setIsLoggedIn(false);
   };
 
 
   return (
-    <div>
+    <MenuContainer>
+      <SocialGoogle onGoogleLoginResult={handleGoogleLoginResult} setIsLoggedIn={setIsLoggedIn()}  />
+      
       <Link to="/search" className={`search ${activeMenu === 'search' ? 'active' : ''}`} onClick={() => handleMenuClick('search')}>
         동네형 찾기
       </Link>
@@ -64,6 +79,7 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
         <div className={`login ${activeMenu === 'login' ? 'active' : ''}`} onClick={() => { handleMenuClick('login'); openModalIn(); }}>
           로그인/회원가입
         </div>
+        
       )}
 
       <SignInModal isOpen={isModalInOpen} closeModalIn={closeModalIn}/>
@@ -73,7 +89,7 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
           로그 아웃
         </div>
       ):(null)}
-    </div>
+    </MenuContainer>
   );
 };
 
