@@ -129,16 +129,16 @@ export const Requirebtn = styled.div`
   padding: 8px 10px 8px 10px;
   border-radius: 20px;
   font-size:14px;
-  color:rgba(255, 149, 73, 1);
+  color: ${({ isActive }) => (isActive ? 'white' : 'rgba(255, 149, 73, 1)')};
   margin: 0 3px 0 3px;
-  font-weight:bold;
-  background-color: rgb(255, 255, 255);
-  border: 2px solid rgba(255, 149, 73, 1);
+  font-weight: bold;
+  background-color: ${({ isActive }) => (isActive ? 'rgb(219, 219, 219);' : 'rgb(255, 255, 255)')};
+  border: ${({ isActive }) => (isActive ? 'rgb(219, 219, 219)' : '2px solid rgb(255, 149, 73, 1)')}; /* 비활성화된 상태일 때는 border 없앰 */
   position: absolute;
   right: 123px;
   top: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor:pointer;
+  cursor: ${({ isActive }) => (isActive ? 'not-allowed' : 'pointer')}; /* 비활성화된 상태일 때는 커서를 변경 */
 `

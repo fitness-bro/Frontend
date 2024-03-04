@@ -132,21 +132,55 @@ export default function ProfileHeader(props) {
             });
     };
 
+    const [matchStatus, setMatchStatus] = useState("UNSUCCESS"); // 성사 상태
+    const [buttonText, setButtonText] = useState("성사 요청");
+
+    // useEffect(() => {
+    //   console.log("성사 상태 확인하기", matchStatus);
+    // }, [matchStatus]);
+    
+    useEffect(() => {
+      const fetchMatchStatus = async () => {
+          try {
+              const response = await axios.post(`${apiUrl}/match/member/register-status`, { coachId }, { headers: { token } });
+              setMatchStatus(response.data);
+          } catch (error) {
+              console.error("성사 상태 가져오기 요청 중 오류 발생:", error);
+              console.error("에러 상세 정보:", error.response);
+          }
+      };
+
+      fetchMatchStatus(); // 컴포넌트가 마운트될 때 성사 상태 가져오기
+  }, [apiUrl, coachId, token]);
+  
+    // 성사 상태가 변경될 때 버튼 텍스트 업데이트
+    useEffect(() => {
+      switch (matchStatus) {
+        case "WAITING":
+          setButtonText("요청 대기중");
+          break;
+        case "APPROVED":
+          setButtonText("성사 완료");
+          break;
+        case "UNSUCCESS":
+        default:
+          setButtonText("성사 요청");
+          break;
+      }
+    }, [matchStatus]);
+  
     const handleRequireClick = () => {
-      axios.post(`${apiUrl}/match/member`, { coachId }, {
-        headers:{
-          'token':token
-        }
-      })
-      .then(response => {
+      axios
+        .post(`${apiUrl}/match/member`, { coachId }, { headers: { token } })
+        .then((response) => {
           console.log("성사 요청 API 응답:", response);
-        
-      })
-      .catch(error => {
+        })
+        .catch((error) => {
           console.error("성사 API 요청 중 오류 발생:", error);
           console.error("에러 상세 정보:", error.response);
-      });
-    }
+        });
+    };
+
 
     return (
         <>  
@@ -166,7 +200,9 @@ export default function ProfileHeader(props) {
             </BtnWrap>
             
             <Requirechat>
-                <Requirebtn onClick={handleRequireClick}>성사 요청</Requirebtn>
+              <Requirebtn isActive={matchStatus !== "UNSUCCESS"} onClick={handleRequireClick}>
+                {buttonText}
+              </Requirebtn>
                   <Link to={{
                     pathname: '/chatinglist',
                     state: {token:token }
