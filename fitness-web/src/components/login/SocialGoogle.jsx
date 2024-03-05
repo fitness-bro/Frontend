@@ -78,11 +78,11 @@ const SocialGoogle = ({ onGoogleLoginResult, setIsLoggedIn }) => {
           console.error("에러 발생:", error);
         });
 
-        if (localStorage.getItem("token")){
-          setIsLoggedIn(true);
-        }else{
-          setIsLoggedIn(false);
-        }
+        // if (localStorage.getItem("token")){
+        //   setIsLoggedIn(true);
+        // }else{
+        //   setIsLoggedIn(false);
+        // }
     }
 
     

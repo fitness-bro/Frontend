@@ -79,7 +79,6 @@ const Menu = ({ activeMenu, handleMenuClick}) => {
         <div className={`login ${activeMenu === 'login' ? 'active' : ''}`} onClick={() => { handleMenuClick('login'); openModalIn(); }}>
           로그인/회원가입
         </div>
-        
       )}
 
       <SignInModal isOpen={isModalInOpen} closeModalIn={closeModalIn}/>

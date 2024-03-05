@@ -20,7 +20,8 @@ export default function ProfileHeader(props) {
       name: "",
       age: 0,
       rating:0,
-      coachPicture:null
+      coachPicture:null,
+      favorites:false
     });
     const [likeBtnClicked, setLikeBtnClicked] = useState(false);
     const coachId=props.id;
@@ -49,7 +50,7 @@ export default function ProfileHeader(props) {
 
 
           .then(response => {
-            console.log("즐겨찾기 추가 응답:", response);
+            console.log("즐기 추가 응답:", response);
             setLikeBtnClicked(prevState => !prevState);
           })
           .catch(error => {
@@ -72,7 +73,8 @@ export default function ProfileHeader(props) {
                 name:data.result.nickname,
                 // age:data.result.age,
                 rating:data.result.rating,
-                coachPicture:data.result.coachPicture
+                coachPicture:data.result.coachPicture,
+                favorites:data.result.favorites
               });
             } else {
               console.error("API 요청 실패:", data.message);
