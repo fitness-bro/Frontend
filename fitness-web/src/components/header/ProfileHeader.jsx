@@ -50,8 +50,12 @@ export default function ProfileHeader(props) {
 
 
           .then(response => {
-            console.log("즐기 추가 응답:", response);
+            console.log("즐겨 추가 응답:", response);
             setLikeBtnClicked(prevState => !prevState);
+            setUserData(prevUserData => ({
+              ...prevUserData,
+              favorites:!userData.favorites
+            }));
           })
           .catch(error => {
             console.error("즐겨찾기 추가 요청 중 오류 발생:", error);
@@ -62,7 +66,11 @@ export default function ProfileHeader(props) {
       useEffect(() => {
       
         axios.get(
-          `${apiUrl}/coaches/${coachId}/info`
+          `${apiUrl}/coaches/${coachId}/info`,        {
+            headers: {
+              token: token,
+            },
+          }
           )
           .then(response => {
             const data = response.data;
@@ -164,7 +172,7 @@ export default function ProfileHeader(props) {
         <TopWrap>
             <Backimgage src={backImg} alt="배경" />
             <BtnWrap>
-                <img src={likeBtnClicked ? likeBtn : unlikeBtn} style={{width:"20px", paddingRight:"10px",cursor:"pointer"}} onClick={handleImgClick}/>
+                <img src={userData.favorites ? likeBtn : unlikeBtn} style={{width:"20px", paddingRight:"10px",cursor:"pointer"}} onClick={handleImgClick}/>
                 <Btn onClick={() => handleBtnClick("프로필")} style={{backgroundColor: btnStates["프로필"] ? "rgba(255, 149, 73, 1)" : "",}}>                    
                 프로필
                 </Btn>

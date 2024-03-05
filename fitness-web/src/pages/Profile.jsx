@@ -21,7 +21,6 @@ export default function Profile(props) {
     axios
       .get(
         `${apiUrl}/coaches/${coachId}/info`,
-
         {
           headers: {
             token: token,
