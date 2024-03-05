@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './Menu.css';
@@ -17,13 +17,13 @@ const Menu = ({ activeMenu, handleMenuClick}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [userRole, setUserRole] = useState('');
  
-  const handleGoogleLoginResult = (isEmailExists) => {
+  const handleGoogleLoginResult =  (isEmailExists) => {
     if (isEmailExists) {
       setIsLoggedIn(true);
     } else  {
       navigate("/registchoice")
     }
-  };
+  }
 
   
   const [isModalInOpen, setIsModalInOpen] = useState(false);
@@ -56,7 +56,7 @@ const Menu = ({ activeMenu, handleMenuClick}) => {
 
   return (
     <MenuContainer>
-      <SocialGoogle onGoogleLoginResult={handleGoogleLoginResult} setIsLoggedIn={setIsLoggedIn()}  />
+      <SocialGoogle onGoogleLoginResult={handleGoogleLoginResult} setIsLoggedInref={setIsLoggedIn}  />
       
       <Link to="/search" className={`search ${activeMenu === 'search' ? 'active' : ''}`} onClick={() => handleMenuClick('search')}>
         동네형 찾기

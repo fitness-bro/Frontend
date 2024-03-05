@@ -38,7 +38,7 @@ justify-content:center;
 `;
 
 
-const SocialGoogle = ({ onGoogleLoginResult, setIsLoggedIn }) => {
+const SocialGoogle = ({ onGoogleLoginResult, setIsLoggedInref }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const clientId = '293755776535-kp2pp4pfe0c4401civ1g2fum81f3etdo.apps.googleusercontent.com';
   const google_redirect_uri = 'http://localhost:3000/';
@@ -61,7 +61,7 @@ const SocialGoogle = ({ onGoogleLoginResult, setIsLoggedIn }) => {
           localStorage.setItem('token', userToken);
           localStorage.setItem('userId', userId);
           localStorage.setItem('role', role);
-          setIsLoggedIn(true);
+          setIsLoggedInref(true);
 
           // 이메일 중복 검사 수행
           axios.get(`${apiUrl}/check-email/${userId}`)
@@ -79,9 +79,9 @@ const SocialGoogle = ({ onGoogleLoginResult, setIsLoggedIn }) => {
         });
 
         // if (localStorage.getItem("token")){
-        //   setIsLoggedIn(true);
+        //   setIsLoggedInref(true);
         // }else{
-        //   setIsLoggedIn(false);
+        //   setIsLoggedInref(false);
         // }
     }
 
