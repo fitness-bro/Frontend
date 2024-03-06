@@ -103,9 +103,9 @@ const Reviews = () => {
     };
 
 
-    const handleImageSelected = (imageFile) => {
-        setImage(imageFile); // 이미지 선택 시 호출되는 함수
-    };
+    const handleImageSelected = (imageFiles) => {
+        setImage(imageFiles); // 이미지 선택 시 호출되는 함수
+    }
 
     // 별점 설정 함수
     const handleStarClick = (rating) => {
