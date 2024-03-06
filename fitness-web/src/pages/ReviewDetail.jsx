@@ -39,23 +39,29 @@ const ReviewDetail = () => {
   }, [reviewId]);
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => {
-      if (prevIndex === 0) {
-        return 0; 
-      } else {
-        return prevIndex - 1;
-      }
-    });
+    if (currentIndex === 0) {
+      setCurrentIndex(userData.pictureURLs.length - 1); // 현재가 첫 번째 사진일 때 마지막 사진으로 이동
+    } else {
+      setCurrentIndex(prevIndex => prevIndex - 1);
+    }
   };
 
   const handleNext = () => {
     if (currentIndex === userData.pictureURLs.length - 1) {
-      return; 
+      setCurrentIndex(0); 
     }
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+    else {
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+    }
   };
 
   const renderImages = () => {
+    const defaultIconSize = 300; // clip icon (디폴트 이미지)의 크기
+    const imageStyle = {
+      maxWidth: `${defaultIconSize}px`,
+      maxHeight: `${defaultIconSize}px`,
+    };
+
     if (userData.pictureURLs && userData.pictureURLs.length > 0) {
       const currentImageUrl = userData.pictureURLs[currentIndex];
       return (
@@ -63,10 +69,16 @@ const ReviewDetail = () => {
           src={currentImageUrl}
           alt={`review-image-${currentIndex}`}
           className="review-image"
+          style={imageStyle}
         />
       );
-    } 
+    } else {
+      return (
+        <Icon className="clipIcon" icon="mdi:paperclip" style={imageStyle} />
+      );
+    }
   };
+  
 
   const navigate = useNavigate();
 
@@ -123,13 +135,11 @@ const ReviewDetail = () => {
             </div>
           </div>
         </div>
-
         <div className="reviewTextarea">
           <div className="userDataDetail">
             <p className="nickname">{userData.nickname}</p>
 
             <p className="createdAt">{userData.createdAt}</p>
-
             <p className="content">{userData.content}</p>
           </div>
         </div>

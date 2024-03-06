@@ -1,18 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './Menu.css';
-import SignUpModal from '../modalSignUp/ModalSignUp';
 import SignInModal from '../modalSignIn/ModalSignIn';
-import axios from 'axios';
+import SocialGoogle from '../login/SocialGoogle';
+import styled from 'styled-components';
 
-const Menu = ({ activeMenu, handleMenuClick }) => {
+const MenuContainer = styled.div`
+  display: flex;
+  align-items: center; 
+`;
+
+const Menu = ({ activeMenu, handleMenuClick}) => {
+
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [userRole, setUserRole] = useState('');
-  const [userId, setUserId] = useState(!!localStorage.getItem("userId"));
+ 
+  const handleGoogleLoginResult =  (isEmailExists) => {
+    if (isEmailExists) {
+      setIsLoggedIn(true);
+    } else  {
+      navigate("/registchoice")
+    }
+  }
 
-  const [isModalUpOpen, setIsModalUpOpen] = useState(false);
-  const openModalUp = () => setIsModalUpOpen(true);
-  const closeModalUp = () => setIsModalUpOpen(false);
   
   const [isModalInOpen, setIsModalInOpen] = useState(false);
   const openModalIn = () => setIsModalInOpen(true);
@@ -21,32 +33,31 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
-    const id=localStorage.getItem('userId')
-
-  if (token && role) {
+  
+  if (token ) {
     setIsLoggedIn(true);
     setUserRole(role);
-    setUserId(true)
 
   } else {
     setIsLoggedIn(false);
     setUserRole('');
-    setUserId(false)
   }
-}, []); // 컴포넌트가 처음 렌더링될 때만 실행
+}, [activeMenu,isLoggedIn]); 
 
   const handleLogout = () => {
+    //localStorage.clear();
     localStorage.removeItem('token');
     localStorage.removeItem("userId");
     localStorage.removeItem('role');
-    setIsLoggedIn(false);
     setUserRole('');
-    setUserId(false)
+    setIsLoggedIn(false);
   };
 
 
   return (
-    <div>
+    <MenuContainer>
+      <SocialGoogle onGoogleLoginResult={handleGoogleLoginResult} setIsLoggedInref={setIsLoggedIn}  />
+      
       <Link to="/search" className={`search ${activeMenu === 'search' ? 'active' : ''}`} onClick={() => handleMenuClick('search')}>
         동네형 찾기
       </Link>
@@ -66,23 +77,18 @@ const Menu = ({ activeMenu, handleMenuClick }) => {
 
       {!isLoggedIn && (
         <div className={`login ${activeMenu === 'login' ? 'active' : ''}`} onClick={() => { handleMenuClick('login'); openModalIn(); }}>
-          로그인
+          로그인/회원가입
         </div>
       )}
 
-      <SignUpModal isOpen={isModalUpOpen} closeModalUp={closeModalUp}/>
       <SignInModal isOpen={isModalInOpen} closeModalIn={closeModalIn}/>
 
       {isLoggedIn ? (
         <div className={`logout ${activeMenu === 'logout' ? 'active' : ''}`} onClick={handleLogout}>
           로그 아웃
         </div>
-      ) : (
-        <div className={`signup ${activeMenu === 'signup' ? 'active' : ''}`} onClick={() => { handleMenuClick('signup'); openModalUp(); }}>
-          회원가입
-        </div>
-      )}
-    </div>
+      ):(null)}
+    </MenuContainer>
   );
 };
 

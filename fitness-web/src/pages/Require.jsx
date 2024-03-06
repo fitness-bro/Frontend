@@ -96,7 +96,7 @@ const Require = () => {
             <div className="userList">
                 <ul>
                     {userData.map((item, index) => (
-                        <li key={index}>
+                        <li class="cursor-default" key={index}>
 
                             <div className="info">
 

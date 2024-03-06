@@ -22,3 +22,7 @@
     font-size: 13px;
     font-weight: bold;
 }
+
+.cursor-default {
+    cursor: default !important;
+}

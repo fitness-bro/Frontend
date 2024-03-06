@@ -64,6 +64,7 @@
     align-items: center;
     position: relative; /* position 속성 추가 */
     top: -100px; /* 원하는 만큼 위로 이동 */
+    overflow: hidden;
   }
 
   .stars-for-review-detail {

@@ -8,14 +8,16 @@ import { Link, useLocation } from "react-router-dom";
 export default function LookReviews() {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
-    const apiUrl = "http://dev.fitness-bro.pro";
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const userId=props.userId;
     const location = useLocation();
-    const userId= location.state.userId;
-    const token=location.state.token;
+    const coachId = location.state.coachId
+    const token=localStorage.getItem("token");
+
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}/coaches/${userId}/reviews`,{
+        axios.get(`${apiUrl}/coaches/${coachId}/reviews`,{
             headers:{
                 'token':token
             }
@@ -38,7 +40,7 @@ export default function LookReviews() {
 
     return (
         <Body>
-            <Header id={userId}/>
+            <Header id={coachId}/>
             {error && <p>Error: {error}</p>}
             {reviews && reviews.map((review) => (
                 <Link to={{

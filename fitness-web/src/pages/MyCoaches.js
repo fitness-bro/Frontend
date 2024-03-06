@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
 import ToggleMenu from '../components/review/ToggleMenu';
+import './MyCoaches.css';
 
 // 우리 형 성사 리스트
 
