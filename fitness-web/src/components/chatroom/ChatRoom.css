@@ -161,12 +161,12 @@
   
    }
    .member.active{
-     background: #FF9549;
-     color:#fff;
+    background-color: #FFE0CA;
+    color: #643E23;
    }
    .member:hover{
-     background: grey;
-     color:#fff;
+    background-color: #FFE0CA;
+    color: #643E23;
    }
    
    

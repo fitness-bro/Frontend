@@ -73,39 +73,31 @@ const handleSubmit = async (e) => {
     // 새 프로필 이미지가 있는 경우에만 FormData에 추가합니다.
     if (newProfileImage) {
       formData.append('picture', newProfileImage, `@${newProfileImage.name};type=${newProfileImage.type}`);
-    } else if (profilePictureUrl) {
-      // 이 부분이 실행되는지 확인하기 위해 로그를 추가합니다.
-      console.log("이전 이미지 URL:", profilePictureUrl);
-      formData.append('picture', profilePictureUrl);
-    } else {
-      // 새 이미지도 없고, 이전 이미지도 없는 경우, 경고를 표시하고 종료합니다.
-      console.warn("새 이미지 및 이전 이미지가 없습니다.");
-      return;
-    }
+    } 
     
     try {
-      const response = await axios.put(
-        `${apiUrl}/members/update`,
-        formData,
-        {
-          headers: {
-            'token': token,
-            'Content-Type': 'multipart/form-data',
-          },
+        const response = await axios.patch(
+          `${apiUrl}/members/update`,
+          formData,
+          {
+            headers: {
+              'token': token,
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+      
+        console.log("응답 데이터:", response.data);
+        alert("수정이 완료됐습니다!");
+      } catch (error) {
+        console.error('에러:', error);
+        console.error('에러 상세 정보:', error.response);
+      
+        if (error.response && error.response.data) {
+          console.error('서버 응답 데이터:', error.response.data);
         }
-      );
-  
-      console.log("응답 데이터:", response.data);
-      alert("수정이 완료됐습니다!");
-    } catch (error) {
-      console.error('에러:', error);
-      console.error('에러 상세 정보:', error.response);
-  
-      if (error.response && error.response.data) {
-        console.error('서버 응답 데이터:', error.response.data);
+        alert("수정에 실패했습니다");
       }
-      alert("수정에 실패했습니다");
-    }
   };
   const textStyle = {
     color: "#FF9549",

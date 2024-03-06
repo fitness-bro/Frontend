@@ -59,9 +59,17 @@ export default function ProfileHeader(props) {
     
       useEffect(() => {
       
-        axios.get(
-          `${apiUrl}/coaches/${coachId}/info`
-          )
+        axios
+        .get(
+          `${apiUrl}/coaches/${coachId}/info`,
+  
+          {
+            headers: {
+              token: token,
+            },
+          }
+        )
+  
           .then(response => {
             const data = response.data;
             console.log("API 응답:", response);
@@ -180,9 +188,7 @@ export default function ProfileHeader(props) {
                   <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
                   </Link>
             </Requirechat>
-
             </TopWrap>
-
             <Wrapper>
                 <ProfileWrap>
                     <img src={userData.coachPicture} alt="프로필 이미지" />

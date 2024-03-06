@@ -98,6 +98,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         if (stompClient) {
             const chatMessage = {
                 chatRoomId: tab,
+                sender:userData.username,
                 message: userData.message,
                 userId:userData.userId,
             };
