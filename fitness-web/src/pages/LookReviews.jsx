@@ -10,11 +10,13 @@ export default function LookReviews(props) {
     const [error, setError] = useState(null);
     const apiUrl = process.env.REACT_APP_API_URL;
     const userId=props.userId;
+    const location = useLocation();
+    const coachId = location.state.coachId
     const token=localStorage.getItem("token");
 
     useEffect(() => {
 
-        axios.get(`${apiUrl}/coaches/${userId}/reviews`,{
+        axios.get(`${apiUrl}/coaches/${coachId}/reviews`,{
             headers:{
                 'token':token
             }
@@ -37,7 +39,7 @@ export default function LookReviews(props) {
 
     return (
         <Body>
-            <Header id={userId}/>
+            <Header id={coachId}/>
             {error && <p>Error: {error}</p>}
             {reviews && reviews.map((review) => (
                 <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}} key={review.review_id}>

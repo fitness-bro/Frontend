@@ -1,17 +1,14 @@
 import { React, useState, useEffect } from "react";
 import { InfBlock, InfLine, Body } from "./Profile.style";
-import ProfileHeader from "../components/header/ProfileHeader";
+import ProfileHeader from "../components/header/ProfileHeader.jsx";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 export default function Profile(props) {
   const apiUrl = "http://dev.fitness-bro.pro";
-  //const location = useLocation();
-  //const coachId = location.state.coachId;
-
-  const token = localStorage.getItem("token");
   const location = useLocation();
-  const userId = location.state.userId;
+  const coachId = location.state.coachId;
+  const token = localStorage.getItem("token");
 
   const [userData, setUserData] = useState({
     introduction: "",
@@ -23,8 +20,7 @@ export default function Profile(props) {
   useEffect(() => {
     axios
       .get(
-        `${apiUrl}/coaches/${userId}/info`,
-
+        `${apiUrl}/coaches/${coachId}/info`,
         {
           headers: {
             token: token,
@@ -56,7 +52,7 @@ export default function Profile(props) {
   return (
     <>
       <Body>
-        <ProfileHeader id={userId} />
+        <ProfileHeader id={coachId}/>
         <InfLine>{userData.introduction}</InfLine>
         <InfBlock>
           <h4>위치</h4>

@@ -24,7 +24,7 @@ const ListSection = ({ userList, selectedRegion, selectedSubAddress, selectedUse
   const handleProfileClick = (userId) => {
     // 클릭된 프로필의 userId를 사용하여 프로필 페이지로 이동
     console.log(userId)
-    navigate("/profile",{state:{userId:userId}});
+    navigate("/profile",{state:{coachId:userId}});
 
   };
 

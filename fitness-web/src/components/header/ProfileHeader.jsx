@@ -1,7 +1,7 @@
 import { TopWrap,Wrapper,AskBtn,Btn, BtnWrap, ProfileWrap, Backimgage,RatingWrap, Requirechat, Requirebtn } from "./ProfileHeader.style";
 import React, { useState,useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
-import backImg from "../../img/back.jpg";
+import backImg from "../../img/back.svg";
 import unlikeBtn from "../../img/unlike.svg";
 import likeBtn from '../../img/like.svg';
 import star from "../../img/review.svg";
@@ -20,14 +20,14 @@ export default function ProfileHeader(props) {
       name: "",
       age: 0,
       rating:0,
-      coachPicture:null
+      coachPicture:null,
+      favorites:false
     });
     const [likeBtnClicked, setLikeBtnClicked] = useState(false);
     const coachId=props.id;
     const token=localStorage.getItem("token");
 
     const handleImgClick = () => {
-        const coachId = props.id; // 코치 아이디
 
         if(userRole=="COACH"){
           alert("같은 동네형이므로 찜할 수 없습니다!");
@@ -47,9 +47,15 @@ export default function ProfileHeader(props) {
         };
     
         axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
+
+
           .then(response => {
-            console.log("즐겨찾기 추가 응답:", response);
+            console.log("즐겨 추가 응답:", response);
             setLikeBtnClicked(prevState => !prevState);
+            setUserData(prevUserData => ({
+              ...prevUserData,
+              favorites:!userData.favorites
+            }));
           })
           .catch(error => {
             console.error("즐겨찾기 추가 요청 중 오류 발생:", error);
@@ -60,7 +66,11 @@ export default function ProfileHeader(props) {
       useEffect(() => {
       
         axios.get(
-          `${apiUrl}/coaches/${coachId}/info`
+          `${apiUrl}/coaches/${coachId}/info`,        {
+            headers: {
+              token: token,
+            },
+          }
           )
           .then(response => {
             const data = response.data;
@@ -71,7 +81,8 @@ export default function ProfileHeader(props) {
                 name:data.result.nickname,
                 // age:data.result.age,
                 rating:data.result.rating,
-                coachPicture:data.result.coachPicture
+                coachPicture:data.result.coachPicture,
+                favorites:data.result.favorites
               });
             } else {
               console.error("API 요청 실패:", data.message);
@@ -85,25 +96,34 @@ export default function ProfileHeader(props) {
 
     const handleBtnClick = (name) => {
         setBtnStates({
-            프로필: false,
+          프로필: false,
             후기: false,
             사진첩: false,
             [name]: true
         });
 
         switch (name) {
+          case '프로필':
+                navigate("/profile",{
+                  state: {
+                    coachId: coachId, 
+                    token:token
+                  }
+                });
+                break;
         
             case '후기':
                 navigate("/lookreviews", {
                     state: {
-                      userId: coachId, token:token
+                      coachId: coachId, 
+                      token:token
                     }
                   });
                 break;
             case '사진첩':
                 navigate("/photos",{
                     state: {
-                      userId: coachId, token:token
+                      coachId: coachId, token:token
                     }
                   });;
                 break;
@@ -131,6 +151,7 @@ export default function ProfileHeader(props) {
                 console.error("에러 상세 정보:", error.response);
             });
     };
+
 
     const [matchStatus, setMatchStatus] = useState("UNSUCCESS"); // 성사 상태
     const [buttonText, setButtonText] = useState("성사 요청");
@@ -172,6 +193,7 @@ export default function ProfileHeader(props) {
       }
     }, [matchStatus]);
   
+
     const handleRequireClick = () => {
       axios
         .post(`${apiUrl}/match/member`, { coachId }, { headers: { token } })
@@ -190,7 +212,7 @@ export default function ProfileHeader(props) {
         <TopWrap>
             <Backimgage src={backImg} alt="배경" />
             <BtnWrap>
-                <img src={likeBtnClicked ? likeBtn : unlikeBtn} style={{width:"20px", paddingRight:"10px",cursor:"pointer"}} onClick={handleImgClick}/>
+                <img src={userData.favorites ? likeBtn : unlikeBtn} style={{width:"20px", paddingRight:"10px",cursor:"pointer"}} onClick={handleImgClick}/>
                 <Btn onClick={() => handleBtnClick("프로필")} style={{backgroundColor: btnStates["프로필"] ? "rgba(255, 149, 73, 1)" : "",}}>                    
                 프로필
                 </Btn>
@@ -206,6 +228,7 @@ export default function ProfileHeader(props) {
               <Requirebtn isActive={matchStatus !== "UNSUCCESS"} onClick={matchStatus === "UNSUCCESS" ? handleRequireClick : undefined}>
                 {buttonText}
               </Requirebtn>
+
                   <Link to={{
                     pathname: '/chatinglist',
                     state: {token:token }
@@ -213,6 +236,7 @@ export default function ProfileHeader(props) {
                   <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
                   </Link>
             </Requirechat>
+
 
             </TopWrap>
 
