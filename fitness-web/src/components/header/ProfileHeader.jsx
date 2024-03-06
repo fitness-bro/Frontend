@@ -140,18 +140,21 @@ export default function ProfileHeader(props) {
     // }, [matchStatus]);
     
     useEffect(() => {
-      const fetchMatchStatus = async () => {
-          try {
-              const response = await axios.post(`${apiUrl}/match/member/register-status`, { coachId }, { headers: { token } });
-              setMatchStatus(response.data);
-          } catch (error) {
-              console.error("성사 상태 가져오기 요청 중 오류 발생:", error);
-              console.error("에러 상세 정보:", error.response);
-          }
-      };
-
-      fetchMatchStatus(); // 컴포넌트가 마운트될 때 성사 상태 가져오기
-  }, [apiUrl, coachId, token]);
+      // 코치가 수락 버튼을 누를 때마다 성사 상태 가져오기
+      const intervalId = setInterval(() => {
+        axios.post(`${apiUrl}/match/member/register-status`, { coachId }, { headers: { token } })
+          .then((response) => {
+            console.log("성사 상태 가져오기 응답:", response);
+            setMatchStatus(response.data);
+          })
+          .catch((error) => {
+            console.error("성사 상태 가져오기 요청 중 오류 발생:", error);
+            console.error("에러 상세 정보:", error.response);
+          });
+      }, 1000); // 1초마다 상태를 가져옴
+  
+      return () => clearInterval(intervalId); // 컴포넌트가 언마운트될 때 interval 제거
+    }, [apiUrl, coachId, token]);
   
     // 성사 상태가 변경될 때 버튼 텍스트 업데이트
     useEffect(() => {
@@ -200,7 +203,7 @@ export default function ProfileHeader(props) {
             </BtnWrap>
             
             <Requirechat>
-              <Requirebtn isActive={matchStatus !== "UNSUCCESS"} onClick={handleRequireClick}>
+              <Requirebtn isActive={matchStatus !== "UNSUCCESS"} onClick={matchStatus === "UNSUCCESS" ? handleRequireClick : undefined}>
                 {buttonText}
               </Requirebtn>
                   <Link to={{

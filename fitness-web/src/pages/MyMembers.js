@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import '../components/CommonStyle.css'
+import './MyMembers.css';
 import DefaultImage from '../components/review/DefaultImage';
 
 // 수련생 성사 리스트 페이지
@@ -56,7 +57,7 @@ const MyMembers = ()=>{
              <div className="userList">
                 <ul>
                     {userData.map((item, index) =>(
-                        <li key={index}>
+                        <li className="cursor-default" key={index}>
                             {/* 프로필 이미지 */}
                             {item.memberPicture ? (
                                 <img src={item.memberPicture} alt="프로필 이미지" className="profileImage" />
