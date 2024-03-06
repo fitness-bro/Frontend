@@ -1,8 +1,9 @@
 import './ChatRoom.css';
 import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from "axios";
+import { Icon } from "@iconify/react";
 
 let stompClient = null;
 
@@ -12,6 +13,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const apiUrl = "http://dev.fitness-bro.pro/";
+    const chatContentRef = useRef(null);
 
     const token=localStorage.getItem("token");
     useEffect(() => {
@@ -29,6 +31,13 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
           stompClient.subscribe(`/user/${tab}/private`, onPrivateMessage);
         }
       }, [tab]);
+
+      useEffect(() => {
+        // 새 채팅이 추가될 때마다 스크롤을 아래로 이동
+        if (chatContentRef.current) {
+          chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+        }
+      }, [privateChats, tab]);
     
       const onConnected = () => {
         setUserData({ ...userData, connected: true });
@@ -89,8 +98,9 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         if (stompClient) {
             const chatMessage = {
                 chatRoomId: tab,
-                sender: userData.username,
+                sender:userData.username,
                 message: userData.message,
+                userId:userData.userId,
             };
             const updatedPrivateChats = new Map(privateChats);
             const chatMessages = [...updatedPrivateChats.get(tab), chatMessage]; // Create a new array with the new message
@@ -147,31 +157,68 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
                         <li className='receiver-name'>
                             {initialChats.get(tab).partnerName}
                         </li>
-
+    
                     </ul>
                 </div>
-
-                
+    
                 {tab !== "CHATROOM" && (
     <div className="chat-content">
-        <ul className="chat-messages">
+        <ul className="chat-messages" ref={chatContentRef} >
             {initialChats.get(tab)?.chatMessageDTOList?.map((chatMessageDTOList, index) => (
-                <li className={`message ${chatMessageDTOList.sender === userData.username && "self"}`} key={index}>
-
-                     {chatMessageDTOList.sender !== userData.username && <div className="avatar"></div>}
-
+                <li className={`message ${chatMessageDTOList.userId === userData.userId && "self"}`} key={index}>
+    
+                     {chatMessageDTOList.userId !== userData.userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
+                                <img
+                                src={initialChats.get(tab).pictureUrl}
+                                style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    alignItems: "center",
+                                    borderRadius: "100px",
+                                    marginRight:"5px"
+                                }}
+                              ></img>
+                            ) : (
+                                <div className="chatRoomgprofile">
+                                <Icon
+                                    className="chatRoomIcon"
+                                    icon="ic:baseline-person-outline"
+                                    alt="기본 이미지"
+                                />
+                            </div>
+                            )}</div>}
+    
                     
-
+    
                      <div className="message-data">
                     <div className="message-box">{chatMessageDTOList.message}</div>
                     </div>
                 </li>
             ))}
             {[...privateChats.get(tab)].map((chat, index) => (
-                <li className={`message ${chat.sender === userData.username && "self"}`} key={index}>
-
-                    {chat.sender !== userData.username && <div className="avatar"></div>}
-
+                <li className={`message ${chat.userId === userData.userId && "self"}`} key={index}>
+    
+                    {chat.userId !== userData.userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
+                                <img
+                                src={initialChats.get(tab).pictureUrl}
+                                style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    alignItems: "center",
+                                    borderRadius: "100px",
+                                    marginRight:"5px"
+                                }}
+                              ></img>
+                            ) : (
+                                <div className="chatRoomgprofile">
+                                <Icon
+                                    className="chatRoomIcon"
+                                    icon="ic:baseline-person-outline"
+                                    alt="기본 이미지"
+                                />
+                            </div>
+                            )}</div>}
+    
                     <div className="message-data">
                         <div className="message-box">{chat.message}</div>
                     </div>
@@ -183,10 +230,10 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
             <button type="button" className="send-button" onClick={sendPrivateValue}>전송</button>
         </div>
     </div>
-)}
+    )}
             </div>
         </div>
     );
-};
-
+    };
+    
 export default ChatRoom;

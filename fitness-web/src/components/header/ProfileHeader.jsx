@@ -48,7 +48,6 @@ export default function ProfileHeader(props) {
     
         axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
 
-
           .then(response => {
             console.log("즐겨 추가 응답:", response);
             setLikeBtnClicked(prevState => !prevState);
@@ -65,12 +64,15 @@ export default function ProfileHeader(props) {
     
       useEffect(() => {
       
+
         axios.get(
           `${apiUrl}/coaches/${coachId}/info`,        {
+
             headers: {
               token: token,
             },
           }
+
           )
           .then(response => {
             const data = response.data;
@@ -103,6 +105,7 @@ export default function ProfileHeader(props) {
         });
 
         switch (name) {
+
           case '프로필':
                 navigate("/profile",{
                   state: {
@@ -110,11 +113,13 @@ export default function ProfileHeader(props) {
                     token:token
                   }
                 });
+
                 break;
         
             case '후기':
                 navigate("/lookreviews", {
                     state: {
+
                       coachId: coachId, 
                       token:token
                     }
@@ -123,7 +128,9 @@ export default function ProfileHeader(props) {
             case '사진첩':
                 navigate("/photos",{
                     state: {
+
                       coachId: coachId, token:token
+
                     }
                   });;
                 break;
@@ -151,7 +158,6 @@ export default function ProfileHeader(props) {
                 console.error("에러 상세 정보:", error.response);
             });
     };
-
 
     const [matchStatus, setMatchStatus] = useState("UNSUCCESS"); // 성사 상태
     const [buttonText, setButtonText] = useState("성사 요청");
@@ -236,10 +242,7 @@ export default function ProfileHeader(props) {
                   <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
                   </Link>
             </Requirechat>
-
-
             </TopWrap>
-
             <Wrapper>
                 <ProfileWrap>
                     <img src={userData.coachPicture} alt="프로필 이미지" />

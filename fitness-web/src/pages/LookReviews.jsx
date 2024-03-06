@@ -5,7 +5,7 @@ import reviewerImg from "../img/profile.jpg";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 
-export default function LookReviews(props) {
+export default function LookReviews() {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -13,6 +13,7 @@ export default function LookReviews(props) {
     const location = useLocation();
     const coachId = location.state.coachId
     const token=localStorage.getItem("token");
+
 
     useEffect(() => {
 
@@ -42,7 +43,10 @@ export default function LookReviews(props) {
             <Header id={coachId}/>
             {error && <p>Error: {error}</p>}
             {reviews && reviews.map((review) => (
-                <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}} key={review.review_id}>
+                <Link to={{
+                    pathname: '/review-detail',
+                    state: { review_id : review.review_id}
+                  }} id={review.review_id} style={{ textDecoration: "none"}} key={review.review_id}>
                     <ReviewBlock>
                         <img src={review.pictureURL} alt="리뷰자 프로필 이미지" />
                         <h4>{review.nickname}</h4>

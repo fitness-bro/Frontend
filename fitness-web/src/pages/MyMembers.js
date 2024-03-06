@@ -11,7 +11,6 @@ const MyMembers = ()=>{
 
     const apiUrl = 'http://dev.fitness-bro.pro';
 
-
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {

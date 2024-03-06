@@ -45,6 +45,7 @@ const SocialGoogle = ({ onGoogleLoginResult, setIsLoggedInref }) => {
   const GOOGLE_SCOPE = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${google_redirect_uri}&response_type=token&scope=${GOOGLE_SCOPE}`;
 
+
   const GoogleLogin = () => {
     window.location.href = GOOGLE_AUTH_URL;
   };
