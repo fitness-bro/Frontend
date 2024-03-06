@@ -1,0 +1,83 @@
+.ReviewDetail {
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .iconsForImages {
+    display: flex;
+    align-items: center;
+    margin-top: 200px;
+  }
+  
+  .arrow-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .leftArrow,
+  .rightArrow {
+    font-size: 80px;
+    color: #643E23;
+  }
+  
+  .clipIcon {
+    color: #9F9F9F;
+    background-color: #D9D9D9;
+    font-size: 50px;
+    padding: 200px;
+  }
+  
+  .reviewTextarea {
+    margin-left: 100px;
+    width: 700px;
+    height: 700px;
+    margin-top: 200px;
+    border-radius: 20px;
+    padding-left: 35px;
+    padding-top: 20px;
+    border: 1px solid #BEBEBE;
+    color: #643E23;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: white;
+  }
+
+
+/* 상세보기 텍스트 */
+  .userDataDetail .nickname {
+      font-size: 26px;
+  }
+
+  .userDataDetail .createdAt {
+      font-size: 21px;
+  }
+
+  .userDataDetail .content {
+      font-size: 20px;
+  }
+
+  .star-text-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* position 속성 추가 */
+    top: -100px; /* 원하는 만큼 위로 이동 */
+  }
+
+  .stars-for-review-detail {
+    margin-left: 52%;
+  }
+
+  .start-rating{
+    display: flex;
+    font-size: 25px;
+    margin-top: 10px;
+  }
+
+  .rating-text {
+    padding-left: 14%;
+    color: #643E23;
+    font-weight: bold;
+  }
