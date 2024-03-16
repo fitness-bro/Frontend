@@ -9,13 +9,13 @@ const Favorites = () => {
     const navigate = useNavigate();
 
     const apiUrl = 'http://dev.fitness-bro.pro';
-
+    const token = localStorage.getItem("token");
 
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
 
-        const token = localStorage.getItem("token");
+       
 
         axios.get(`${apiUrl}/members/favorites`, {
             headers: {
@@ -30,6 +30,7 @@ const Favorites = () => {
                 if (data.isSuccess) {
                     const results=data.result;
                     setUserData(results);
+                    
                 } else {
                     console.error("API 요청 실패:", data.message);
                 }
@@ -43,11 +44,12 @@ const Favorites = () => {
     const onClickBackBtn = () => {
         navigate(-1);
     };
-
     const goToCoachProfile = (userId) => {
-        navigate("/profile",{state:{userId:userId}});
-    };
-
+        // 클릭된 프로필의 userId를 사용하여 프로필 페이지로 이동
+        console.log(userId)
+        navigate("/profile",{state:{coachId:userId}});
+    
+      };
     return (
         <div className="Favorites">
 

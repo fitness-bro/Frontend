@@ -12,13 +12,12 @@ const MenuContainer = styled.div`
 `;
 
 const Menu = ({ activeMenu, handleMenuClick}) => {
-
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [userRole, setUserRole] = useState('');
  
-  const handleGoogleLoginResult =  (isEmailExists) => {
-    if (isEmailExists) {
+  const handleGoogleLoginResult =  (exist) => {
+    if (exist) {
       setIsLoggedIn(true);
     } else  {
       navigate("/registchoice")
@@ -56,7 +55,7 @@ const Menu = ({ activeMenu, handleMenuClick}) => {
 
   return (
     <MenuContainer>
-      <SocialGoogle onGoogleLoginResult={handleGoogleLoginResult} setIsLoggedInref={setIsLoggedIn}  />
+      <SocialGoogle handleGoogleLoginResult={handleGoogleLoginResult} setIsLoggedIn={setIsLoggedIn} />
       
       <Link to="/search" className={`search ${activeMenu === 'search' ? 'active' : ''}`} onClick={() => handleMenuClick('search')}>
         동네형 찾기
