@@ -59,8 +59,8 @@ const SearchSection = ({ onRegionSelect, userList }) => {
     경기도: ['수원시', '성남시', '안양시', '안산시', '용인시', '부천시', '광명시', '평택시', '동두천시', '안성시', '광주시', '이천시', '양주시', '의정부시', '여주시', '화성시', '포천시', '연천군', '가평군', '양평군'],
   }
   return (
-    <>
-      <div style={{ color: '#ff9549', marginLeft: '290px', fontSize: '19px', fontWeight: 'bold', padding: '10px' }}>전체 지역 검색</div>
+    <div>
+      <div style={{ color: '#ff9549',fontSize: '19px', fontWeight: 'bold', padding: '10px' }}>전체 지역 검색</div>
       <div className="Search">
         <div className="InputRegion">
           <input
@@ -110,7 +110,7 @@ const SearchSection = ({ onRegionSelect, userList }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

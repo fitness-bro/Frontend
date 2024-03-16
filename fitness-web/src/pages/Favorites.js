@@ -9,13 +9,11 @@ const Favorites = () => {
     const navigate = useNavigate();
 
     const apiUrl = 'http://dev.fitness-bro.pro';
-
+    const token = localStorage.getItem("token");
 
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
-
-        const token = localStorage.getItem("token");
 
         axios.get(`${apiUrl}/members/favorites`, {
             headers: {
@@ -30,6 +28,7 @@ const Favorites = () => {
                 if (data.isSuccess) {
                     const results=data.result;
                     setUserData(results);
+                    
                 } else {
                     console.error("API 요청 실패:", data.message);
                 }
@@ -45,7 +44,7 @@ const Favorites = () => {
     };
 
     const goToCoachProfile = (userId) => {
-        navigate("/profile",{state:{userId:userId}});
+        navigate("/profile",{state:{coachId:userId}});
     };
 
     return (

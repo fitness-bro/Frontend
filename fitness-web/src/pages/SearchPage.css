@@ -1,0 +1,12 @@
+.SearchPage{
+    display: flex;
+    margin-left: 21%;
+    margin-top: 0%;
+}
+.MapSection{
+    margin-top: 3%;
+    margin-left: 90px;
+}
+.ListSection{
+    margin-top: 40px;
+}

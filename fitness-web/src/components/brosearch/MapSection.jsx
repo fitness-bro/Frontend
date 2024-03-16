@@ -96,9 +96,6 @@ const MapSection = ({ userList, onMarkerClick }) => {
       style={{
         width: '500px',
         height: '650px',
-        display: 'flex',
-        marginLeft: '50%',
-        marginTop: '-200px',
       }}
     ></div>
   );
