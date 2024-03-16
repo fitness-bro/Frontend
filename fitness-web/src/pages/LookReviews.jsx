@@ -5,11 +5,10 @@ import reviewerImg from "../img/profile.jpg";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 
-export default function LookReviews() {
+export default function LookReviews(props) {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
     const apiUrl = process.env.REACT_APP_API_URL;
-    const userId=props.userId;
     const location = useLocation();
     const coachId = location.state.coachId
     const token=localStorage.getItem("token");

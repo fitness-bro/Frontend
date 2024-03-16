@@ -29,11 +29,11 @@ const ListSection = ({ userList, selectedRegion, selectedSubAddress, selectedUse
   };
 
   return (
-    <>
-      <div style={{ color: '#ff9549', marginLeft: '19.5%', fontSize: '19px', fontWeight: 'bold', marginTop: '-410px', padding: '10px', paddingBottom:'30px' }}>
+    <div>
+      <div style={{ color: '#ff9549', fontSize: '19px', fontWeight: 'bold', padding: '10px', paddingBottom:'30px' }}>
         동네형 리스트
       </div>
-      <div className="ListContainer" style={{ width: '49vh', height: '40vh', marginLeft: '18.9%', backgroundColor: '#643e23' }}>
+      <div className="ListContainer" style={{ width: '49vh', height: '40vh', backgroundColor: '#643e23' }}>
         {filteredList.map((user) => (
           <div
             className={`UserProfile ${selectedUserId === user.coachId ? 'clicked' : ''}`}
@@ -55,7 +55,7 @@ const ListSection = ({ userList, selectedRegion, selectedSubAddress, selectedUse
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

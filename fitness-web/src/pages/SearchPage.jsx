@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import SearchSection from '../components/brosearch/SearchSection';
 import MapSection from '../components/brosearch/MapSection';
 import ListSection from '../components/brosearch/ListSection';
 import axios from 'axios';
-
+import './SearchPage.css';
 const SearchPage = () => {
 
   const [userList, setUserList] = useState([]);
@@ -40,20 +39,28 @@ const SearchPage = () => {
   };
 
   return (
-    <div>
+    <div className='SearchPage'>
+        <div className='Spfirstline'>
+            <div className='SearchSection'>
       <SearchSection
         map={null}
         onRegionSelect={handleRegionSelect}
         userList={userList}
-     
+        
       />
-      <MapSection userList={userList} onMarkerClick={handleMarkerClick} />
+      </div>
+      <div className='ListSection'>
       <ListSection
         userList={userList}
         selectedRegion={selectedRegion}
         selectedSubAddress={selectedSubAddress}
         selectedUserId={selectedUserId}
       />
+      </div>
+      </div>
+      <div className='MapSection'>
+      <MapSection userList={userList} onMarkerClick={handleMarkerClick} />
+      </div>
     </div>
   );
 };

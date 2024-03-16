@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import axios from "axios";
 import ModalSearch from "../components/modalsearch/ModalSearch";
 import { FaSearch } from "react-icons/fa";
+import ImgModal from "../components/imgModal/ImgModal";
 
 export default function ModifyingCoach() {
   const apiUrl = "http://dev.fitness-bro.pro";
@@ -20,9 +21,12 @@ export default function ModifyingCoach() {
   const [albumImages, setAlbumImages] = useState([]); // 앨범이미지 저장
   const [newProfileImage, setNewProfileImage] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState(null); // 프로필 이미지
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   const token = localStorage.getItem("token");
-  const coachId = localStorage.getItem("userId");
+
   useEffect(() => {
     const fetchCoachInfo = async () => {
       try {
@@ -141,7 +145,13 @@ export default function ModifyingCoach() {
   const handleCommentChange = (e) => setComment(e.target.value);
   const handleIntroductionChange = (e) => setIntroduction(e.target.value);
   const handleScheduleChange = (e) => setSchedule(e.target.value);
-  const handlePriceChange = (e) => setPrice(e.target.value);
+  const handlePriceChange = (e) => {
+    const inputValue = e.target.value;
+    // 숫자만 입력되도록 정규 표현식을 사용하여 확인
+    if (/^\d*$/.test(inputValue)) {
+        setPrice(inputValue);
+    }
+}
   const handleAgeChange = (e) => setAge(e.target.value);
 
   const handleSubmit = async (e) => {
@@ -200,7 +210,12 @@ export default function ModifyingCoach() {
     for (let i = 0; i < albumImages.length; i++) {
       const file = albumImages[i];
       const blob = new Blob([file], { type: file.type });
-      formData.append("album", blob, `@${file.name};type=${file.type}`);
+      if (typeof file === "string") {
+        formData.append("albumURL", albumImages[i]);
+        console.log(albumImages[i]);
+      } else {
+        formData.append("albumFile", blob, `@${file.name};type=${file.type}`);
+      }
     }
 
     try {
@@ -234,6 +249,7 @@ export default function ModifyingCoach() {
     color: "#FF9549",
     fontWeight: "bold",
     textAlign: "left",
+    marginTop:"10px"
   };
 
   const boxStyle1 = {
@@ -250,9 +266,13 @@ export default function ModifyingCoach() {
     backgroundColor: "#FFE0CA",
     borderRadius: "10px",
     border: "0px",
-    width: "600px",
+    width: "618px",
     height: "100px",
     marginTop: "5px",
+    fontWeight: "bold",
+    fontSize: "18px",
+    paddingLeft: "8px",
+    paddingTop: "8px",
   };
 
   const imageContainerStyle = {
@@ -285,7 +305,7 @@ export default function ModifyingCoach() {
           <tbody>
             <tr>
               <td>
-                <div onClick={handleImageClick}>
+                <div>
                   {newProfileImage ? (
                     <img
                       style={{
@@ -297,7 +317,8 @@ export default function ModifyingCoach() {
                         marginTop: "25px",
                       }}
                       src={URL.createObjectURL(newProfileImage)}
-                      alt=""
+                      alt="새로운 프로필"
+                      onClick={openModal}
                     />
                   ) : profilePictureUrl ? (
                     <img
@@ -310,7 +331,8 @@ export default function ModifyingCoach() {
                         marginTop: "25px",
                       }}
                       src={profilePictureUrl}
-                      alt=""
+                      alt="기존 프로필"
+                      onClick={openModal}
                     />
                   ) : (
                     <div className="regmemberbgprofile">
@@ -318,6 +340,7 @@ export default function ModifyingCoach() {
                         className="regmemberIcon"
                         icon="ic:baseline-person-outline"
                         alt="기본 이미지"
+                        onClick={openModal}
                       />
                     </div>
                   )}
@@ -327,11 +350,6 @@ export default function ModifyingCoach() {
                     onChange={handleImageChange}
                     style={{ display: "none" }}
                   />
-                </div>
-                <div>
-                  <button onClick={handleImgDelete}>
-                    기본 이미지로 변경하기
-                  </button>
                 </div>
               </td>
             </tr>
@@ -381,11 +399,13 @@ export default function ModifyingCoach() {
             </tr>
             <tr>
               <td>
-                <div style={textStyle}>이용 가격</div>
+                <div style={textStyle}>이용 가격 (시급)</div>
                 <input
                   value={price}
                   onChange={handlePriceChange}
                   style={{ ...boxStyle1 }}
+                  className="number-input"
+                  placeholder="금액을 숫자로 입력하세요"
                 />
               </td>
             </tr>
@@ -412,7 +432,7 @@ export default function ModifyingCoach() {
                     fontWeight: "bold",
                     position: "absolute",
                     marginLeft: "580px",
-                    marginTop: "13px",
+                    marginTop: "22px",
                     width: "14px",
                     height: "14px",
                   }}
@@ -450,40 +470,44 @@ export default function ModifyingCoach() {
                 <div className="imageGallery" style={imageContainerStyle}>
                   {[...Array(6)].map((_, id) => (
                     <div className="imageContainer" key={id}>
-                    {albumImages[id] ? (
-    <div>
-        <div
-            className="close"
-            onClick={() => handleDeleteAlbum(id)}
-        >
-            <div className="closeIcon">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 8 8"
-                >
-                    <path
-                        fill="currentColor"
-                        d="M1.41 0L0 1.41l.72.72L2.5 3.94L.72 5.72L0 6.41l1.41 1.44l.72-.72l1.81-1.81l1.78 1.81l.69.72l1.44-1.44l-.72-.69l-1.81-1.78l1.81-1.81l.72-.72L6.41 0l-.69.72L3.94 2.5L2.13.72z"
-                    />
-                </svg>
-            </div>
-        </div>
-        <img
-            src={typeof albumImages[id] === 'string' ? albumImages[id] : URL.createObjectURL(albumImages[id])}
-            alt={`${albumImages[id].name}-${id}`}
-        />
-    </div>
-) : (
-    <div className="empty-image" style={emptyImageStyle}>
-        <Icon
-            className="img-icon"
-            icon="ic:baseline-person-outline"
-            alt="기본 이미지"
-        />
-    </div>
-)}
+                      {albumImages[id] ? (
+                        <div>
+                          <div
+                            className="close"
+                            onClick={() => handleDeleteAlbum(id)}
+                          >
+                            <div className="closeIcon">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="1em"
+                                height="1em"
+                                viewBox="0 0 8 8"
+                              >
+                                <path
+                                  fill="currentColor"
+                                  d="M1.41 0L0 1.41l.72.72L2.5 3.94L.72 5.72L0 6.41l1.41 1.44l.72-.72l1.81-1.81l1.78 1.81l.69.72l1.44-1.44l-.72-.69l-1.81-1.78l1.81-1.81l.72-.72L6.41 0l-.69.72L3.94 2.5L2.13.72z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                          <img
+                            src={
+                              typeof albumImages[id] === "string"
+                                ? albumImages[id]
+                                : URL.createObjectURL(albumImages[id])
+                            }
+                            alt={`${albumImages[id].name}-${id}`}
+                          />
+                        </div>
+                      ) : (
+                        <div className="empty-image" style={emptyImageStyle}>
+                          <Icon
+                            className="img-icon"
+                            icon="ic:baseline-person-outline"
+                            alt="기본 이미지"
+                          />
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -523,6 +547,14 @@ export default function ModifyingCoach() {
           keyword={keyword}
         />
       )}
+      <ImgModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        inputRef={inputRef}
+        handleImageChange={handleImageChange}
+        handleImgDelete={handleImgDelete} // handleImgDelete 함수 전달
+        handleImageClick={handleImageClick}
+      />
     </div>
   );
 }

@@ -1,0 +1,16 @@
+.SearchPage{
+    display: flex;
+    margin-left: 21%;
+    margin-top: 0%;
+}
+.MapSection{
+    margin-top: 4%;
+    margin-left: 20px;
+}
+.ListSection{
+    margin-top: 40px;
+}
+.Spfirstline{
+    display: flex;
+    flex-direction: column; 
+}

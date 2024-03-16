@@ -166,3 +166,6 @@
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
   }*/
+  .number-input::placeholder {
+    color: #f89f60 /* 원하는 색상으로 변경 */
+  }

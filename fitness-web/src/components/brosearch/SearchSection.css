@@ -1,3 +1,4 @@
+/*SearchSection.css*/
 
 .Search {
     display: flex;
@@ -5,11 +6,8 @@
     align-items: center; /* 가운데 정렬 */
     width: 420px;
     height: 200px;
-    position: relative;
-    margin-left: 270px;
   }
   
-
   .InputRegion {
     width: 385px;
     height: 25px;
