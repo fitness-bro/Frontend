@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import kangaroo from '../img/kangaroo.svg';
 import './Main.css'; // CSS 파일을 import
 
 const Main = () => {
+
+   
     return (
         <>
             <div className="main-container">

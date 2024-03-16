@@ -60,7 +60,7 @@ const SearchSection = ({ onRegionSelect, userList }) => {
   }
   return (
     <div>
-      <div style={{ color: '#ff9549',fontSize: '19px', fontWeight: 'bold', padding: '10px' }}>전체 지역 검색</div>
+      <div style={{ color: '#ff9549',fontSize: '19px', fontWeight: 'bold', padding: '10px', marginRight:'20px' }}>전체 지역 검색</div>
       <div className="Search">
         <div className="InputRegion">
           <input

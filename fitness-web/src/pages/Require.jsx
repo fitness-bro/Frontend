@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../components/CommonStyle.css';
 import './Require.css';
+import Empty from "../components/empty/Empty.jsx";
 
 // 성사 수락 요청 리스트
 
@@ -87,34 +88,39 @@ const Require = () => {
 
     return (
         <div className="Favorites">
-
             <div className="titleAndBack">
                 <h2>성사 수락 요청</h2>
                 <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
             </div>
-
+    
             <div className="userList">
-                <ul>
-                    {userData.map((item, index) => (
-                        <li class="cursor-default" key={index}>
-
-                            <div className="info">
-
-                                <div className="accept-reject">
-                                    {/* 이름 */}
-                                    <p>{item.memberNickname}</p>
-                                    
-                                    <button onClick={() => onAccept(item.memberId)} className="acceptbtn">수락</button>
-                                    <button onClick={() => onReject(item.memberId)} className="rejectbtn">거절</button>
+                {userData.length === 0 ? ( // userData의 길이를 확인하여 배열이 비어있을때
+                    
+                    <div>
+                        <center><Empty/></center>
+                    <center>아직 비어있어요!</center>
+                    </div>
+                    
+                ) : (
+                    <ul>
+                        {userData.map((item, index) => (
+                            <li className="cursor-default" key={index}>
+                                <div className="info">
+                                    <div className="accept-reject">
+                                        {/* 이름 */}
+                                        <p>{item.memberNickname}</p>
+                                        <button onClick={() => onAccept(item.memberId)} className="acceptbtn">수락</button>
+                                        <button onClick={() => onReject(item.memberId)} className="rejectbtn">거절</button>
+                                    </div>
                                 </div>
-                                
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
         </div>
     );
+    
 };
 
 export default Require;

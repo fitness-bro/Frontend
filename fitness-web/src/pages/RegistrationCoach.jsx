@@ -137,7 +137,7 @@ export default function RegistrationCoach() {
       );
 
       console.log("Coach updated:", response.data);
-      alert("회원 정보를 등록했습니다!");
+      alert("회원 정보 등록에 성공했습니다");
     } catch (error) {
       console.error('Error:', error);
       console.error('에러 상세 정보:', error.response);
@@ -146,7 +146,7 @@ export default function RegistrationCoach() {
         console.error('서버 응답 데이터:', error.response.data);
       }
 
-      alert("등록에 실패했습니다ㅠㅠ");
+      alert("등록에 실패했습니다");
     }
   };
 
@@ -180,8 +180,8 @@ export default function RegistrationCoach() {
   };
 
   const emptyImageStyle = {
-    width: "80px",
-    height: "80px",
+    width: "70px",
+    height: "70px",
     border: "3px dashed #cccccc",
     margin: "5px",
     borderRadius: "5px",
@@ -213,6 +213,8 @@ export default function RegistrationCoach() {
                           height: "100px",
                           alignItems: "center",
                           borderRadius: "100px",
+                          marginBottom: "25px",
+                          marginTop: "25px"
                         }}
                         src={profileImage ? URL.createObjectURL(profileImage) : ''}
                         alt=""
@@ -346,7 +348,7 @@ export default function RegistrationCoach() {
                                 />
                               </svg>
                             </div>
-                          </div>{" "}
+                          </div>
                           <img
                             src={URL.createObjectURL(albumImages[id])}
                             alt={`${albumImages[id].name}-${id}`}

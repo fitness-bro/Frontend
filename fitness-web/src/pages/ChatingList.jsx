@@ -74,54 +74,55 @@ const Chattinglist = () => {
         <h2>채팅리스트</h2>
         <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
       </div>
-
+  
       <div className="chat-box">
         <div className="member-list">
-
-          <ul>
-            {[...initialChats.keys()].map((chatRoomId) => (
-              <li
-                onClick={() => {
-                  setTab(chatRoomId);
-                  openModal();
-                }}
-                className={`member ${tab === chatRoomId && "active"}`}
-                key={chatRoomId}
-              >
-                <div className="chatPartner">
-                 <div className="chatPartner-info">
-                    <div className="chatPartner-profile">
-                    {initialChats.get(chatRoomId).pictureUrl? (
-                                <img
-                                src={initialChats.get(chatRoomId).pictureUrl}
-                                style={{
-                                  width: "50px",
-                                  height: "50px",
-                                  alignItems: "center",
-                                  borderRadius: "100px",
-                                }}
-                              ></img>
-                            ) : (
-                                <div className="chattingprofile">
-                                <Icon
-                                    className="chattingIcon"
-                                    icon="ic:baseline-person-outline"
-                                    alt="기본 이미지"
-                                />
-                            </div>
-                            )}
-                        </div>
-                        <div className="chatPartner-body">
-                     <div  className="chatPartner-name"> {initialChats.get(chatRoomId).partnerName}</div>
-                     <div>{initialChats.get(chatRoomId).lastChatMessage}</div>
-                     </div>
-                     </div>
-                     <div className="chatPartner-time">
-                     {initialChats.get(chatRoomId).lastChatTime && (
+          {initialChats.size === 0 ? ( // initialChats의 길이를 확인하여 조건부 렌더링
+            <p>텅 비었습니다</p> // 배열이 비어있는 경우 "텅 비었습니다"를 출력
+          ) : (
+            <ul>
+              {[...initialChats.keys()].map((chatRoomId) => (
+                <li
+                  onClick={() => {
+                    setTab(chatRoomId);
+                    openModal();
+                  }}
+                  className={`member ${tab === chatRoomId && "active"}`}
+                  key={chatRoomId}
+                >
+                  <div className="chatPartner">
+                    <div className="chatPartner-info">
+                      <div className="chatPartner-profile">
+                        {initialChats.get(chatRoomId).pictureUrl ? (
+                          <img
+                            src={initialChats.get(chatRoomId).pictureUrl}
+                            style={{
+                              width: "50px",
+                              height: "50px",
+                              alignItems: "center",
+                              borderRadius: "100px",
+                            }}
+                            alt="프로필 사진"
+                          />
+                        ) : (
+                          <div className="chattingprofile">
+                            <Icon
+                              className="chattingIcon"
+                              icon="ic:baseline-person-outline"
+                              alt="기본 이미지"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="chatPartner-body">
+                        <div className="chatPartner-name">{initialChats.get(chatRoomId).partnerName}</div>
+                        <div>{initialChats.get(chatRoomId).lastChatMessage}</div>
+                      </div>
+                    </div>
+                    <div className="chatPartner-time">
+                      {initialChats.get(chatRoomId).lastChatTime && (
                         <div>
-                          {new Date(
-                            initialChats.get(chatRoomId).lastChatTime
-                          ).toLocaleString([], {
+                          {new Date(initialChats.get(chatRoomId).lastChatTime).toLocaleString([], {
                             year: "numeric",
                             month: "2-digit",
                             day: "2-digit",
@@ -131,22 +132,23 @@ const Chattinglist = () => {
                         </div>
                       )}
                     </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-          </div>
-        {/* 모달 */}
-        <ChatRoom
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          tab={tab}
-          setTab={setTab}
-          userData={userData}
-          initialChats={initialChats}
-          setUserData={setUserData}
-        />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
+      {/* 모달 */}
+      <ChatRoom
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        tab={tab}
+        setTab={setTab}
+        userData={userData}
+        initialChats={initialChats}
+        setUserData={setUserData}
+      />
     </div>
   );
 };

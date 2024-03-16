@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import ChatRoomCoach from "../components/chatroom/ChatRoomCoach";
-import { All, FrontWrap, Ul, Li } from "./ChatingList.style";
+import './ChattingList.css';
 import axios from "axios";
+import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 const ChattingListCoach = () => {
   const [tab, setTab] = useState("CHATROOM");
   const [userData, setUserData] = useState({
     username: "",
+    userId: null,
     connected: false,
     message: "",
   });
   const apiUrl = "http://dev.fitness-bro.pro";
-  const token=localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -34,11 +36,11 @@ const ChattingListCoach = () => {
         if (responseData.isSuccess) {
           const { result } = responseData;
           setUserData({
-            username : result[0].userName,
-         });
+            username: result[0].userName,
+            userId: result[0].userId,
+          });
           const updatedChats = new Map();
           result.forEach((chat) => {
-            
             updatedChats.set(chat.chatRoomId, chat); // 채팅방 ID를 키로 사용하여 채팅방 정보를 추가
           });
           console.log("초기 채팅 정보:", updatedChats);
@@ -64,62 +66,86 @@ const ChattingListCoach = () => {
   const navigate = useNavigate();
   const onClickBackBtn = () => {
     navigate(-1);
-};
+  };
   return (
     <div className="container">
-      <All>
-        <FrontWrap>
-          <p>채팅 리스트</p>
-          <button onClick={onClickBackBtn}>뒤로가기</button>
-        </FrontWrap>
+      <div className="titleAndBack">
+        <h2>채팅리스트</h2>
+        <button onClick={onClickBackBtn} className="backBtn">뒤로가기</button>
+      </div>
 
-        <div className="chat-box">
-          <div className="member-list">
-            <Ul>
-              {[...initialChats.keys()].map((chatRoomId) => (
-                <Li
-                  onClick={() => {
-                    setTab(chatRoomId);
-                    openModal();
-                  }}
-                  className={`member ${tab === chatRoomId && "active"}`}
-                  key={chatRoomId}
-                >
-                  
-                  <div >
-                   <table>
-                    <tr>
-                        <td>
-                 <img src={initialChats.get(chatRoomId).pictureUrl}  style={{
-                        width: "50px",
-                        height: "50px",
-                        alignItems: "center",
-                        borderRadius: "100px",
-                      }}></img>
-                      <div>{initialChats.get(chatRoomId).partnerName}</div>
-                      
-                      </td>
-                     <td> {initialChats.get(chatRoomId).lastChatMessage}</td></tr>
-       
-              </table>
-     
-                  </div>
-                </Li>
-              ))}
-            </Ul>
+      <div className="chat-box">
+        <div className="member-list">
+
+          <ul>
+            {[...initialChats.keys()].map((chatRoomId) => (
+              <li
+                onClick={() => {
+                  setTab(chatRoomId);
+                  openModal();
+                }}
+                className={`member ${tab === chatRoomId && "active"}`}
+                key={chatRoomId}
+              >
+                <div className="chatPartner">
+                 <div className="chatPartner-info">
+                    <div className="chatPartner-profile">
+                    {initialChats.get(chatRoomId).pictureUrl? (
+                                <img
+                                src={initialChats.get(chatRoomId).pictureUrl}
+                                style={{
+                                  width: "70px",
+                                  height: "70px",
+                                  alignItems: "center",
+                                  borderRadius: "100px",
+                                }}
+                              ></img>
+                            ) : (
+                                <div className="chattingprofile">
+                                <Icon
+                                    className="chattingIcon"
+                                    icon="ic:baseline-person-outline"
+                                    alt="기본 이미지"
+                                />
+                            </div>
+                            )}
+                        </div>
+                        <div className="chatPartner-body">
+                     <div  className="chatPartner-name"> {initialChats.get(chatRoomId).partnerName}</div>
+                     <div>{initialChats.get(chatRoomId).lastChatMessage}</div>
+                     </div>
+                     </div>
+                     <div className="chatPartner-time">
+                     {initialChats.get(chatRoomId).lastChatTime && (
+                        <div>
+                          {new Date(
+                            initialChats.get(chatRoomId).lastChatTime
+                          ).toLocaleString([], {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </div>
+                      )}
+                    </div>
+                </div>
+              </li>
+            ))}
+          </ul>
           </div>
-          {/* 모달 */}
-          <ChatRoomCoach
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            tab={tab}
-            setTab={setTab}
-            userData={userData}
-            initialChats={initialChats}
-            setUserData={setUserData}
-          />
-        </div>
-      </All>
+        {/* 모달 */}
+        <ChatRoomCoach
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          tab={tab}
+          setTab={setTab}
+          userData={userData}
+          initialChats={initialChats}
+          setUserData={setUserData}
+        />
+      </div>
     </div>
   );
 };

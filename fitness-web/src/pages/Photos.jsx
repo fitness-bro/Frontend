@@ -4,7 +4,6 @@ import ProfileHeader from '../components/header/ProfileHeader';
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
-
 export default function Photos(){
     const [pictures, setPictures] = useState([]);
     const apiUrl = "http://dev.fitness-bro.pro";

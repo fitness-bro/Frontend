@@ -2,8 +2,6 @@ import googleImg from "../../img/google.svg"
 import styled from "styled-components";
 import { useEffect,useState } from "react";
 import axios from "axios";
-;
-
 
 const Button=styled.button`
 background-color: rgba(0, 0, 0, 0);
@@ -38,7 +36,7 @@ justify-content:center;
 `;
 
 
-const SocialGoogle = ({ onGoogleLoginResult, setIsLoggedInref }) => {
+const SocialGoogle = ({ handleGoogleLoginResult, setIsLoggedIn,isLoggedIn }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const clientId = '293755776535-kp2pp4pfe0c4401civ1g2fum81f3etdo.apps.googleusercontent.com';
   const google_redirect_uri = 'http://localhost:3000/';
@@ -61,14 +59,15 @@ const SocialGoogle = ({ onGoogleLoginResult, setIsLoggedInref }) => {
           localStorage.setItem('token', userToken);
           localStorage.setItem('userId', userId);
           localStorage.setItem('role', role);
-          setIsLoggedInref(true);
 
           // 이메일 중복 검사 수행
-          axios.get(`${apiUrl}/check-email/${userId}`)
+          axios.get(`${apiUrl}/login/oauth2/code/google/token?accessToken=${access_token}`)
             .then(response => {
-              const { exists } = response.data;
-              onGoogleLoginResult(exists); // 결과를 Menu 컴포넌트로 전달
-              
+              if(response.data.isSuccess){
+                console.log("이메일중복검사확인");
+                const exist = response.data.result.isUser;
+                handleGoogleLoginResult(exist); // 결과를 Menu 컴포넌트로 전달         
+              }       
             })
             .catch(error => {
               console.error("이메일 중복 검사 오류:", error);
@@ -77,14 +76,12 @@ const SocialGoogle = ({ onGoogleLoginResult, setIsLoggedInref }) => {
         .catch(error => {
           console.error("에러 발생:", error);
         });
-
         // if (localStorage.getItem("token")){
         //   setIsLoggedInref(true);
         // }else{
         //   setIsLoggedInref(false);
         // }
     }
-
     
   },[]);
   

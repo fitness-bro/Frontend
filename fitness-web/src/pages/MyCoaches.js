@@ -6,6 +6,7 @@ import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
 import ToggleMenu from '../components/review/ToggleMenu';
 import './MyCoaches.css';
+import Empty from "../components/empty/Empty.jsx";
 
 // 우리 형 성사 리스트
 
@@ -70,27 +71,35 @@ const MyCoaches = () => {
 
             {/* 성사된 동네형 리스트 */}
             <div className="userList">
-                <ul>
-                    {userData.length > 0 && userData.map((item, index) => (
-                        <li key={index} onClick={() => goToCoachProfile(item.coachId)}>
-                            {/* 프로필 이미지 */}
-                            {item.coachPicture ? (
-                                <img src={item.coachPicture} alt="프로필 이미지" className="profileImage" />
-                            ) : (
-                                <DefaultImage />
-                            )}
+                {userData.length === 0 ? ( // userData의 길이를 확인하여 배열이 비어있을때
+                        
+                    <div>
+                        <center><Empty/></center>
+                        <center style={{ color: '#643E23', fontWeight: 'bold', fontSize: '18px' }}>아직 비어있어요!</center>
+                    </div>
+                        
+                ) : (
+                    <ul>
+                        {userData.length > 0 && userData.map((item, index) => (
+                            <li key={index} onClick={() => goToCoachProfile(item.coachId)}>
+                                {/* 프로필 이미지 */}
+                                {item.coachPicture ? (
+                                    <img src={item.coachPicture} alt="프로필 이미지" className="profileImage" />
+                                ) : (
+                                    <DefaultImage />
+                                )}
 
-                            <div className="info">
-                                {/* 날짜 */}
-                                <p>{item.createdAt}</p>
+                                <div className="info">
+                                    {/* 날짜 */}
+                                    <p>{item.createdAt}</p>
 
-                                {/* 성사된 동네형 닉네임 */}
-                                <p className="detail">{item.nickname}</p>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-                
+                                    {/* 성사된 동네형 닉네임 */}
+                                    <p className="detail">{item.nickname}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
             {/* ToggleMenu 컴포넌트에 userData의 닉네임 목록 전달 (후기작성페이지에서만 렌더링) */}
              {window.location.pathname === '/reviews' && <ToggleMenu coachNicknames={userData.map(coach => coach.nickname)} />}

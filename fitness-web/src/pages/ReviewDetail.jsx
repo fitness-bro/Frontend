@@ -61,7 +61,7 @@ const ReviewDetail = () => {
       maxWidth: `${defaultIconSize}px`,
       maxHeight: `${defaultIconSize}px`,
     };
-  
+
     if (userData.pictureURLs && userData.pictureURLs.length > 0) {
       const currentImageUrl = userData.pictureURLs[currentIndex];
       return (
@@ -79,6 +79,7 @@ const ReviewDetail = () => {
     }
   };
   
+
   const navigate = useNavigate();
 
   const onClickBackBtn = () => {
@@ -134,13 +135,11 @@ const ReviewDetail = () => {
             </div>
           </div>
         </div>
-
         <div className="reviewTextarea">
           <div className="userDataDetail">
             <p className="nickname">{userData.nickname}</p>
 
             <p className="createdAt">{userData.createdAt}</p>
-
             <p className="content">{userData.content}</p>
           </div>
         </div>
