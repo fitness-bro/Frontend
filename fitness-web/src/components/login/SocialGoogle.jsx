@@ -66,6 +66,7 @@ const SocialGoogle = ({ handleGoogleLoginResult, setIsLoggedIn,isLoggedIn }) => 
               if(response.data.isSuccess){
                 console.log("이메일중복검사확인");
                 const exist = response.data.result.isUser;
+                console.log(exist)
                 handleGoogleLoginResult(exist); // 결과를 Menu 컴포넌트로 전달         
               }       
             })

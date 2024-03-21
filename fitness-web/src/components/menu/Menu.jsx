@@ -18,7 +18,7 @@ const Menu = ({ activeMenu, handleMenuClick}) => {
  
   const handleGoogleLoginResult =  (exist) => {
     console.log(exist)
-    if (exist) {
+    if (exist==='true') {
       setIsLoggedIn(true);
     } else {
         setIsLoggedIn(false); 

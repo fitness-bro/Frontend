@@ -13,7 +13,10 @@
     height: 25px;
     position: relative;
     background-color: #ff9549;
-    padding: 15px;
+    padding-top: 12px;
+    padding-left: 10px;
+    padding-right: 19px;
+    padding-bottom: 30px;
     
   }
   .search-section {
@@ -91,11 +94,11 @@
     color: #ff9549;
   }
   
-  .sub-address::-webkit-scrollbar {
+  .main-address .sub-address::-webkit-scrollbar {
     width: 5px; /* 스크롤 바의 너비 설정 */
   }
   
-  .sub-address::-webkit-scrollbar-thumb {
+  .main-address .sub-address::-webkit-scrollbar-thumb {
     background-color: #ff9549; /* 스크롤 바의 색상 설정 */
     border-radius: 5px; /* 둥근 형태로 만들기 */
     height: 10px; /* 스크롤 바의 높이 설정 */
