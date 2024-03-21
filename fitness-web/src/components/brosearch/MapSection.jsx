@@ -94,11 +94,10 @@ const MapSection = ({ userList, onMarkerClick }) => {
     <div
       ref={mapContainer}
       style={{
-        width: '500px',
-        height: '650px',
-        display: 'flex',
-        marginLeft: '50%',
-        marginTop: '-200px',
+        marginTop:'8%',
+        width: '58vh',
+        height: '77vh',
+        
       }}
     ></div>
   );
