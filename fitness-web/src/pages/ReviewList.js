@@ -75,8 +75,8 @@ const ReviewList = () => {
                         {userData.map((item, index) => (
                             <li key={index} onClick={() => goToReviewDetail(item.review_id)}>
                                 {/* 프로필 이미지 */}
-                                {item.pictureURL ? (
-                                    <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
+                                {item.coachImage ? (
+                                    <img src={item.coachImage} alt="프로필 이미지" className="profileImage" />
                                 ) : (
                                     <DefaultImage />
                                 )}
