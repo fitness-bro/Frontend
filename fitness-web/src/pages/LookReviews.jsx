@@ -26,7 +26,7 @@ export default function LookReviews(props) {
                 console.log("API 응답:", data);
 
                 if (data.isSuccess) {
-                    setReviews([data.result]); // 서버에서 받아온 데이터를 배열로 감싸서 설정
+                    setReviews(data.result)                 
                 } else {
                     setError(data.message);
                 }
@@ -42,7 +42,9 @@ export default function LookReviews(props) {
             <Header id={coachId}/>
             {error && <p>Error: {error}</p>}
             {reviews && reviews.map((review) => (
-                <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}} key={review.review_id}>
+                // <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}} key={review.review_id}>
+                    <Link to={"/review-detail"} state={ { reviewId: review.review_id } } style={{ textDecoration: "none"}} >
+
                     <ReviewBlock>
                         <img src={review.pictureURL} alt="리뷰자 프로필 이미지" />
                         <h4>{review.nickname}</h4>
