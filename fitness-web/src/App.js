@@ -23,7 +23,6 @@ import ChatingList from './pages/ChatingList.jsx';
 import ChattingListCoach from './pages/ChattingListCoach.jsx';
 import ReviewDetail from './pages/ReviewDetail.jsx';
 import RegistChoice from './pages/RegistChoice.jsx';
-import Login from "./pages/Login.jsx";
 import Require from "./pages/Require.jsx"
 
 function App() {
@@ -54,7 +53,6 @@ function App() {
           <Route path="/my-members" element={<MyMembers/>}/>
           <Route path="/review-detail" element={<ReviewDetail/>}/>
             <Route path='/registchoice' element={<RegistChoice/>}/>
-            <Route path='/login' element={<Login/>}/>
             <Route path='/require' element={<Require/>}/>
           </Routes>
         </div>

@@ -8,6 +8,7 @@ export default function Profile(props) {
   const apiUrl = "http://dev.fitness-bro.pro";
   const location = useLocation();
   const coachId = location.state.coachId;
+  //const coachId=props.userId;
   const token = localStorage.getItem("token");
 
   const [userData, setUserData] = useState({
@@ -24,7 +25,7 @@ export default function Profile(props) {
         {
           headers: {
             token: token,
-          },
+          }
         }
       )
 
