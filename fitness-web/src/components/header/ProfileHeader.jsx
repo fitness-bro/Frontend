@@ -48,7 +48,6 @@ export default function ProfileHeader(props) {
     
         axios.post(`${apiUrl}/members/favorite/${coachId}`, null, config)
 
-
           .then(response => {
             console.log("즐겨 추가 응답:", response);
             setLikeBtnClicked(prevState => !prevState);
@@ -65,12 +64,15 @@ export default function ProfileHeader(props) {
     
       useEffect(() => {
       
+
         axios.get(
           `${apiUrl}/coaches/${coachId}/info`,        {
+
             headers: {
               token: token,
             },
           }
+
           )
           .then(response => {
             const data = response.data;
@@ -103,6 +105,7 @@ export default function ProfileHeader(props) {
         });
 
         switch (name) {
+
           case '프로필':
                 navigate("/profile",{
                   state: {
@@ -110,6 +113,7 @@ export default function ProfileHeader(props) {
                     token:token
                   }
                 });
+
                 break;
         
             case '후기':
@@ -123,7 +127,9 @@ export default function ProfileHeader(props) {
             case '사진첩':
                 navigate("/photos",{
                     state: {
+
                       coachId: coachId, token:token
+
                     }
                   });;
                 break;
@@ -152,59 +158,53 @@ export default function ProfileHeader(props) {
             });
     };
 
-
     const [matchStatus, setMatchStatus] = useState("UNSUCCESS"); // 성사 상태
-    const [buttonText, setButtonText] = useState("성사 요청");
+const [buttonText, setButtonText] = useState("성사 요청");
 
-    // useEffect(() => {
-    //   console.log("성사 상태 확인하기", matchStatus);
-    // }, [matchStatus]);
+// useEffect(() => {
+//   console.log("성사 상태 확인하기", matchStatus);
+// }, [matchStatus]);
     
-    useEffect(() => {
-      // 코치가 수락 버튼을 누를 때마다 성사 상태 가져오기
-      const intervalId = setInterval(() => {
-        axios.post(`${apiUrl}/match/member/register-status`, { coachId }, { headers: { token } })
-          .then((response) => {
-            console.log("성사 상태 가져오기 응답:", response);
-            setMatchStatus(response.data);
-          })
-          .catch((error) => {
-            console.error("성사 상태 가져오기 요청 중 오류 발생:", error);
-            console.error("에러 상세 정보:", error.response);
-          });
-      }, 1000); // 1초마다 상태를 가져옴
-  
-      return () => clearInterval(intervalId); // 컴포넌트가 언마운트될 때 interval 제거
-    }, [apiUrl, coachId, token]);
-  
-    // 성사 상태가 변경될 때 버튼 텍스트 업데이트
-    useEffect(() => {
-      switch (matchStatus) {
-        case "WAITING":
-          setButtonText("요청 대기중");
-          break;
-        case "APPROVED":
-          setButtonText("성사 완료");
-          break;
-        case "UNSUCCESS":
-        default:
-          setButtonText("성사 요청");
-          break;
-      }
-    }, [matchStatus]);
-  
-
-    const handleRequireClick = () => {
-      axios
-        .post(`${apiUrl}/match/member`, { coachId }, { headers: { token } })
-        .then((response) => {
-          console.log("성사 요청 API 응답:", response);
-        })
-        .catch((error) => {
-          console.error("성사 API 요청 중 오류 발생:", error);
+useEffect(() => {
+  const fetchMatchStatus = async () => {
+      try {
+          const response = await axios.post(`${apiUrl}/match/member/register-status`, { coachId }, { headers: { token } });
+          setMatchStatus(response.data);
+      } catch (error) {
+          console.error("성사 상태 가져오기 요청 중 오류 발생:", error);
           console.error("에러 상세 정보:", error.response);
-        });
-    };
+      }
+  };
+
+  fetchMatchStatus(); // 컴포넌트가 마운트될 때 성사 상태 가져오기
+  }, [apiUrl, coachId, token]);
+  
+// 성사 상태가 변경될 때 버튼 텍스트 업데이트
+useEffect(() => {
+  switch (matchStatus) {
+    case "WAITING":
+      setButtonText("요청 대기중");
+      break;
+    case "APPROVED":
+      setButtonText("성사 완료");
+      break;
+    case "UNSUCCESS":
+    default:
+      setButtonText("성사 요청");
+      break;
+  }
+}, [matchStatus]);
+  
+const handleRequireClick = () => {
+  axios.post(`${apiUrl}/match/member`, { coachId }, { headers: { token } })
+    .then((response) => {
+      console.log("성사 요청 API 응답:", response);
+    })
+    .catch((error) => {
+      console.error("성사 API 요청 중 오류 발생:", error);
+      console.error("에러 상세 정보:", error.response);
+    });
+};
 
 
     return (
@@ -236,10 +236,7 @@ export default function ProfileHeader(props) {
                   <AskBtn onClick={handleChatClick}>채팅하기</AskBtn>
                   </Link>
             </Requirechat>
-
-
             </TopWrap>
-
             <Wrapper>
                 <ProfileWrap>
                     <img src={userData.coachPicture} alt="프로필 이미지" />

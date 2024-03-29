@@ -19,7 +19,8 @@ const Menu = ({ activeMenu, handleMenuClick}) => {
   const handleGoogleLoginResult =  (exist) => {
     if (exist) {
       setIsLoggedIn(true);
-    } else  {
+    } else {
+        setIsLoggedIn(false); 
       navigate("/registchoice")
     }
   }
@@ -56,7 +57,6 @@ const Menu = ({ activeMenu, handleMenuClick}) => {
   return (
     <MenuContainer>
       <SocialGoogle handleGoogleLoginResult={handleGoogleLoginResult} />
-
       <Link to="/search" className={`search ${activeMenu === 'search' ? 'active' : ''}`} onClick={() => handleMenuClick('search')}>
         동네형 찾기
       </Link>

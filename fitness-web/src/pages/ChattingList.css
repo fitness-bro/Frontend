@@ -1,22 +1,62 @@
-
 .chatPartner {
-  display: flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 요소를 수직으로 가운데 정렬합니다. */
 
-  list-style: none;
-  padding: 0;
+  }
+.chatPartner-info{
+    display: flex;
+    align-items: center;
+   
 }
-
-.chatPartner li {
-    justify-content: flesx-start;
+.chatPartner-body{
+    margin-left: 1rem;
 }
+.chatPartner-name{
+    font-size: 17px;
+    margin-bottom: 6px;
+    margin-top: -10px;
 
+   
+}
 .chatPartner img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   margin-right: 10px;
 }
-
-.chatPartner li:last-child {
-  margin-right: 0; /* 마지막 요소의 오른쪽 여백을 제거합니다. */
+.member-list ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
 }
+.member-list li {
+
+    align-items: center;
+    border-radius: 3px;
+    width: 65%;
+    height: 80px;
+    font-size: 15px;
+    padding-top: 30px;
+    margin: 10px;
+    color: #643E23;
+}
+.chattingprofile{
+    background-size: contain;
+    border: 2px solid #643E23;
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+    color: #643E23;
+    align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-right: 5px;
+}
+
+  .chattingIcon{
+    width: 40px;
+    height: 40px;
+  }

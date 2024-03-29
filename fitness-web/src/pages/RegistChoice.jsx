@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const RegistChoice = () => {
     const handleRegist = async (rolepost) => {
-        const apiUrl=process.env.REACT_APP_API_URL;
+        const apiUrl = "https://dev.fitness-bro.pro";
 
         const token=localStorage.getItem("token");
         

@@ -9,10 +9,10 @@ export default function LookReviews(props) {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
     const apiUrl = process.env.REACT_APP_API_URL;
-    const userId=props.userId;
     const location = useLocation();
     const coachId = location.state.coachId
     const token=localStorage.getItem("token");
+
 
     useEffect(() => {
 
@@ -44,7 +44,6 @@ export default function LookReviews(props) {
             {reviews && reviews.map((review) => (
                 // <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}} key={review.review_id}>
                     <Link to={"/review-detail"} state={ { reviewId: review.review_id } } style={{ textDecoration: "none"}} >
-
                     <ReviewBlock>
                         <img src={review.pictureURL} alt="리뷰자 프로필 이미지" />
                         <h4>{review.nickname}</h4>

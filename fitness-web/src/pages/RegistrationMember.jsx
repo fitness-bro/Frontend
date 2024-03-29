@@ -4,7 +4,7 @@ import "./ModifyingInformation.css";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 export default function RegistrationMember() {
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = "http://dev.fitness-bro.pro";
   const token = localStorage.getItem("token");
   
   const [nickname, setNickname] = useState("");
