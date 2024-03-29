@@ -83,7 +83,7 @@ const ReviewList = () => {
 
                                 <div className="info">
                                     {/* 날짜 */}
-                                    <p>{item.createdAt}</p>
+                                    <p>{new Date(item.createdAt).toLocaleString()}</p>
 
                                     {/* 작성한 동네형 후기 */}
                                     <p className="detail">{item.nickname}</p>

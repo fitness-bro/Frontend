@@ -5,12 +5,14 @@
 }
 .MapSection{
     margin-top: 4%;
-    margin-left: 20px;
+    margin-left: 100px;
 }
 .ListSection{
-    margin-top: 40px;
+    margin-top: 70px;
 }
 .Spfirstline{
     display: flex;
     flex-direction: column; 
+    margin-top: 4%;
 }
+

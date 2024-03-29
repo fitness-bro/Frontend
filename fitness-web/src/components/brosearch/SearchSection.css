@@ -1,66 +1,69 @@
 /*SearchSection.css*/
 
 .Search {
-    display: flex;
-    flex-direction: column; /* 세로로 정렬 */
-    align-items: center; /* 가운데 정렬 */
-    width: 420px;
-    height: 200px;
-  }
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  align-items: center; /* 가운데 정렬 */
+  width: 420px;
+  height: 200px;
+}
+
+.InputRegion {
+  width: 385px;
+  height: 25px;
+  position: relative;
+  background-color: #ff9549;
+  padding-top: 12px;
+  padding-left: 10px;
+  padding-right: 19px;
+  padding-bottom: 30px;
   
-  .InputRegion {
-    width: 385px;
-    height: 25px;
-    position: relative;
-    background-color: #ff9549;
-    padding: 15px;
-    
-  }
-  .search-section {
-    width: 400px;
-    padding: 7px;
-    background-color: #643E23;
-    font-weight: 600;
-    color: #ff9549;
-    display: flex;
-    justify-content: center;
-  
-  }
-  /* 나머지 코드는 그대로 유지 */
-  
-  
-  .main-address {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    background-color: #ffffff;
-    max-height: 150px; /* 최대 높이 설정, 원하는 값으로 조절하세요 */
-    overflow-y: auto;
-  }
-  
-  .sub-address {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    background-color: #fff;
-    max-height: 150px; /* 최대 높이 설정, 원하는 값으로 조절하세요 */
-    overflow-y: auto;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-  }
-  
-  .main-address li{
-    cursor: pointer;
-    padding: 8px;
-    border: none;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: center;
+}
+.search-section {
+  width: 400px;
+  padding: 7px;
+  background-color: #643E23;
+  font-weight: 600;
+  color: #ff9549;
+  display: flex;
+  justify-content: center;
+
+}
+/* 나머지 코드는 그대로 유지 */
+
+
+.main-address {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  max-height: 150px; /* 최대 높이 설정, 원하는 값으로 조절하세요 */
+  overflow-y: auto;
+}
+
+.sub-address {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  max-height: 150px; /* 최대 높이 설정, 원하는 값으로 조절하세요 */
+  overflow-y: auto;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.main-address li{
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
 
 }.sub-address li {
   cursor: pointer;
@@ -91,11 +94,11 @@
   color: #ff9549;
 }
 
-.sub-address::-webkit-scrollbar {
+.main-address .sub-address::-webkit-scrollbar {
   width: 5px; /* 스크롤 바의 너비 설정 */
 }
 
-.sub-address::-webkit-scrollbar-thumb {
+.main-address .sub-address::-webkit-scrollbar-thumb {
   background-color: #ff9549; /* 스크롤 바의 색상 설정 */
   border-radius: 5px; /* 둥근 형태로 만들기 */
   height: 10px; /* 스크롤 바의 높이 설정 */
