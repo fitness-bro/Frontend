@@ -20,7 +20,8 @@ const Menu = ({ activeMenu, handleMenuClick}) => {
     if (exist) {
       setIsLoggedIn(true);
     } else  {
-      navigate("/registchoice")
+      //console.log(exist);
+      navigate("/registchoice");
     }
   }
   

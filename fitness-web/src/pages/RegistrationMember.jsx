@@ -3,9 +3,11 @@ import React, { useState, useRef } from "react";
 import "./ModifyingInformation.css";
 import { Icon } from "@iconify/react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function RegistrationMember() {
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = "http://dev.fitness-bro.pro";
   const token = localStorage.getItem("token");
+  const navigate=useNavigate();
   
   const [nickname, setNickname] = useState("");
   const [address, setAddress] = useState("");
@@ -57,6 +59,7 @@ export default function RegistrationMember() {
       // 여기서 응답 처리
       console.log("Coach updated:", response.data);
       alert("회원 정보를 등록했습니다!");
+      navigate('/');
     } catch (error) {
       console.error('Error:', error);
       console.error('에러 상세 정보:', error.response);

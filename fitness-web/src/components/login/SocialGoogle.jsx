@@ -36,11 +36,13 @@ justify-content:center;
 `;
 
 
+
 const SocialGoogle = ({ handleGoogleLoginResult}) => {
+
   const apiUrl = process.env.REACT_APP_API_URL;
-  const clientId = '293755776535-kp2pp4pfe0c4401civ1g2fum81f3etdo.apps.googleusercontent.com';
-  const google_redirect_uri = 'http://localhost:3000/';
-  const GOOGLE_SCOPE = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
+  const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const google_redirect_uri = process.env.REACT_APP_REDIRECT_URI;
+  const GOOGLE_SCOPE = process.env.REACT_APP_GOOGLE_SCOPE;
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${google_redirect_uri}&response_type=token&scope=${GOOGLE_SCOPE}`;
 
   const GoogleLogin = () => {
@@ -53,6 +55,7 @@ const SocialGoogle = ({ handleGoogleLoginResult}) => {
 
     if (access_token) {
       axios.get(`${apiUrl}/login/oauth2/code/google/token?accessToken=${access_token}`)
+
       .then(response => {
         console.log("백엔드로부터 응답:", response.data);
         const { userToken, userId, role, isUser } = response.data.result;
@@ -60,13 +63,14 @@ const SocialGoogle = ({ handleGoogleLoginResult}) => {
         localStorage.setItem('userId', userId);
         localStorage.setItem('role', role);
         // 사용자 정보를 가져온 후에 이메일 중복 검사를 수행합니다.
-        console.log(isUser);
+        //console.log(isUser);
         handleGoogleLoginResult(isUser); // 결과를 Menu 컴포넌트로 전달
       })
       .catch(error => {
         console.error("에러 발생:", error);
       });
     }   
+
   },[]);
   
 
