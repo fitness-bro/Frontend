@@ -139,7 +139,7 @@ const ReviewDetail = () => {
           <div className="userDataDetail">
             <p className="nickname">{userData.nickname}</p>
 
-            <p className="createdAt">{userData.createdAt}</p>
+            <p className="createdAt">{new Date(userData.createdAt).toLocaleString()}</p>
             <p className="content">{userData.content}</p>
           </div>
         </div>

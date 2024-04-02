@@ -122,7 +122,7 @@ function Member({ memberId }) {
               </td>
               <td style={{ width: "0%" }}>|</td>
 
-              <td onClick={goToReviewList}>
+              <td style={{ cursor: "pointer" }} onClick={goToReviewList}>
                 작성한 후기&nbsp;&nbsp;&nbsp;
                 <sapn style={textStyle}>{userData.review_num}</sapn>
               </td>

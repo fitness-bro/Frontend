@@ -36,7 +36,7 @@ justify-content:center;
 `;
 
 
-const SocialGoogle = ({ handleGoogleLoginResult, setIsLoggedIn,isLoggedIn }) => {
+const SocialGoogle = ({ handleGoogleLoginResult}) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const clientId = '293755776535-kp2pp4pfe0c4401civ1g2fum81f3etdo.apps.googleusercontent.com';
   const google_redirect_uri = 'http://localhost:3000/';
@@ -53,37 +53,20 @@ const SocialGoogle = ({ handleGoogleLoginResult, setIsLoggedIn,isLoggedIn }) => 
 
     if (access_token) {
       axios.get(`${apiUrl}/login/oauth2/code/google/token?accessToken=${access_token}`)
-        .then(response => {
-          console.log("백엔드로부터 응답:", response.data);
-          const { userToken, userId, role } = response.data.result;
-          localStorage.setItem('token', userToken);
-          localStorage.setItem('userId', userId);
-          localStorage.setItem('role', role);
-
-          // 이메일 중복 검사 수행
-          axios.get(`${apiUrl}/login/oauth2/code/google/token?accessToken=${access_token}`)
-            .then(response => {
-              if(response.data.isSuccess){
-                console.log("이메일중복검사확인");
-                const exist = response.data.result.isUser;
-                console.log(exist)
-                handleGoogleLoginResult(exist); // 결과를 Menu 컴포넌트로 전달         
-              }       
-            })
-            .catch(error => {
-              console.error("이메일 중복 검사 오류:", error);
-            });
-        })
-        .catch(error => {
-          console.error("에러 발생:", error);
-        });
-        // if (localStorage.getItem("token")){
-        //   setIsLoggedInref(true);
-        // }else{
-        //   setIsLoggedInref(false);
-        // }
-    }
-    
+      .then(response => {
+        console.log("백엔드로부터 응답:", response.data);
+        const { userToken, userId, role, isUser } = response.data.result;
+        localStorage.setItem('token', userToken);
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('role', role);
+        // 사용자 정보를 가져온 후에 이메일 중복 검사를 수행합니다.
+        console.log(isUser);
+        handleGoogleLoginResult(isUser); // 결과를 Menu 컴포넌트로 전달
+      })
+      .catch(error => {
+        console.error("에러 발생:", error);
+      });
+    }   
   },[]);
   
 
