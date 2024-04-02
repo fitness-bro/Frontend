@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
 import {useLocation} from "react-router-dom";
+import Empty from "../components/empty/Empty.jsx";
 
 // 받은 후기 리스트
 
@@ -53,26 +54,35 @@ const GetReviewList = () => {
             </div>
 
             <div className="userList">
-                <ul>
-                    {userData.map((item, index) => (
-                        <li key={index} onClick={() => goToReviewDetail(item.review_id)}>
-                            {/* 프로필 이미지 */}
-                            {item.pictureURL ? (
-                                <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
-                            ) : (
-                                <DefaultImage />
-                            )}
+                {userData.length === 0 ? ( // userData의 길이를 확인하여 배열이 비어있을때
+                            
+                    <div>
+                        <center><Empty/></center>
+                        <center style={{ color: '#643E23', fontWeight: 'bold', fontSize: '18px' }}>아직 비어있어요!</center>
+                    </div>
+                                
+                ) : (
+                    <ul>
+                        {userData.map((item, index) => (
+                            <li key={index} onClick={() => goToReviewDetail(item.review_id)}>
+                                {/* 프로필 이미지 */}
+                                {item.pictureURL ? (
+                                    <img src={item.pictureURL} alt="프로필 이미지" className="profileImage" />
+                                ) : (
+                                    <DefaultImage />
+                                )}
 
-                            <div className="info">
-                                {/* 날짜 */}
-                                <p>{item.createdAt}</p>
+                                <div className="info">
+                                    {/* 날짜 */}
+                                    <p>{item.createdAt}</p>
 
-                                {/* 닉네임 */}
-                                <p className="detail">{item.nickname}</p>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                                    {/* 닉네임 */}
+                                    <p className="detail">{item.nickname}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
         </div>
     );
