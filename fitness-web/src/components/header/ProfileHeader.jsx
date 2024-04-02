@@ -6,7 +6,8 @@ import unlikeBtn from "../../img/unlike.svg";
 import likeBtn from '../../img/like.svg';
 import star from "../../img/review.svg";
 import axios from "axios";
-
+import { Icon } from "@iconify/react";
+import "./ProfileHeader.css";
 export default function ProfileHeader(props) {
     const navigate = useNavigate();
     const userRole=localStorage.getItem("role");
@@ -239,7 +240,25 @@ const handleRequireClick = () => {
             </TopWrap>
             <Wrapper>
                 <ProfileWrap>
-                    <img src={userData.coachPicture} alt="프로필 이미지" />
+                    
+                    <div >
+            
+            {userData.coachPicture ? (
+                          <img
+                            src={userData.coachPicture}
+                            className="profileHeaderPic"
+                            alt="프로필 사진"
+                          />
+                        ) : (
+                          <div className="profileHeaderPic" >
+                            <Icon
+
+                              className="profileHeaderIcon"
+                              icon="ic:baseline-person-outline"
+                              alt="기본 이미지"
+                            />
+                          </div>
+                        )}</div>
                     <p>{userData.name} | {userData.age}</p>
                 </ProfileWrap>
                 <RatingWrap>

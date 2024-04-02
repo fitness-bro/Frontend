@@ -25,9 +25,18 @@
   .UserPic {
     width : 49px;
     height : 49px;
-    background-color: gray;
+    background-color: rgb(197, 197, 197);
     border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
     
+  }
+  .UserPicIcon{
+    width : 30px;
+    height : 30px;
+    color: gray;
+   
   }
   .Userinfo{
     color: #643E23;
