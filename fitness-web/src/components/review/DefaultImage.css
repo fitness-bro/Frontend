@@ -1,0 +1,13 @@
+.DefaultImage {
+    background-size: contain;
+    background-color: #D9D9D9;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    color: #919191;
+    margin-left: 10px;
+
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
