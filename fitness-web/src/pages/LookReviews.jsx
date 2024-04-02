@@ -44,7 +44,10 @@ export default function LookReviews(props) {
             {reviews && reviews.map((review) => (
                 // <Link to="/review-detail" id={review.review_id} style={{ textDecoration: "none"}} key={review.review_id}>
                     <Link to={"/review-detail"} state={ { reviewId: review.review_id } } style={{ textDecoration: "none"}} >
+<<<<<<< HEAD
 
+=======
+>>>>>>> d04d234371296077829b95b08805edce46b395e8
                     <ReviewBlock>
                         <img src={review.pictureURL} alt="리뷰자 프로필 이미지" />
                         <h4>{review.nickname}</h4>
