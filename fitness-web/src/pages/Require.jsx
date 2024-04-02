@@ -11,7 +11,7 @@ const Require = () => {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
-    const apiUrl = 'http://dev.fitness-bro.pro';
+    const apiUrl = process.env.REACT_APP_API_URL;
 
 
     const [userData, setUserData] = useState([]);

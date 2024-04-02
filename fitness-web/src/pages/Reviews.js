@@ -12,7 +12,7 @@ import axios from "axios";
 const Reviews = () => {
     const navigate = useNavigate();
 
-    const apiUrl = 'http://dev.fitness-bro.pro';
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const [coachNickname, setCoachNickname] = useState("");
     const [coachNicknames, setCoachNicknames] = useState([]); // 선택한 코치의 닉네임 상태 추가

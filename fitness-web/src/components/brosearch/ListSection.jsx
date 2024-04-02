@@ -57,7 +57,7 @@ const ListSection = ({
             key={user.coachId}
             onClick={() => handleProfileClick(user.coachId)}
           >
-            <div className="UserPic"></div>
+            <div><img className="UserPic" src={user.coachPicture}/></div>
             <div className="Userinfo">
               <table>
                 <tbody>
