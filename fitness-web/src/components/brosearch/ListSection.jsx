@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ListSection.css";
 import { FaStar } from "react-icons/fa";
-
+import { Icon } from "@iconify/react";
 const StarIcon = () => {
   return <FaStar color="black" size={14} />;
 };
@@ -57,7 +57,24 @@ const ListSection = ({
             key={user.coachId}
             onClick={() => handleProfileClick(user.coachId)}
           >
-            <div><img className="UserPic" src={user.coachPicture}/></div>
+            <div>
+            
+            {user.coachPicture ? (
+                          <img
+                            src={user.coachPicture}
+                            className="UserPic" 
+                            alt="프로필 사진"
+                          />
+                        ) : (
+                          <div className="UserPic" >
+                            <Icon
+
+                              className="UserPicIcon"
+                              icon="ic:baseline-person-outline"
+                              alt="기본 이미지"
+                            />
+                          </div>
+                        )}</div>
             <div className="Userinfo">
               <table>
                 <tbody>
