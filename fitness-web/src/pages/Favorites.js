@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DefaultImage from '../components/review/DefaultImage';
+import Empty from "../components/empty/Empty.jsx";
 
 // 찜한 형 리스트
 
@@ -14,8 +15,6 @@ const Favorites = () => {
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
-
-       
 
         axios.get(`${apiUrl}/members/favorites`, {
             headers: {
@@ -59,26 +58,35 @@ const Favorites = () => {
             </div>
 
             <div className="userList">
-                <ul>
-                    {userData.map((item, index) => (
-                        <li key={index} onClick={() => goToCoachProfile(item.coachId)}>
-                            {/* 프로필 이미지 */}
-                            {item.coachImage ? (
-                                <img src={item.coachImage} alt="프로필 이미지" className="profileImage" />
-                            ) : (
-                                <DefaultImage />
-                            )}
+                {userData.length === 0 ? ( // userData의 길이를 확인하여 배열이 비어있을때
+                            
+                   <div>
+                        <center><Empty/></center>
+                        <center style={{ color: '#643E23', fontWeight: 'bold', fontSize: '18px' }}>아직 비어있어요!</center>
+                    </div>
+                            
+                ) : (
+                    <ul>
+                        {userData.map((item, index) => (
+                            <li key={index} onClick={() => goToCoachProfile(item.coachId)}>
+                                {/* 프로필 이미지 */}
+                                {item.coachImage ? (
+                                    <img src={item.coachImage} alt="프로필 이미지" className="profileImage" />
+                                ) : (
+                                    <DefaultImage />
+                                )}
 
-                            <div className="info">
-                                {/* 이름/주소 */}
-                                <p>{item.nickname} / {item.address}</p>
+                                <div className="info">
+                                    {/* 이름/주소 */}
+                                    <p>{item.nickname} / {item.address}</p>
 
-                                {/* 별점 */}
-                                <p className="detail">★{item.rating}</p>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                                    {/* 별점 */}
+                                    <p className="detail">★{item.rating}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                )}  
             </div>
         </div>
     );
