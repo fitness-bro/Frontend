@@ -54,8 +54,7 @@ const SocialGoogle = ({ handleGoogleLoginResult}) => {
     const access_token = params.get("access_token");
 
     if (access_token) {
-      axios.get(`${apiUrl}/login/oauth2/code/google/token?accessToken=${access_token}`)
-
+      axios.get(`${apiUrl}login/oauth2/code/google/token?accessToken=${access_token}`)
       .then(response => {
         console.log("백엔드로부터 응답:", response.data);
         const { userToken, userId, role, isUser } = response.data.result;
@@ -72,7 +71,6 @@ const SocialGoogle = ({ handleGoogleLoginResult}) => {
     }   
   },[]);
   
-
 
   return (
     <>
