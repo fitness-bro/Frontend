@@ -57,10 +57,6 @@ const Menu = ({ activeMenu, handleMenuClick}) => {
   return (
     <MenuContainer>
       <SocialGoogle handleGoogleLoginResult={handleGoogleLoginResult} />
-<<<<<<< HEAD
-
-=======
->>>>>>> d04d234371296077829b95b08805edce46b395e8
       <Link to="/search" className={`search ${activeMenu === 'search' ? 'active' : ''}`} onClick={() => handleMenuClick('search')}>
         동네형 찾기
       </Link>

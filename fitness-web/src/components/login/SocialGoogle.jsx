@@ -36,16 +36,12 @@ justify-content:center;
 `;
 
 
-<<<<<<< HEAD
 
 const SocialGoogle = ({ handleGoogleLoginResult}) => {
 
-=======
-const SocialGoogle = ({ handleGoogleLoginResult}) => {
->>>>>>> d04d234371296077829b95b08805edce46b395e8
   const apiUrl = process.env.REACT_APP_API_URL;
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  const google_redirect_uri = process.env.REACT_APP_REDIRECT_URI;
+  const google_redirect_uri = "http://localhost:3000/";
   const GOOGLE_SCOPE = process.env.REACT_APP_GOOGLE_SCOPE;
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${google_redirect_uri}&response_type=token&scope=${GOOGLE_SCOPE}`;
 
@@ -59,10 +55,7 @@ const SocialGoogle = ({ handleGoogleLoginResult}) => {
 
     if (access_token) {
       axios.get(`${apiUrl}/login/oauth2/code/google/token?accessToken=${access_token}`)
-<<<<<<< HEAD
 
-=======
->>>>>>> d04d234371296077829b95b08805edce46b395e8
       .then(response => {
         console.log("백엔드로부터 응답:", response.data);
         const { userToken, userId, role, isUser } = response.data.result;
@@ -77,10 +70,6 @@ const SocialGoogle = ({ handleGoogleLoginResult}) => {
         console.error("에러 발생:", error);
       });
     }   
-<<<<<<< HEAD
-
-=======
->>>>>>> d04d234371296077829b95b08805edce46b395e8
   },[]);
   
 
