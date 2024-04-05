@@ -3,8 +3,10 @@ import "./ModifyingInformation.css";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import ImgModal from "../components/imgModal/ImgModal";
+import { useNavigate } from "react-router-dom";
 
 export default function ModifyingMember() {
+  const navigate=useNavigate();
   const apiUrl = "http://dev.fitness-bro.pro";
   const token = localStorage.getItem("token");
 
@@ -129,6 +131,7 @@ export default function ModifyingMember() {
 
       console.log("응답 데이터:", response.data);
       alert("수정이 완료됐습니다!");
+      navigate("/");
     } catch (error) {
       console.error("에러:", error);
       console.error("에러 상세 정보:", error.response);
