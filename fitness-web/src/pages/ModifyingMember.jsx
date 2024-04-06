@@ -3,9 +3,11 @@ import "./ModifyingInformation.css";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import ImgModal from "../components/imgModal/ImgModal";
+import { useNavigate } from "react-router-dom";
 
 export default function ModifyingMember() {
-  const apiUrl = "http://dev.fitness-bro.pro";
+  const navigate=useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
 
   const [nickname, setNickname] = useState("");
@@ -129,6 +131,7 @@ export default function ModifyingMember() {
 
       console.log("응답 데이터:", response.data);
       alert("수정이 완료됐습니다!");
+      navigate("/");
     } catch (error) {
       console.error("에러:", error);
       console.error("에러 상세 정보:", error.response);

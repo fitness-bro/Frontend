@@ -19,9 +19,9 @@ const Menu = ({ activeMenu, handleMenuClick}) => {
   const handleGoogleLoginResult =  (exist) => {
     if (exist) {
       setIsLoggedIn(true);
-    } else {
-        setIsLoggedIn(false); 
-      navigate("/registchoice")
+    } else  {
+      //console.log(exist);
+      navigate("/registchoice");
     }
   }
   

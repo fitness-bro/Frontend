@@ -160,7 +160,7 @@ export default function ProfileHeader(props) {
     };
 
     const [matchStatus, setMatchStatus] = useState("UNSUCCESS"); // 성사 상태
-const [buttonText, setButtonText] = useState("성사 요청");
+    const [buttonText, setButtonText] = useState("성사 요청");
 
 // useEffect(() => {
 //   console.log("성사 상태 확인하기", matchStatus);

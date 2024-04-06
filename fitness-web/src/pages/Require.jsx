@@ -44,7 +44,7 @@ const Require = () => {
             });
             setTimeout(() => {
                 setIsLoading(false); // 데이터가 로드되면 로딩 상태 변경
-              }, 2000);
+            }, 2000);
     }, []);
 
     const onClickBackBtn = () => {
