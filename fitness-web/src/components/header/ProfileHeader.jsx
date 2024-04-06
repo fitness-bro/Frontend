@@ -242,7 +242,6 @@ const handleRequireClick = () => {
                 <ProfileWrap>
                     
                     <div >
-            
             {userData.coachPicture ? (
                           <img
                             src={userData.coachPicture}
