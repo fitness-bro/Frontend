@@ -164,29 +164,30 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
                 {tab !== "CHATROOM" && (
     <div className="chat-content">
         <ul className="chat-messages" ref={chatContentRef} >
-            {initialChats.get(tab)?.chatMessageDTOList?.map((chatMessageDTOList, index) => (
-                <li className={`message ${chatMessageDTOList.userId === userData.userId && "self"}`} key={index}>
-    
-                     {chatMessageDTOList.userId !== userData.userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
-                                <img
-                                src={initialChats.get(tab).pictureUrl}
-                                style={{
-                                    width: "40px",
-                                    height: "40px",
-                                    alignItems: "center",
-                                    borderRadius: "100px",
-                                    marginRight:"5px"
-                                }}
-                              ></img>
-                            ) : (
-                                <div className="chatRoomgprofile">
-                                <Icon
-                                    className="chatRoomIcon"
-                                    icon="ic:baseline-person-outline"
-                                    alt="기본 이미지"
-                                />
-                            </div>
-                            )}</div>}
+        {initialChats.get(tab)?.chatMessageDTOList?.map((chatMessageDTOList, index) => (
+            <li className={`message ${chatMessageDTOList.userId === userData.userId && "self"}`} key={index}>
+
+                 {chatMessageDTOList.userId !== userData.userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
+                            <img
+                            src={initialChats.get(tab).pictureUrl}
+                            style={{
+                                width: "40px",
+                                height: "40px",
+                                alignItems: "center",
+                                borderRadius: "100px",
+                                marginRight:"5px"
+                            }}
+                          ></img>
+                        ) : (
+                            <div className="chatRoomgprofile">
+                            <Icon
+                                className="chatRoomIcon"
+                                icon="ic:baseline-person-outline"
+                                alt="기본 이미지"
+                            />
+                        </div>
+                        )}</div>}
+
     
                     
     
