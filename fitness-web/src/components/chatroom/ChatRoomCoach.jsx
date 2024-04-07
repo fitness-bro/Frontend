@@ -19,7 +19,7 @@ const ChatRoomCoach = ({
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const apiUrl = "http://dev.fitness-bro.pro";
+  const apiUrl = process.env.REACT_APP_API_URL;
   const token=localStorage.getItem("token");
   const chatContentRef = useRef(null);
   useEffect(() => {
@@ -105,9 +105,9 @@ const ChatRoomCoach = ({
     if (stompClient) {
       const chatMessage = {
         chatRoomId: tab,
-        sender:userData.username,
+        sender: userData.username,
         message: userData.message,
-        userId:userData.userId,
+        userId:initialChats.get(tab).userId,
       };
       const updatedPrivateChats = new Map(privateChats);
       const chatMessages = [...updatedPrivateChats.get(tab), chatMessage]; // Create a new array with the new message
@@ -203,8 +203,7 @@ const ChatRoomCoach = ({
             </li>
         ))}
         {[...privateChats.get(tab)].map((chat, index) => (
-            <li className={`message ${chat.userId === userData.userId && "self"}`} key={index}>
-
+            <li className={`message ${chat.userId === initialChats.get(tab).userId && "self"}`} key={index}>
                 {chat.userId !== userData.userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
                             <img
                             src={initialChats.get(tab).pictureUrl}

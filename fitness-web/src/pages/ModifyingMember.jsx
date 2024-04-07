@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ModifyingMember() {
   const navigate=useNavigate();
-  const apiUrl = "http://dev.fitness-bro.pro";
+  const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
 
   const [nickname, setNickname] = useState("");

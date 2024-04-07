@@ -98,9 +98,9 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         if (stompClient) {
             const chatMessage = {
                 chatRoomId: tab,
-                sender:userData.username,
+                sender: userData.username,
                 message: userData.message,
-                userId:userData.userId,
+                userId:initialChats.get(tab).userId,
             };
             const updatedPrivateChats = new Map(privateChats);
             const chatMessages = [...updatedPrivateChats.get(tab), chatMessage]; // Create a new array with the new message
@@ -235,5 +235,6 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         </div>
     );
     };
+    
     
 export default ChatRoom;

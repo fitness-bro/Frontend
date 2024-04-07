@@ -5,7 +5,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 export default function Profile(props) {
-  const apiUrl = "http://dev.fitness-bro.pro";
+  const apiUrl = process.env.REACT_APP_API_URL;
   const location = useLocation();
   const coachId = location.state.coachId;
   //const coachId=props.userId;

@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 export default function RegistrationMember() {
-    const apiUrl = "http://dev.fitness-bro.pro";
+  const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
   const navigate=useNavigate();
   

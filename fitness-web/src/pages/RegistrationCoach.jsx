@@ -8,7 +8,7 @@ import { FaSearch } from 'react-icons/fa';
 export default function RegistrationCoach() {
 
 
-    const apiUrl = "http://dev.fitness-bro.pro";
+  const apiUrl = process.env.REACT_APP_API_URL;
 
 
    const coachId =localStorage.getItem("userId");
@@ -126,7 +126,7 @@ export default function RegistrationCoach() {
 
     try {
       const response = await axios.post(
-        `${apiUrl}/coaches/sign-up`,
+        `${apiUrl}coaches/sign-up`,
         formData,
         {
           headers: {

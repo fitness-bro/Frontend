@@ -12,8 +12,10 @@ const SearchPage = () => {
   const [selectedSubAddress, setSelectedSubAddress] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null);
 
+  const apiUrl = process.env.REACT_APP_API_URL + "/coaches/search";
+
   useEffect(() => {
-    const apiUrl = "https://dev.fitness-bro.pro/coaches/search";
+
     
   
     const fetchData = async () => {
@@ -26,7 +28,7 @@ const SearchPage = () => {
     };
   
     fetchData();
-  }, []);
+  }, [apiUrl]);
   
   const handleRegionSelect = (region, subAddress) => {
     setSelectedRegion(region);

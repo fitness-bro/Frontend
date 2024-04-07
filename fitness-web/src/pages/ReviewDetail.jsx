@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 // 받은 후기 상세보기
 
 const ReviewDetail = () => {
-  const apiUrl = "http://dev.fitness-bro.pro";
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [userData, setUserData] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);

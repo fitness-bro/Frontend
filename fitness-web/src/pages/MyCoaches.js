@@ -14,7 +14,7 @@ const MyCoaches = () => {
     const navigate = useNavigate();
 
 
-    const apiUrl = 'http://dev.fitness-bro.pro';
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const [coachNicknames, setCoachNicknames] = useState([]); // 코치 닉네임 목록 상태 추가
 
