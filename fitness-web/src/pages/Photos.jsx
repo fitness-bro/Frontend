@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 
 export default function Photos(){
     const [pictures, setPictures] = useState([]);
-    const apiUrl = "http://dev.fitness-bro.pro";
+    const apiUrl = process.env.REACT_APP_API_URL;
     const location = useLocation();
     const coachId= location.state.coachId;
     const token= location.state.token;

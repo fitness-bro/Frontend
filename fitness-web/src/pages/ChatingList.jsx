@@ -78,7 +78,7 @@ const Chattinglist = () => {
       <div className="chat-box">
         <div className="member-list">
           {initialChats.size === 0 ? ( // initialChats의 길이를 확인하여 조건부 렌더링
-            <p></p> // 배열이 비어있는 경우 "텅 비었습니다"를 출력
+            <p>텅 비었습니다</p> // 배열이 비어있는 경우 "텅 비었습니다"를 출력
           ) : (
             <ul>
               {[...initialChats.keys()].map((chatRoomId) => (

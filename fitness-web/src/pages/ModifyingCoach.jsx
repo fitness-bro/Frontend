@@ -7,7 +7,7 @@ import { FaSearch } from "react-icons/fa";
 import ImgModal from "../components/imgModal/ImgModal";
 
 export default function ModifyingCoach() {
-  const apiUrl = "http://dev.fitness-bro.pro";
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [nickname, setNickname] = useState("");
   const [age, setAge] = useState("");
   const [introduction, setIntroduction] = useState("");

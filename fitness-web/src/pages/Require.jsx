@@ -11,7 +11,7 @@ const Require = () => {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
-    const apiUrl = 'http://dev.fitness-bro.pro';
+    const apiUrl = process.env.REACT_APP_API_URL;
 
 
     const [userData, setUserData] = useState([]);
@@ -44,7 +44,7 @@ const Require = () => {
             });
             setTimeout(() => {
                 setIsLoading(false); // 데이터가 로드되면 로딩 상태 변경
-              }, 2000);
+            }, 2000);
     }, []);
 
     const onClickBackBtn = () => {

@@ -98,9 +98,9 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         if (stompClient) {
             const chatMessage = {
                 chatRoomId: tab,
-                sender:userData.username,
+                sender: userData.username,
                 message: userData.message,
-                userId:userData.userId,
+                userId:initialChats.get(tab).userId,
             };
             const updatedPrivateChats = new Map(privateChats);
             const chatMessages = [...updatedPrivateChats.get(tab), chatMessage]; // Create a new array with the new message
@@ -164,30 +164,29 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
                 {tab !== "CHATROOM" && (
     <div className="chat-content">
         <ul className="chat-messages" ref={chatContentRef} >
-        {initialChats.get(tab)?.chatMessageDTOList?.map((chatMessageDTOList, index) => (
-            <li className={`message ${chatMessageDTOList.userId === userData.userId && "self"}`} key={index}>
-
-                 {chatMessageDTOList.userId !== userData.userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
-                            <img
-                            src={initialChats.get(tab).pictureUrl}
-                            style={{
-                                width: "40px",
-                                height: "40px",
-                                alignItems: "center",
-                                borderRadius: "100px",
-                                marginRight:"5px"
-                            }}
-                          ></img>
-                        ) : (
-                            <div className="chatRoomgprofile">
-                            <Icon
-                                className="chatRoomIcon"
-                                icon="ic:baseline-person-outline"
-                                alt="기본 이미지"
-                            />
-                        </div>
-                        )}</div>}
-
+            {initialChats.get(tab)?.chatMessageDTOList?.map((chatMessageDTOList, index) => (
+                <li className={`message ${chatMessageDTOList.userId === userData.userId && "self"}`} key={index}>
+    
+                     {chatMessageDTOList.userId !== userData.userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
+                                <img
+                                src={initialChats.get(tab).pictureUrl}
+                                style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    alignItems: "center",
+                                    borderRadius: "100px",
+                                    marginRight:"5px"
+                                }}
+                              ></img>
+                            ) : (
+                                <div className="chatRoomgprofile">
+                                <Icon
+                                    className="chatRoomIcon"
+                                    icon="ic:baseline-person-outline"
+                                    alt="기본 이미지"
+                                />
+                            </div>
+                            )}</div>}
     
                     
     
@@ -236,5 +235,6 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
         </div>
     );
     };
+    
     
 export default ChatRoom;
