@@ -16,6 +16,7 @@ export default function Profile(props) {
     price: 0,
     comment: "",
     address: "",
+    schedule:"",
   });
 
   useEffect(() => {
@@ -39,6 +40,7 @@ export default function Profile(props) {
             comment: data.result.comment,
             introduction: data.result.introduction,
             price: data.result.price,
+            schedule:data.result.schedule
           });
         } else {
           console.error("API 요청 실패:", data.message);
@@ -54,7 +56,7 @@ export default function Profile(props) {
     <>
       <Body>
         <ProfileHeader id={coachId}/>
-        <InfLine>{userData.introduction}</InfLine>
+        <InfLine>"{userData.introduction}"</InfLine>
         <InfBlock>
           <h4>위치</h4>
           <p>{userData.address}</p>
@@ -64,8 +66,8 @@ export default function Profile(props) {
           <p>{userData.comment}</p>
         </InfBlock>
         <InfBlock>
-          <h4>중량</h4>
-          <p>{userData.introduction}</p>
+          <h4>주 운동시간</h4>
+          <p>{userData.schedule}</p>
         </InfBlock>
         <InfBlock>
           <h4>가격</h4>
