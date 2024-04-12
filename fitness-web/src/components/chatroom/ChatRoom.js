@@ -12,12 +12,13 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
-    const apiUrl = "http://dev.fitness-bro.pro/";
+    const apiUrl = process.env.REACT_APP_API_URL;
     const chatContentRef = useRef(null);
 
     const token=localStorage.getItem("token");
+    const userId = Number(localStorage.getItem("userId"));
     useEffect(() => {
-        let Sock = new SockJS("http://dev.fitness-bro.pro/stomp/chat");
+        let Sock = new SockJS(`${apiUrl}/stomp/chat`);
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     
@@ -62,7 +63,7 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
       };
    
     useEffect(() => {
-        axios.get(`${apiUrl}members/chatrooms`, {
+        axios.get(`${apiUrl}/members/chatrooms`, {
             headers: {
                 'token': token
             }
@@ -165,9 +166,8 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
     <div className="chat-content">
         <ul className="chat-messages" ref={chatContentRef} >
             {initialChats.get(tab)?.chatMessageDTOList?.map((chatMessageDTOList, index) => (
-                <li className={`message ${chatMessageDTOList.userId === userData.userId && "self"}`} key={index}>
-    
-                     {chatMessageDTOList.userId !== userData.userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
+                <li className={`message ${chatMessageDTOList.userId === userId && "self"}`} key={index}>
+                     {chatMessageDTOList.userId !== userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
                                 <img
                                 src={initialChats.get(tab).pictureUrl}
                                 style={{
@@ -187,18 +187,15 @@ const ChatRoom = ({ isOpen, onClose, tab, userData, initialChats, setUserData })
                                 />
                             </div>
                             )}</div>}
-    
-                    
-    
                      <div className="message-data">
                     <div className="message-box">{chatMessageDTOList.message}</div>
                     </div>
                 </li>
             ))}
             {[...privateChats.get(tab)].map((chat, index) => (
-                <li className={`message ${chat.userId === userData.userId && "self"}`} key={index}>
+                <li className={`message ${chat.userId === userId && "self"}`} key={index}>
     
-                    {chat.userId !== userData.userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
+                    {chat.userId !== userId && <div className="avatar"> {initialChats.get(tab).pictureUrl? (
                                 <img
                                 src={initialChats.get(tab).pictureUrl}
                                 style={{
