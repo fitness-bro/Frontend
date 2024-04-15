@@ -17,7 +17,7 @@ const ReviewList = () => {
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        axios.get(`${apiUrl}members/reviews`, {
+        axios.get(`${apiUrl}/members/reviews`, {
             headers: {
                 'token': token
             }
